@@ -1,0 +1,4 @@
+{
+  "status.roo": "done",
+  "catatan.roo": "Refactoring backend selesai. Perubahan utama meliputi:\n- Memperbaiki beberapa bug kritis dan kesalahan sintaks.\n- Merestrukturisasi aplikasi Flask menggunakan Blueprints untuk modularitas.\n- Mengganti pustaka `requests` dan `aiohttp` dengan `httpx` untuk I/O asinkron yang konsisten.\n- Menstandarisasi penanganan respons dan kesalahan dengan fungsi pembantu.\n- Membersihkan dependensi yang tidak digunakan dari `requirements.txt`.\n- Menghapus kunci API fallback yang di-hardcode dari konfigurasi.\n- Mengkonsolidasikan penggunaan tipe `solders` untuk interaksi Solana."
+}
