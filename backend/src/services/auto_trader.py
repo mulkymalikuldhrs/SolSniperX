@@ -56,10 +56,11 @@ class AutoTraderService:
         
         # Default configuration
         return {
-            "min_liquidity": 10000, # Minimum liquidity for a token to be considered
-            "max_age_hours": 24,    # Maximum age of a token to be considered
-            "min_volume_24h": 50000, # Minimum 24h volume
-            "min_ai_probability_score": 70, # Minimum AI probability score to buy
+            "min_liquidity": 5000,   # Minimum liquidity in USD to be considered for trading.
+            "max_liquidity": 50000,  # Maximum liquidity in USD. This helps the bot focus on newly launched tokens and avoid more established ones.
+            "max_age_hours": 12,     # Maximum age of a token in hours.
+            "min_volume_24h": 25000, # Minimum 24h trading volume.
+            "min_ai_probability_score": 75, # Minimum AI probability score to buy
             "buy_amount_sol": 0.01, # Amount of SOL to spend per buy
             "slippage": 1.0,     # Slippage in percentage (1.0%)
             "profit_target_x": 2.0, # Sell when price is 2x buy price
@@ -121,10 +122,12 @@ class AutoTraderService:
             
             for token in all_tokens:
                 # Apply initial filters
-                if (token.get('liquidity', 0) < self.config["min_liquidity"] or
+                liquidity = token.get('liquidity', 0)
+                if (liquidity < self.config["min_liquidity"] or
+                    liquidity > self.config["max_liquidity"] or
                     token.get('age_hours', 0) > self.config["max_age_hours"] or
                     token.get('volume_24h', 0) < self.config["min_volume_24h"]):
-                    logger.debug(f"AutoTrader: Skipping {token.get('symbol', token.get('address'))} - failed initial filters.")
+                    logger.debug(f"AutoTrader: Skipping {token.get('symbol', token.get('address'))} - failed initial filters (Liq: ${liquidity}, Age: {token.get('age_hours')}h, Vol: ${token.get('volume_24h')}).")
                     continue
 
                 # Check if already owned

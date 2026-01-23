@@ -79,13 +79,33 @@ class MempoolMonitorService:
                     signature = value['signature']
                     logs = value['logs']
 
-                    # Check for potential token creation (initializeMint)
-                    if any("initializeMint" in log for log in logs):
-                        logger.info(f"Potential new token transaction detected: {signature}")
-                        await self._process_new_token_transaction(signature)
+                    try:
+                        transaction_response = self.solana_client.get_transaction(
+                            signature,
+                            encoding="jsonParsed",
+                            commitment=Confirmed
+                        )
+                        transaction_data = transaction_response.value.transaction
 
-                    # Check for potential rugpulls (large transfers, LP removal, burn)
-                    await self._process_rugpull_indicators(signature, logs)
+                        sol_transfer_amount = await self._get_sol_transfer_amount(transaction_data)
+
+                        # Filter out transactions with less than 0.1 SOL transfer
+                        if sol_transfer_amount < 0.1:
+                            logger.debug(f"Ignoring transaction {signature} with small SOL transfer: {sol_transfer_amount} SOL")
+                            continue
+
+                        # Check for potential token creation (initializeMint)
+                        if any("initializeMint" in log for log in logs):
+                            logger.info(f"Potential new token transaction detected: {signature}")
+                            await self._process_new_token_transaction(signature)
+
+                        # Check for potential rugpulls (large transfers, LP removal, burn)
+                        await self._process_rugpull_indicators(signature, logs)
+
+                    except RPCException as tx_e:
+                        logger.error(f"RPC error fetching transaction {signature} for pre-filtering: {tx_e}")
+                    except Exception as tx_e:
+                        logger.error(f"Error processing transaction {signature} for pre-filtering: {tx_e}")
 
         except RPCException as e:
             logger.error(f"RPC error during transaction monitoring: {e}")
@@ -94,6 +114,23 @@ class MempoolMonitorService:
         finally:
             logger.info("Transaction monitoring stopped.")
             await self._disconnect_websocket()
+
+    async def _get_sol_transfer_amount(self, transaction_data) -> float:
+        """
+        Calculates the total SOL transfer amount from a transaction.
+        This is used to filter out insignificant transactions (e.g., spam or dust)
+        to reduce noise and focus on more substantial on-chain events.
+        """
+        total_sol_transfer = 0
+        if transaction_data and transaction_data.meta:
+            pre_balances = transaction_data.meta.pre_balances
+            post_balances = transaction_data.meta.post_balances
+
+            if len(pre_balances) == len(post_balances):
+                for i in range(len(pre_balances)):
+                    total_sol_transfer += abs(post_balances[i] - pre_balances[i])
+
+        return total_sol_transfer / 1e9 # Convert lamports to SOL
 
     async def _process_new_token_transaction(self, signature: str):
         """

@@ -28,15 +28,15 @@ SolSniperX is an advanced, AI-powered bot designed to automatically detect, anal
     -   `src/services/ai_analysis.py`: AI integration with LLM7.
     -   `src/services/wallet_service.py`: Manages the single, private-key-derived Solana wallet.
     -   `src/services/data_fetcher.py`: Fetches real-time data from Dexscreener and Birdeye.
-    -   `src/services/mempool_monitor.py`: Monitors Solana mempool for new token launches and rugpull indicators.
+    -   `src/services/mempool_monitor.py`: Monitors Solana mempool for new token launches and rugpull indicators. Now filters out transactions with less than 0.1 SOL to reduce noise.
     -   `src/services/trading_service.py`: Executes real Solana blockchain transactions for trading via Jupiter Aggregator.
-    -   `src/services/auto_trader.py`: Contains the automated trading strategy and logic.
+    -   `src/services/auto_trader.py`: Contains the automated trading strategy and logic. Now includes a `max_liquidity` check to focus on new token launches.
 -   **`frontend/`**: React application for the user interface.
     -   `src/App.jsx`: Main application component and routing.
-    -   `src/pages/`: Individual pages (Dashboard, TokenScanner, Trading, Wallet, Settings, etc.).
+    -   `src/pages/`: Individual pages (Dashboard, TokenScanner, Trading, Wallet, Settings, etc.). The Dashboard now fetches live data from the backend, and the old authentication system has been removed.
     -   `src/components/`: Reusable UI components (e.g., Navbar, Sidebar, AIAnalysisPanel).
-    -   `src/contexts/`: React Contexts for theme, API, and WebSocket.
-    -   `src/utils/localStorage.js`: Utilities for local data storage and encryption.
+    -   `src/contexts/`: React Contexts for theme and API.
+    -   `src/utils/websocket.js`: A new utility for managing WebSocket connections.
 
 ### Installation & Setup (Development):
 
