@@ -36,6 +36,7 @@ class AutoTraderService:
         self.scan_interval_seconds = 60 # Scan for new tokens every 60 seconds
         self.trade_loop_task = None
         self.owned_tokens: Dict[str, Dict] = {} # {token_address: {amount, buy_price, ...}}
+        self.trade_history: List[Dict] = []
 
         # Default trading parameters (configurable via UI later)
         self.config = self._load_config()
@@ -156,7 +157,7 @@ class AutoTraderService:
                             "buy_amount_sol": self.config["buy_amount_sol"],
                             "transaction_id": buy_result.get('transaction_id'),
                             "purchase_time": datetime.now().isoformat(),
-                            "current_amount_tokens": 0 # This needs to be updated after the trade confirms and we know how many tokens were received
+                            "current_amount_tokens": buy_result.get('received_amount', 0)
                         }
                         if self.socketio:
                             self.socketio.emit('auto_trade_event', {'type': 'buy', 'token': token['symbol'], 'amount_sol': self.config["buy_amount_sol"], 'status': 'success'})
@@ -197,6 +198,17 @@ class AutoTraderService:
                     )
                     if sell_result.get("success"):
                         logger.info(f"AutoTrader: Successfully sold {details['symbol']}. Transaction: {sell_result.get('transaction_id')}")
+
+                        # Calculate profit
+                        profit_usd = (current_price - buy_price) * details["current_amount_tokens"] # Simplified
+                        self.trade_history.append({
+                            **details,
+                            "sell_price": current_price,
+                            "sell_time": datetime.now().isoformat(),
+                            "profit_usd": profit_usd,
+                            "reason": "profit_target"
+                        })
+
                         tokens_to_remove.append(token_address)
                         if self.socketio:
                             self.socketio.emit('auto_trade_event', {'type': 'sell', 'token': details['symbol'], 'reason': 'profit_target', 'status': 'success'})
@@ -217,6 +229,17 @@ class AutoTraderService:
                     )
                     if sell_result.get("success"):
                         logger.info(f"AutoTrader: Successfully sold {details['symbol']}. Transaction: {sell_result.get('transaction_id')}")
+
+                        # Calculate profit
+                        profit_usd = (current_price - buy_price) * details["current_amount_tokens"]
+                        self.trade_history.append({
+                            **details,
+                            "sell_price": current_price,
+                            "sell_time": datetime.now().isoformat(),
+                            "profit_usd": profit_usd,
+                            "reason": "stop_loss"
+                        })
+
                         tokens_to_remove.append(token_address)
                         if self.socketio:
                             self.socketio.emit('auto_trade_event', {'type': 'sell', 'token': details['symbol'], 'reason': 'stop_loss', 'status': 'success'})

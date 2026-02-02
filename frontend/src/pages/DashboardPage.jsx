@@ -19,43 +19,28 @@ import {
   Star
 } from 'lucide-react'
 import { useApi } from '../contexts/ApiContext'
-import { useAuth } from '../contexts/AuthContext'
-
-// Mock data for development
-const mockStats = {
-  totalProfit: 2847.32,
-  totalTrades: 156,
-  successRate: 87.2,
-  activeTokens: 23,
-  todayProfit: 342.18,
-  weeklyProfit: 1205.67
-}
-
-const mockTopTokens = [
-  { symbol: 'PEPE', price: 0.00001234, change: 45.67, volume: 2340000, risk: 25 },
-  { symbol: 'BONK', price: 0.00000567, change: 23.45, volume: 1890000, risk: 15 },
-  { symbol: 'WIF', price: 0.00002345, change: -12.34, volume: 1560000, risk: 35 },
-  { symbol: 'POPCAT', price: 0.00001890, change: 67.89, volume: 2100000, risk: 20 },
-  { symbol: 'MEW', price: 0.00000789, change: 34.56, volume: 980000, risk: 40 }
-]
-
-const mockRecentTrades = [
-  { token: 'PEPE', type: 'buy', amount: 0.5, profit: 45.67, time: '2 min ago', status: 'completed' },
-  { token: 'BONK', type: 'sell', amount: 1.2, profit: 23.45, time: '5 min ago', status: 'completed' },
-  { token: 'WIF', type: 'buy', amount: 0.8, profit: -12.34, time: '8 min ago', status: 'completed' },
-  { token: 'POPCAT', type: 'sell', amount: 2.1, profit: 67.89, time: '12 min ago', status: 'completed' }
-]
+import { useWebSocket } from '../contexts/WebSocketContext'
 
 export default function DashboardPage() {
   const [dashboardData, setDashboardData] = useState(null)
   const [loading, setLoading] = useState(true)
   const { getDashboardData, startAutoTrader, stopAutoTrader } = useApi()
-  const { autoTraderStatus } = useWebSocket()
+  const { autoTraderStatus, lastMessage } = useWebSocket()
   const [isAutoTraderRunning, setIsAutoTraderRunning] = useState(autoTraderStatus.enabled)
 
   useEffect(() => {
     loadDashboardData()
   }, [])
+
+  useEffect(() => {
+    setIsAutoTraderRunning(autoTraderStatus.enabled)
+  }, [autoTraderStatus.enabled])
+
+  useEffect(() => {
+    if (lastMessage && (lastMessage.type === 'trade_executed' || lastMessage.type === 'auto_trade_event')) {
+      loadDashboardData()
+    }
+  }, [lastMessage])
 
   const handleStartAutoTrader = async () => {
     try {
@@ -86,17 +71,13 @@ export default function DashboardPage() {
   const loadDashboardData = async () => {
     try {
       setLoading(true)
-      // In development, use mock data
-      setTimeout(() => {
-        setDashboardData({
-          stats: mockStats,
-          topTokens: mockTopTokens,
-          recentTrades: mockRecentTrades
-        })
-        setLoading(false)
-      }, 1000)
+      const result = await getDashboardData()
+      if (result.success) {
+        setDashboardData(result.data)
+      }
     } catch (error) {
       console.error('Error loading dashboard data:', error)
+    } finally {
       setLoading(false)
     }
   }
@@ -123,14 +104,24 @@ export default function DashboardPage() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
+        className="mb-8 flex justify-between items-center"
       >
-        <h1 className="text-3xl font-bold text-gradient-primary mb-2">
-          Welcome back, {user?.username || 'Trader'}! 👋
-        </h1>
-        <p className="text-muted-foreground">
-          Here's your trading performance and market overview
-        </p>
+        <div>
+          <h1 className="text-3xl font-bold text-gradient-primary mb-2">
+            SolSniperX Dashboard 👋
+          </h1>
+          <p className="text-muted-foreground">
+            Here's your trading performance and market overview
+          </p>
+        </div>
+        <div className="flex space-x-4">
+          <button
+            onClick={isAutoTraderRunning ? handleStopAutoTrader : handleStartAutoTrader}
+            className={`btn-modern ${isAutoTraderRunning ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'} text-white px-6 py-2 rounded-lg font-bold shadow-lg transition-all`}
+          >
+            {isAutoTraderRunning ? 'STOP BOT' : 'START BOT'}
+          </button>
+        </div>
       </motion.div>
 
       {/* Stats Cards */}
@@ -242,7 +233,7 @@ export default function DashboardPage() {
           </div>
 
           <div className="space-y-4">
-            {dashboardData?.topTokens.map((token, index) => (
+            {dashboardData?.activePositions.map((token, index) => (
               <motion.div
                 key={token.symbol}
                 initial={{ opacity: 0, x: -20 }}
@@ -253,32 +244,23 @@ export default function DashboardPage() {
                 <div className="flex items-center space-x-4">
                   <div className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center">
                     <span className="text-sm font-bold text-white">
-                      {token.symbol.slice(0, 2)}
+                      {token.symbol?.slice(0, 2)}
                     </span>
                   </div>
                   <div>
                     <p className="font-semibold">{token.symbol}</p>
                     <p className="text-sm text-muted-foreground">
-                      ${token.price.toFixed(8)}
+                      Buy: ${token.buy_price?.toFixed(8)}
                     </p>
                   </div>
                 </div>
 
                 <div className="text-right">
-                  <div className={`flex items-center space-x-1 ${
-                    token.change > 0 ? 'text-green-400' : 'text-red-400'
-                  }`}>
-                    {token.change > 0 ? (
-                      <ArrowUpRight className="w-4 h-4" />
-                    ) : (
-                      <ArrowDownRight className="w-4 h-4" />
-                    )}
-                    <span className="font-semibold">
-                      {token.change > 0 ? '+' : ''}{token.change.toFixed(2)}%
-                    </span>
-                  </div>
+                  <p className="text-sm font-semibold">
+                    Amount: {token.current_amount_tokens?.toFixed(2)}
+                  </p>
                   <p className="text-sm text-muted-foreground">
-                    Vol: ${(token.volume / 1000000).toFixed(1)}M
+                    Buy SOL: {token.buy_amount_sol}
                   </p>
                 </div>
 
@@ -324,31 +306,31 @@ export default function DashboardPage() {
               >
                 <div className="flex items-center space-x-3">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                    trade.type === 'buy' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
+                    trade.profit_usd > 0 ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
                   }`}>
-                    {trade.type === 'buy' ? (
+                    {trade.profit_usd > 0 ? (
                       <ArrowUpRight className="w-4 h-4" />
                     ) : (
                       <ArrowDownRight className="w-4 h-4" />
                     )}
                   </div>
                   <div>
-                    <p className="font-semibold text-sm">{trade.token}</p>
+                    <p className="font-semibold text-sm">{trade.symbol}</p>
                     <p className="text-xs text-muted-foreground">
-                      {trade.amount} SOL
+                      {trade.buy_amount_sol} SOL
                     </p>
                   </div>
                 </div>
 
                 <div className="text-right">
                   <p className={`text-sm font-semibold ${
-                    trade.profit > 0 ? 'text-green-400' : 'text-red-400'
+                    trade.profit_usd > 0 ? 'text-green-400' : 'text-red-400'
                   }`}>
-                    {trade.profit > 0 ? '+' : ''}{trade.profit.toFixed(2)}%
+                    {trade.profit_usd > 0 ? '+' : ''}${trade.profit_usd.toFixed(2)}
                   </p>
                   <p className="text-xs text-muted-foreground flex items-center">
                     <Clock className="w-3 h-3 mr-1" />
-                    {trade.time}
+                    {new Date(trade.sell_time).toLocaleTimeString()}
                   </p>
                 </div>
               </motion.div>

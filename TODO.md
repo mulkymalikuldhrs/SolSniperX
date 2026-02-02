@@ -4,29 +4,20 @@ This document outlines the remaining tasks and future enhancements for SolSniper
 
 ## High Priority (Immediate Next Steps)
 
-### Frontend Build & Runtime Fixes:
-- **Resolve Frontend Compilation Errors:** Address any lingering JSX or import resolution issues preventing successful frontend build.
-
 ### Backend:
 - **Refine Mempool Monitoring:**
-  - Further enhance transaction parsing to accurately identify new token creation, liquidity pool additions/removals, and other relevant on-chain events.
-  - Implement more sophisticated filtering to reduce noise from the Solana mempool.
+  - Implement more sophisticated transaction parsing for Jito-bundle based launches.
 - **Automated Trading Logic Refinement:**
-  - Implement more advanced trading strategies within `auto_trader.py` (e.g., dynamic buy/sell amounts based on market conditions, volume-weighted average price (VWAP) analysis).
-  - Integrate with a robust order management system to track active positions, PnL, and manage partial fills.
+  - Implement dynamic buy/sell amounts based on market conditions.
+  - Support for partial fills and DCA strategies.
 - **Anti-Rugpull Mechanisms Enhancement:**
-  - Integrate with external rug-check APIs or on-chain analysis tools for more comprehensive risk assessment.
-  - Implement dynamic adjustment of stop-loss and take-profit based on real-time market volatility and rug indicators.
+  - Integrate with external rug-check APIs (e.g., RugCheck.xyz) for more comprehensive risk assessment.
 
 ### Frontend:
 - **Real-time UI Updates:**
-  - Ensure all relevant data (token prices, wallet balances, trade history, auto-trader status, alerts) are updated in real-time via WebSocket connections.
-  - Implement toast notifications or other non-intrusive alerts for critical events (new tokens, trades, rugpulls).
+  - Implement toast notifications for trade events and rugpull alerts.
 - **Automated Trading Configuration UI:**
-  - Enhance the settings page with more intuitive controls and explanations for automated trading parameters.
-  - Implement validation for user inputs to prevent invalid configurations.
-- **Dashboard Data Integration:**
-  - Replace mock data on the dashboard with real data fetched from the backend (e.g., total profit, success rate, active positions).
+  - Enhance the settings page with more intuitive controls for advanced trading strategies.
 
 ## Medium Priority (Feature Enhancements)
 

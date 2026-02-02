@@ -3,6 +3,8 @@ from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 import json
 import logging
+import threading
+import asyncio
 from datetime import datetime
 from services.data_fetcher import DataFetcherService
 from services.mempool_monitor import MempoolMonitorService
@@ -19,6 +21,7 @@ from routes.mempool import mempool_bp
 from routes.trading import trading_bp
 from routes.wallet import wallet_bp
 from routes.auto_trader import auto_trader_bp
+from routes.analytics import analytics_bp
 from utils.responses import error_response
 
 # Configure logging
@@ -32,9 +35,9 @@ socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
 # Service Instantiation
 wallet_service = WalletService(socketio=socketio)
 trading_service = TradingService(socketio=socketio)
-mempool_monitor_service = MempoolMonitorService(socketio=socketio)
 data_fetcher_service = DataFetcherService(socketio=socketio)
-ai_analysis_service = AIAnalysisService(socketio=socketio)
+mempool_monitor_service = MempoolMonitorService(socketio=socketio, data_fetcher_service=data_fetcher_service)
+ai_analysis_service = AIAnalysisService(socketio=socketio, data_fetcher_service=data_fetcher_service)
 auto_trader_service = AutoTraderService(
     socketio=socketio,
     data_fetcher_service=data_fetcher_service,
@@ -61,6 +64,16 @@ app.register_blueprint(mempool_bp)
 app.register_blueprint(trading_bp)
 app.register_blueprint(wallet_bp)
 app.register_blueprint(auto_trader_bp)
+app.register_blueprint(analytics_bp)
+
+# Background Loop Handling
+bg_loop = asyncio.new_event_loop()
+
+def run_async_loop(loop):
+    asyncio.set_event_loop(loop)
+    loop.run_forever()
+
+app.bg_loop = bg_loop
 
 @app.route('/health', methods=['GET'])
 def health_check():
@@ -82,10 +95,14 @@ def internal_error(error):
     return error_response('Internal server error', 500)
 
 if __name__ == '__main__':
-    # Start background services
-    # asyncio.run(mempool_monitor_service.start_monitoring()) # This needs to be run in a separate thread or managed by eventlet
-    # For eventlet, tasks are usually spawned directly
-    socketio.start_background_task(mempool_monitor_service.start_monitoring)
+    # Start background thread for asyncio
+    t = threading.Thread(target=run_async_loop, args=(bg_loop,), daemon=True)
+    t.start()
+
+    # Schedule background tasks in the async loop
+    asyncio.run_coroutine_threadsafe(mempool_monitor_service.start_monitoring(), bg_loop)
+
+    # Start Flask-SocketIO
     socketio.run(app, host='0.0.0.0', port=5000)
 
 

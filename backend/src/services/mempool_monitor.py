@@ -15,8 +15,7 @@ from solders.system_program import ID as SYSTEM_PROGRAM_ID
 from solders.token_program import ID as TOKEN_PROGRAM_ID
 from solders.token_program import instruction as token_instruction_parser # For parsing token instructions
 
-from config import SOLANA_RPC_URL, SOLANA_WS_URL
-from services.data_fetcher import data_fetcher_service # To fetch token details
+from config import SOLANA_RPC_URL, SOLANA_WS_URL, PUMP_FUN_PROGRAM_ID, RAYDIUM_AMM_V4_PROGRAM_ID
 
 logger = logging.getLogger(__name__)
 
@@ -26,8 +25,9 @@ class MempoolMonitorService:
     Connects to a Solana RPC WebSocket to listen for new transactions.
     """
 
-    def __init__(self, socketio=None):
+    def __init__(self, socketio=None, data_fetcher_service=None):
         self.socketio = socketio
+        self.data_fetcher_service = data_fetcher_service
         self.solana_client = Client(SOLANA_RPC_URL)
         self.ws_client: Optional[SolanaWsClient] = None
         self.monitoring_task = None
@@ -65,10 +65,15 @@ class MempoolMonitorService:
 
         logger.info("Starting transaction monitoring...")
         try:
-            # Subscribe to all new transactions (very high volume!)
-            # In a real bot, you'd filter by program ID or specific instruction types.
+            # Subscribe to transactions mentioning relevant programs
+            # This significantly reduces volume and RPC load
+            filter_mentions = [PUMP_FUN_PROGRAM_ID, RAYDIUM_AMM_V4_PROGRAM_ID]
+            logger.info(f"Subscribing to logs mentioning: {filter_mentions}")
+
+            # Using mentions filter instead of 'all'
             subscription_id = await self.ws_client.logs_subscribe(
-                filter_='all', commitment=Commitment('processed')
+                filter_={'mentions': filter_mentions},
+                commitment=Commitment('processed')
             )
             logger.info(f"Subscribed to logs with ID: {subscription_id}")
 
@@ -119,7 +124,11 @@ class MempoolMonitorService:
                             mint_address = parsed_instruction.args.mint
                             logger.info(f"Confirmed new token mint: {mint_address}")
                             
-                            token_details = await data_fetcher_service.get_token_by_address(str(mint_address))
+                            if not self.data_fetcher_service:
+                                logger.warning("Data fetcher service not available in MempoolMonitor.")
+                                return
+
+                            token_details = await self.data_fetcher_service.get_token_by_address(str(mint_address))
                             
                             if token_details:
                                 logger.info(f"New token details fetched: {token_details['symbol']} ({token_details['address']})")
@@ -252,6 +261,3 @@ class MempoolMonitorService:
         """
         logger.debug("monitor_new_tokens called. Monitoring runs in background.")
         return None
-
-# Create a singleton instance
-mempool_monitor_service = MempoolMonitorService()

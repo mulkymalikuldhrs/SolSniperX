@@ -4,12 +4,13 @@ import logging
 from datetime import datetime
 from flask import Blueprint, request, current_app
 from utils.responses import success_response, error_response
+from utils.async_helper import run_async
 
 logger = logging.getLogger(__name__)
 scanner_bp = Blueprint('scanner_bp', __name__, url_prefix='/api/scanner')
 
 @scanner_bp.route('/scan', methods=['POST'])
-async def scan_tokens():
+def scan_tokens():
     """Scan for new tokens"""
     data_fetcher_service = current_app.services['data_fetcher']
     try:
@@ -18,7 +19,7 @@ async def scan_tokens():
         max_age_hours = data.get('maxAge', 24)
         min_volume = data.get('minVolume', 50000)
         
-        all_tokens = await data_fetcher_service.get_all_tokens()
+        all_tokens = run_async(data_fetcher_service.get_all_tokens())
         filtered_tokens = []
         for token in all_tokens:
             if (token.get('liquidity', 0) >= min_liquidity and
@@ -39,4 +40,4 @@ async def scan_tokens():
         
     except Exception as e:
         logger.error(f"Error scanning tokens: {str(e)}")
-        return error_response('Token scanning failed', details=e)
+        return error_response('Token scanning failed', details=str(e))

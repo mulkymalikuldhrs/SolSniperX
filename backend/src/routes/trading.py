@@ -3,12 +3,13 @@
 import logging
 from flask import Blueprint, request, current_app, jsonify
 from utils.responses import error_response
+from utils.async_helper import run_async
 
 logger = logging.getLogger(__name__)
 trading_bp = Blueprint('trading_bp', __name__, url_prefix='/api/trading')
 
 @trading_bp.route('/buy', methods=['POST'])
-async def buy_token():
+def buy_token():
     """Execute a buy order for a token"""
     trading_service = current_app.services['trading']
     try:
@@ -20,15 +21,15 @@ async def buy_token():
         if not token_address or not amount_sol:
             return error_response('Missing token_address or amount_sol', 400)
 
-        result = await trading_service.execute_buy_order(token_address, amount_sol, slippage)
+        result = run_async(trading_service.execute_buy_order(token_address, amount_sol, slippage))
         return jsonify(result) # The service already returns a dict in the desired format
 
     except Exception as e:
         logger.error(f"Error executing buy order: {str(e)}")
-        return error_response('Failed to execute buy order', details=e)
+        return error_response('Failed to execute buy order', details=str(e))
 
 @trading_bp.route('/sell', methods=['POST'])
-async def sell_token():
+def sell_token():
     """Execute a sell order for a token"""
     trading_service = current_app.services['trading']
     try:
@@ -40,9 +41,9 @@ async def sell_token():
         if not token_address or not amount_tokens:
             return error_response('Missing token_address or amount_tokens', 400)
 
-        result = await trading_service.execute_sell_order(token_address, amount_tokens, slippage)
+        result = run_async(trading_service.execute_sell_order(token_address, amount_tokens, slippage))
         return jsonify(result) # The service already returns a dict in the desired format
 
     except Exception as e:
         logger.error(f"Error executing sell order: {str(e)}")
-        return error_response('Failed to execute sell order', details=e)
+        return error_response('Failed to execute sell order', details=str(e))

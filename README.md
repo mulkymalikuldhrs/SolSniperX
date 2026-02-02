@@ -4,10 +4,11 @@ SolSniperX is an advanced, AI-powered bot designed to automatically detect, anal
 
 ### Key Features:
 
-1.  **Real-time Token Detection:** Monitors Pump.fun, Birdeye, Dexscreener, and Solana Mempool for new token listings and early launches.
-2.  **AI-Powered Analysis:** Utilizes AI (LLM7 Pi) to assess token potential, including liquidity, market cap, holder distribution, dev wallet activity, and contract red flags (honeypot, max txn, blacklist). The LLM informs automated buy/sell decisions and anti-rugpull strategies.
-3.  **Automated Trading Execution:** Executes buy orders automatically based on predefined parameters (e.g., amount, slippage) and can auto-sell at target profits (2x, 3x, trailing stop).
-4.  **Anti-Rug Protection:** Implements automatic cut-loss mechanisms if dev sells, LP is pulled, or significant price dumps occur.
+1.  **Real-time Token Detection:** Optimized mempool monitoring filtering for Pump.fun and Raydium to detect new token listings and early launches with minimal RPC load.
+2.  **AI-Powered Analysis:** Real integration with LLM7 API to assess token potential, including liquidity, market cap, and risk factors. The AI generates actionable trading signals (Buy/Sell/Hold).
+3.  **Automated Trading Execution:** Fully autonomous trade loop that executes buy orders via Jupiter Aggregator v6 and monitors positions for automated sell-off at profit targets or stop-loss levels.
+4.  **Real-time Analytics:** Advanced dashboard providing PnL tracking, trade history, and active position monitoring, powered by a new analytics engine.
+5.  **Anti-Rug Protection:** Automatic detection of suspicious on-chain activity (LP removal, large transfers) with emergency sell capabilities.
 5.  **Secure Wallet Management (Private Key Based):** Connects directly to a Solana wallet using a private key provided via environment variable. No traditional login or registration is required.
 6.  **Intuitive Web Dashboard:** Provides a sleek, responsive, and interactive user interface with features like:
     *   Live Watchlist
@@ -55,6 +56,12 @@ SOLANA_PRIVATE_KEY="YOUR_SOLANA_WALLET_PRIVATE_KEY_BASE58_ENCODED"
 SOLANA_RPC_URL="https://api.mainnet-beta.solana.com"
 SOLANA_WS_URL="wss://api.mainnet-beta.solana.com/"
 ```
+
+### Advanced Features & Production Readiness:
+
+- **Multi-threaded Backend:** Uses a dedicated asyncio event loop in a background thread for high-performance on-chain monitoring and trade execution.
+- **Socket.io Integration:** Real-time updates delivered to the frontend via Socket.io for low-latency feedback.
+- **Automated Test Suite:** Backend (unittest) and Frontend (Vitest) test suites ensure reliability and prevent regressions.
 **WARNING:** Never commit your private key or API keys to version control. Use environment variables or a secure secrets management system.
 
 #### Backend:

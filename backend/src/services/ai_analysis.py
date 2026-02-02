@@ -4,7 +4,6 @@ import json
 import logging
 from datetime import datetime
 from typing import Dict, List, Optional, Any
-from services.data_fetcher import data_fetcher_service
 from config import LLM7_BASE_URL, LLM7_API_KEY
 
 logger = logging.getLogger(__name__)
@@ -15,10 +14,11 @@ class AIAnalysisService:
     Integrates with LLM7 API and provides comprehensive token analysis
     """
     
-    def __init__(self, socketio=None):
+    def __init__(self, socketio=None, data_fetcher_service=None):
         self.llm7_base_url = LLM7_BASE_URL
         self.llm7_api_key = LLM7_API_KEY
         self.socketio = socketio
+        self.data_fetcher_service = data_fetcher_service
         self.http_client = httpx.AsyncClient()
     
     async def analyze_token_with_llm7(self, token_address: str) -> Dict:
@@ -26,7 +26,11 @@ class AIAnalysisService:
         Analyze token using LLM7 API
         """
         try:
-            token_data = await data_fetcher_service.get_token_by_address(token_address)
+            if not self.data_fetcher_service:
+                logger.warning("Data fetcher service not available in AIAnalysis.")
+                return self._create_fallback_analysis({'address': token_address})
+
+            token_data = await self.data_fetcher_service.get_token_by_address(token_address)
             if not token_data:
                 logger.warning(f"Token {token_address} not found for AI analysis.")
                 return self._create_fallback_analysis({'address': token_address})

@@ -147,11 +147,32 @@ class TradingService:
             if confirmation.value.err:
                 raise Exception(f"Transaction failed: {confirmation.value.err}")
 
+            # Fetch transaction details to find received token amount (with retries)
+            received_amount = 0
+            for i in range(5): # Retry up to 5 times
+                tx_details = self.solana_client.get_transaction(tx_signature, encoding="jsonParsed", commitment=Confirmed)
+                if tx_details.value:
+                    if tx_details.value.transaction.meta.post_token_balances:
+                        for balance in tx_details.value.transaction.meta.post_token_balances:
+                            if balance.mint == token_address and balance.owner == str(wallet_service.wallet_address):
+                                # Find corresponding pre-balance
+                                pre_amount = 0
+                                for pre_balance in tx_details.value.transaction.meta.pre_token_balances:
+                                    if pre_balance.mint == token_address and pre_balance.owner == str(wallet_service.wallet_address):
+                                        pre_amount = pre_balance.ui_token_amount.ui_amount or 0
+                                        break
+                                received_amount = (balance.ui_token_amount.ui_amount or 0) - pre_amount
+                                break
+                    if received_amount > 0:
+                        break
+                await asyncio.sleep(1) # Wait for RPC to catch up
+
             transaction_id = str(tx_signature)
             trade_data = {
                 "type": "buy",
                 "token_address": token_address,
                 "amount_sol": amount_sol,
+                "received_amount": received_amount,
                 "slippage": slippage,
                 "transaction_id": transaction_id,
                 "status": "confirmed",
@@ -159,7 +180,16 @@ class TradingService:
             }
             if self.socketio:
                 self.socketio.emit('trade_executed', trade_data)
-            return {"success": True, "message": f"Successfully bought {amount_sol} SOL worth of {token_address}", "transaction_id": transaction_id, "token_address": token_address, "amount_sol": amount_sol, "slippage": slippage, "status": "confirmed"}
+            return {
+                "success": True,
+                "message": f"Successfully bought {amount_sol} SOL worth of {token_address}",
+                "transaction_id": transaction_id,
+                "token_address": token_address,
+                "amount_sol": amount_sol,
+                "received_amount": received_amount,
+                "slippage": slippage,
+                "status": "confirmed"
+            }
 
         except Exception as e:
             logger.error(f"Error executing buy order: {str(e)}")
@@ -221,7 +251,15 @@ class TradingService:
             }
             if self.socketio:
                 self.socketio.emit('trade_executed', trade_data)
-            return {"success": True, "message": f"Successfully sold {amount_tokens} {token_address} tokens", "transaction_id": transaction_id, "token_address": token_address, "amount_tokens": amount_tokens, "slippage": slippage, "status": "confirmed"}
+            return {
+                "success": True,
+                "message": f"Successfully sold {amount_tokens} {token_address} tokens",
+                "transaction_id": transaction_id,
+                "token_address": token_address,
+                "amount_tokens": amount_tokens,
+                "slippage": slippage,
+                "status": "confirmed"
+            }
 
         except Exception as e:
             logger.error(f"Error executing sell order: {str(e)}")

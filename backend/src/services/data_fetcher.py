@@ -219,6 +219,4 @@ class DataFetcherService:
         # This would require calculating time_from and time_to based on interval and limit.
         return [] # Returning empty for now until implemented
 
-# Create a singleton instance for easy import
-# data_fetcher_service = DataFetcherService() # Instantiation will be handled in main.py
 

@@ -124,8 +124,26 @@ export function ApiProvider({ children }) {
   }, [makeRequest])
 
   const deleteWallet = useCallback(async (walletId) => {
-    return makeRequest(`/api/wallets/${walletId}`, {
+    return makeRequest(`/api/wallet/${walletId}`, {
       method: 'DELETE',
+    })
+  }, [makeRequest])
+
+  const startAutoTrader = useCallback(async () => {
+    return makeRequest('/api/auto-trader/start', {
+      method: 'POST',
+    })
+  }, [makeRequest])
+
+  const stopAutoTrader = useCallback(async () => {
+    return makeRequest('/api/auto-trader/stop', {
+      method: 'POST',
+    })
+  }, [makeRequest])
+
+  const getTradingSignals = useCallback(async (tokenAddress) => {
+    return makeRequest(`/api/ai/trading-signals/${tokenAddress}`, {
+      method: 'POST',
     })
   }, [makeRequest])
 
@@ -140,7 +158,7 @@ export function ApiProvider({ children }) {
     sellToken,
     getDashboardData,
     getTransactions,
-    getTokenHistory, // Add new function
+    getTokenHistory,
     getWalletBalance,
     getTradingSignals,
     startAutoTrader,
