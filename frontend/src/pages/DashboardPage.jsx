@@ -19,49 +19,29 @@ import {
   Star
 } from 'lucide-react'
 import { useApi } from '../contexts/ApiContext'
-import { useAuth } from '../contexts/AuthContext'
-
-// Mock data for development
-const mockStats = {
-  totalProfit: 2847.32,
-  totalTrades: 156,
-  successRate: 87.2,
-  activeTokens: 23,
-  todayProfit: 342.18,
-  weeklyProfit: 1205.67
-}
-
-const mockTopTokens = [
-  { symbol: 'PEPE', price: 0.00001234, change: 45.67, volume: 2340000, risk: 25 },
-  { symbol: 'BONK', price: 0.00000567, change: 23.45, volume: 1890000, risk: 15 },
-  { symbol: 'WIF', price: 0.00002345, change: -12.34, volume: 1560000, risk: 35 },
-  { symbol: 'POPCAT', price: 0.00001890, change: 67.89, volume: 2100000, risk: 20 },
-  { symbol: 'MEW', price: 0.00000789, change: 34.56, volume: 980000, risk: 40 }
-]
-
-const mockRecentTrades = [
-  { token: 'PEPE', type: 'buy', amount: 0.5, profit: 45.67, time: '2 min ago', status: 'completed' },
-  { token: 'BONK', type: 'sell', amount: 1.2, profit: 23.45, time: '5 min ago', status: 'completed' },
-  { token: 'WIF', type: 'buy', amount: 0.8, profit: -12.34, time: '8 min ago', status: 'completed' },
-  { token: 'POPCAT', type: 'sell', amount: 2.1, profit: 67.89, time: '12 min ago', status: 'completed' }
-]
+import { useWebSocket } from '../contexts/WebSocketContext'
 
 export default function DashboardPage() {
   const [dashboardData, setDashboardData] = useState(null)
   const [loading, setLoading] = useState(true)
   const { getDashboardData, startAutoTrader, stopAutoTrader } = useApi()
   const { autoTraderStatus } = useWebSocket()
-  const [isAutoTraderRunning, setIsAutoTraderRunning] = useState(autoTraderStatus.enabled)
+  const [isAutoTraderRunning, setIsAutoTraderRunning] = useState(autoTraderStatus?.enabled || false)
 
   useEffect(() => {
     loadDashboardData()
   }, [])
 
+  useEffect(() => {
+    if (autoTraderStatus) {
+      setIsAutoTraderRunning(autoTraderStatus.enabled)
+    }
+  }, [autoTraderStatus])
+
   const handleStartAutoTrader = async () => {
     try {
       const result = await startAutoTrader()
       if (result.success) {
-        setIsAutoTraderRunning(true)
         alert(result.message)
       }
     } catch (error) {
@@ -74,7 +54,6 @@ export default function DashboardPage() {
     try {
       const result = await stopAutoTrader()
       if (result.success) {
-        setIsAutoTraderRunning(false)
         alert(result.message)
       }
     } catch (error) {
@@ -86,17 +65,12 @@ export default function DashboardPage() {
   const loadDashboardData = async () => {
     try {
       setLoading(true)
-      // In development, use mock data
-      setTimeout(() => {
-        setDashboardData({
-          stats: mockStats,
-          topTokens: mockTopTokens,
-          recentTrades: mockRecentTrades
-        })
-        setLoading(false)
-      }, 1000)
+      const data = await getDashboardData()
+      setDashboardData(data)
     } catch (error) {
       console.error('Error loading dashboard data:', error)
+      // Fallback or error state
+    } finally {
       setLoading(false)
     }
   }
@@ -104,7 +78,6 @@ export default function DashboardPage() {
   if (loading) {
     return (
       <div className="p-6 space-y-6">
-        {/* Loading skeleton */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="card-modern p-6 animate-pulse">
@@ -126,7 +99,7 @@ export default function DashboardPage() {
         className="mb-8"
       >
         <h1 className="text-3xl font-bold text-gradient-primary mb-2">
-          Welcome back, {user?.username || 'Trader'}! 👋
+          Welcome back, Trader! 👋
         </h1>
         <p className="text-muted-foreground">
           Here's your trading performance and market overview
@@ -147,14 +120,14 @@ export default function DashboardPage() {
             </div>
             <div className="text-right">
               <p className="text-2xl font-bold text-green-400">
-                ${dashboardData?.stats.totalProfit.toLocaleString()}
+                ${dashboardData?.stats?.totalProfit?.toLocaleString() || '0'}
               </p>
               <p className="text-sm text-muted-foreground">Total Profit</p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
             <ArrowUpRight className="w-4 h-4 text-green-400" />
-            <span className="text-sm text-green-400">+{dashboardData?.stats.todayProfit.toFixed(2)} today</span>
+            <span className="text-sm text-green-400">+{dashboardData?.stats?.todayProfit?.toFixed(2) || '0.00'} today</span>
           </div>
         </motion.div>
 
@@ -169,13 +142,13 @@ export default function DashboardPage() {
               <Target className="w-6 h-6 text-white" />
             </div>
             <div className="text-right">
-              <p className="text-2xl font-bold">{dashboardData?.stats.successRate}%</p>
+              <p className="text-2xl font-bold">{dashboardData?.stats?.successRate || '0'}%</p>
               <p className="text-sm text-muted-foreground">Success Rate</p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
             <TrendingUp className="w-4 h-4 text-green-400" />
-            <span className="text-sm text-green-400">+2.3% this week</span>
+            <span className="text-sm text-green-400">Performance tracking active</span>
           </div>
         </motion.div>
 
@@ -190,13 +163,13 @@ export default function DashboardPage() {
               <Activity className="w-6 h-6 text-white" />
             </div>
             <div className="text-right">
-              <p className="text-2xl font-bold">{dashboardData?.stats.totalTrades}</p>
+              <p className="text-2xl font-bold">{dashboardData?.stats?.totalTrades || '0'}</p>
               <p className="text-sm text-muted-foreground">Total Trades</p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
             <Zap className="w-4 h-4 text-yellow-400" />
-            <span className="text-sm text-yellow-400">12 today</span>
+            <span className="text-sm text-yellow-400">Ready to snipe</span>
           </div>
         </motion.div>
 
@@ -211,13 +184,13 @@ export default function DashboardPage() {
               <Eye className="w-6 h-6 text-white" />
             </div>
             <div className="text-right">
-              <p className="text-2xl font-bold">{dashboardData?.stats.activeTokens}</p>
+              <p className="text-2xl font-bold">{dashboardData?.stats?.activeTokens || '0'}</p>
               <p className="text-sm text-muted-foreground">Watching</p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
             <Shield className="w-4 h-4 text-blue-400" />
-            <span className="text-sm text-blue-400">All protected</span>
+            <span className="text-sm text-blue-400">Anti-rug enabled</span>
           </div>
         </motion.div>
       </div>
@@ -236,15 +209,12 @@ export default function DashboardPage() {
               <Flame className="w-5 h-5 mr-2 text-orange-400" />
               Trending Tokens
             </h2>
-            <button className="text-sm text-primary hover:underline">
-              View All
-            </button>
           </div>
 
           <div className="space-y-4">
-            {dashboardData?.topTokens.map((token, index) => (
+            {dashboardData?.topTokens?.map((token, index) => (
               <motion.div
-                key={token.symbol}
+                key={token.address}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 * index }}
@@ -259,40 +229,33 @@ export default function DashboardPage() {
                   <div>
                     <p className="font-semibold">{token.symbol}</p>
                     <p className="text-sm text-muted-foreground">
-                      ${token.price.toFixed(8)}
+                      ${token.price?.toFixed(8)}
                     </p>
                   </div>
                 </div>
 
                 <div className="text-right">
                   <div className={`flex items-center space-x-1 ${
-                    token.change > 0 ? 'text-green-400' : 'text-red-400'
+                    token.price_change_24h > 0 ? 'text-green-400' : 'text-red-400'
                   }`}>
-                    {token.change > 0 ? (
+                    {token.price_change_24h > 0 ? (
                       <ArrowUpRight className="w-4 h-4" />
                     ) : (
                       <ArrowDownRight className="w-4 h-4" />
                     )}
                     <span className="font-semibold">
-                      {token.change > 0 ? '+' : ''}{token.change.toFixed(2)}%
+                      {token.price_change_24h > 0 ? '+' : ''}{token.price_change_24h?.toFixed(2)}%
                     </span>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Vol: ${(token.volume / 1000000).toFixed(1)}M
+                    Vol: ${(token.volume_24h / 1000000).toFixed(1)}M
                   </p>
-                </div>
-
-                <div className="flex items-center space-x-2">
-                  <div className={`w-2 h-2 rounded-full ${
-                    token.risk < 30 ? 'bg-green-400' : 
-                    token.risk < 60 ? 'bg-yellow-400' : 'bg-red-400'
-                  }`} />
-                  <span className="text-xs text-muted-foreground">
-                    Risk: {token.risk}%
-                  </span>
                 </div>
               </motion.div>
             ))}
+            {!dashboardData?.topTokens?.length && (
+              <p className="text-center text-muted-foreground py-10">No trending tokens found.</p>
+            )}
           </div>
         </motion.div>
 
@@ -308,13 +271,10 @@ export default function DashboardPage() {
               <BarChart3 className="w-5 h-5 mr-2 text-blue-400" />
               Recent Trades
             </h2>
-            <button className="text-sm text-primary hover:underline">
-              View All
-            </button>
           </div>
 
           <div className="space-y-4">
-            {dashboardData?.recentTrades.map((trade, index) => (
+            {dashboardData?.recentTrades?.map((trade, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, x: 20 }}
@@ -333,77 +293,60 @@ export default function DashboardPage() {
                     )}
                   </div>
                   <div>
-                    <p className="font-semibold text-sm">{trade.token}</p>
+                    <p className="font-semibold text-sm">{trade.token_symbol || trade.token_address.slice(0, 4)}</p>
                     <p className="text-xs text-muted-foreground">
-                      {trade.amount} SOL
+                      {trade.amount_sol || trade.amount_tokens} {trade.type === 'buy' ? 'SOL' : 'Tokens'}
                     </p>
                   </div>
                 </div>
 
                 <div className="text-right">
                   <p className={`text-sm font-semibold ${
-                    trade.profit > 0 ? 'text-green-400' : 'text-red-400'
+                    trade.status === 'confirmed' ? 'text-green-400' : 'text-yellow-400'
                   }`}>
-                    {trade.profit > 0 ? '+' : ''}{trade.profit.toFixed(2)}%
+                    {trade.status}
                   </p>
-                  <p className="text-xs text-muted-foreground flex items-center">
+                  <p className="text-xs text-muted-foreground flex items-center justify-end">
                     <Clock className="w-3 h-3 mr-1" />
-                    {trade.time}
+                    {new Date(trade.timestamp).toLocaleTimeString()}
                   </p>
                 </div>
               </motion.div>
             ))}
+            {!dashboardData?.recentTrades?.length && (
+              <p className="text-center text-muted-foreground py-10">No recent trades.</p>
+            )}
           </div>
         </motion.div>
       </div>
 
-      {/* Quick Actions */}
+      {/* Auto Trader Controls */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.7 }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-6"
+        className="card-modern p-6"
       >
-        <div className="card-modern p-6 text-center hover-lift cursor-pointer">
-          <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <Eye className="w-8 h-8 text-white" />
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-xl font-bold mb-1">Automated Trading Bot</h2>
+            <p className="text-muted-foreground">
+              {isAutoTraderRunning ? 'Bot is currently scanning and trading.' : 'Bot is inactive.'}
+            </p>
           </div>
-          <h3 className="text-lg font-semibold mb-2">Scan New Tokens</h3>
-          <p className="text-sm text-muted-foreground mb-4">
-            Discover profitable opportunities with AI-powered detection
-          </p>
-          <button className="btn-gradient w-full">
-            Start Scanning
-          </button>
-        </div>
-
-        <div className="card-modern p-6 text-center hover-lift cursor-pointer">
-          <div className="w-16 h-16 bg-gradient-success rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <Zap className="w-8 h-8 text-white" />
+          <div className="flex space-x-4">
+            {!isAutoTraderRunning ? (
+              <button onClick={handleStartAutoTrader} className="btn-gradient px-8 py-2">
+                Start Bot
+              </button>
+            ) : (
+              <button onClick={handleStopAutoTrader} className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-8 rounded-lg transition-colors">
+                Stop Bot
+              </button>
+            )}
           </div>
-          <h3 className="text-lg font-semibold mb-2">Auto Trading</h3>
-          <p className="text-sm text-muted-foreground mb-4">
-            Enable automated trading with smart risk management
-          </p>
-          <button className="btn-gradient w-full">
-            Configure Bot
-          </button>
-        </div>
-
-        <div className="card-modern p-6 text-center hover-lift cursor-pointer">
-          <div className="w-16 h-16 bg-gradient-warning rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <Wallet className="w-8 h-8 text-white" />
-          </div>
-          <h3 className="text-lg font-semibold mb-2">Manage Wallet</h3>
-          <p className="text-sm text-muted-foreground mb-4">
-            View balances, transactions, and portfolio performance
-          </p>
-          <button className="btn-gradient w-full">
-            Open Wallet
-          </button>
         </div>
       </motion.div>
     </div>
   )
 }
-

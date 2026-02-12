@@ -21,14 +21,9 @@ export function ApiProvider({ children }) {
     setError(null)
 
     try {
-      const token = localStorage.getItem('solsniperx_token')
       const headers = {
         'Content-Type': 'application/json',
         ...options.headers,
-      }
-
-      if (token) {
-        headers.Authorization = `Bearer ${token}`
       }
 
       const response = await fetch(`${baseURL}${endpoint}`, {
@@ -66,6 +61,10 @@ export function ApiProvider({ children }) {
     })
   }, [makeRequest])
 
+  const getTradingSignals = useCallback(async (tokenAddress) => {
+    return makeRequest(`/api/ai/signals/${tokenAddress}`)
+  }, [makeRequest])
+
   // Mempool monitoring
   const monitorMempool = useCallback(async () => {
     return makeRequest('/api/mempool/monitor')
@@ -86,6 +85,26 @@ export function ApiProvider({ children }) {
     })
   }, [makeRequest])
 
+  // Auto Trader
+  const startAutoTrader = useCallback(async () => {
+    return makeRequest('/api/auto_trader/start', { method: 'POST' })
+  }, [makeRequest])
+
+  const stopAutoTrader = useCallback(async () => {
+    return makeRequest('/api/auto_trader/stop', { method: 'POST' })
+  }, [makeRequest])
+
+  const getAutoTraderConfig = useCallback(async () => {
+    return makeRequest('/api/auto_trader/config')
+  }, [makeRequest])
+
+  const updateAutoTraderConfig = useCallback(async (config) => {
+    return makeRequest('/api/auto_trader/config', {
+      method: 'PUT',
+      body: JSON.stringify(config)
+    })
+  }, [makeRequest])
+
   // Analytics
   const getDashboardData = useCallback(async () => {
     return makeRequest('/api/analytics/dashboard')
@@ -93,6 +112,10 @@ export function ApiProvider({ children }) {
 
   const getTransactions = useCallback(async (limit = 50) => {
     return makeRequest(`/api/analytics/transactions?limit=${limit}`)
+  }, [makeRequest])
+
+  const getPositions = useCallback(async () => {
+    return makeRequest('/api/analytics/positions')
   }, [makeRequest])
 
   // Token History
@@ -105,50 +128,25 @@ export function ApiProvider({ children }) {
     return makeRequest('/api/wallet/balance')
   }, [makeRequest])
 
-  const getWallets = useCallback(async () => {
-    return makeRequest('/api/wallets')
-  }, [makeRequest])
-
-  const addWallet = useCallback(async (name, privateKey) => {
-    return makeRequest('/api/wallets', {
-      method: 'POST',
-      body: JSON.stringify({ name, private_key: privateKey }),
-    })
-  }, [makeRequest])
-
-  const updateWallet = useCallback(async (walletId, updates) => {
-    return makeRequest(`/api/wallets/${walletId}`, {
-      method: 'PUT',
-      body: JSON.stringify(updates),
-    })
-  }, [makeRequest])
-
-  const deleteWallet = useCallback(async (walletId) => {
-    return makeRequest(`/api/wallets/${walletId}`, {
-      method: 'DELETE',
-    })
-  }, [makeRequest])
-
   const value = {
     loading,
     error,
     makeRequest,
     scanTokens,
     analyzeToken,
+    getTradingSignals,
     monitorMempool,
     buyToken,
     sellToken,
-    getDashboardData,
-    getTransactions,
-    getTokenHistory, // Add new function
-    getWalletBalance,
-    getTradingSignals,
     startAutoTrader,
     stopAutoTrader,
-    getWallets,
-    addWallet,
-    updateWallet,
-    deleteWallet,
+    getAutoTraderConfig,
+    updateAutoTraderConfig,
+    getDashboardData,
+    getTransactions,
+    getPositions,
+    getTokenHistory,
+    getWalletBalance,
   }
 
   return (
@@ -157,4 +155,3 @@ export function ApiProvider({ children }) {
     </ApiContext.Provider>
   )
 }
-
