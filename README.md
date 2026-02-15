@@ -24,7 +24,7 @@ SolSniperX is an advanced, AI-powered bot designed to automatically detect, anal
 ### Project Structure:
 
 -   **`backend/`**: Flask API for token data, AI analysis, trading logic, and Solana blockchain interaction.
-    -   `src/main.py`: Main Flask application.
+    -   `src/main.py`: Main Flask application with multi-threaded background services.
     -   `src/services/ai_analysis.py`: AI integration with LLM7.
     -   `src/services/wallet_service.py`: Manages the single, private-key-derived Solana wallet.
     -   `src/services/data_fetcher.py`: Fetches real-time data from Dexscreener and Birdeye.
@@ -35,7 +35,7 @@ SolSniperX is an advanced, AI-powered bot designed to automatically detect, anal
     -   `src/App.jsx`: Main application component and routing.
     -   `src/pages/`: Individual pages (Dashboard, TokenScanner, Trading, Wallet, Settings, etc.).
     -   `src/components/`: Reusable UI components (e.g., Navbar, Sidebar, AIAnalysisPanel).
-    -   `src/contexts/`: React Contexts for theme, API, and WebSocket.
+    -   `src/contexts/`: React Contexts for theme, API, and WebSocket (Socket.IO).
     -   `src/utils/localStorage.js`: Utilities for local data storage and encryption.
 
 ### Installation & Setup (Development):

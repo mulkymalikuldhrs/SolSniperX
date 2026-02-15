@@ -31,6 +31,7 @@ class WalletService:
         self.solana_client = Client(SOLANA_RPC_URL)
         self.wallet_keypair: Optional[SoldersKeypair] = None
         self.wallet_address: Optional[Pubkey] = None
+        self.token_decimals_cache = {}
         self._initialize_wallet()
 
     def _initialize_wallet(self):
@@ -49,6 +50,27 @@ class WalletService:
             logger.error(f"Error initializing wallet from private key: {e}")
             self.wallet_keypair = None
             self.wallet_address = None
+
+    async def _get_token_decimals(self, mint_address: str) -> int:
+        """Fetch and cache token decimals."""
+        if mint_address in self.token_decimals_cache:
+            return self.token_decimals_cache[mint_address]
+
+        try:
+            mint_pubkey = Pubkey.from_string(mint_address)
+            account_info = self.solana_client.get_account_info(mint_pubkey)
+            if account_info.value:
+                # Basic decoding of mint account to get decimals
+                # The decimals are at offset 44 in the mint account data
+                data = account_info.value.data
+                if len(data) >= 45:
+                    decimals = data[44]
+                    self.token_decimals_cache[mint_address] = decimals
+                    return decimals
+        except Exception as e:
+            logger.error(f"Error fetching decimals for {mint_address}: {e}")
+
+        return 9 # Fallback to 9
 
     async def get_wallet_info(self) -> Optional[Dict]:
         """
@@ -74,28 +96,45 @@ class WalletService:
                     # Correctly parse the SPL token account data
                     account_info_data = SplTokenAccountInfo.from_bytes(account_info.account.data)
                     mint = str(account_info_data.mint)
-                    amount = account_info_data.amount
+                    amount_raw = account_info_data.amount
+
+                    if amount_raw == 0:
+                        continue
+
+                    decimals = await self._get_token_decimals(mint)
+                    amount = amount_raw / (10 ** decimals)
  
-                    # To get decimals, we would need another call, which can be slow.
-                    # For now, we'll assume we can fetch it later or display the raw amount.
-                    # A better approach would be to have a token metadata cache.
                     tokens.append({
                         "account_address": str(pubkey),
                         "mint_address": mint,
-                        "balance_raw": amount,
-                        "balance": 0, # Placeholder for balance with decimals
-                        "usd_value": 0.0 # Placeholder
+                        "balance_raw": amount_raw,
+                        "balance": amount,
+                        "decimals": decimals,
+                        "usd_value": 0.0 # Placeholder for actual price integration
                     })
                 except Exception as e:
                     logger.warning(f"Could not parse token account {pubkey}: {e}")
 
-            # TODO: Fetch USD value for SOL and tokens
-            usd_value = sol_balance * 0 # Placeholder for actual SOL price
+            # Fetch real SOL price from Jupiter Price API
+            sol_price = 0.0
+            try:
+                import httpx
+                async with httpx.AsyncClient() as client:
+                    price_response = await client.get("https://api.jup.ag/price/v2?ids=So11111111111111111111111111111111111111112")
+                    if price_response.status_code == 200:
+                        price_data = price_response.json()
+                        sol_price = float(price_data['data']['So11111111111111111111111111111111111111112']['price'])
+            except Exception as pe:
+                logger.error(f"Error fetching SOL price: {pe}")
+                sol_price = 0.0
+
+            usd_value = sol_balance * sol_price
             total_value_usd = usd_value + sum(t["usd_value"] for t in tokens)
 
             wallet_info = {
                 "address": str(self.wallet_address),
                 "sol_balance": sol_balance,
+                "sol_price": sol_price,
                 "usd_value": usd_value,
                 "tokens": tokens,
                 "total_value_usd": total_value_usd,

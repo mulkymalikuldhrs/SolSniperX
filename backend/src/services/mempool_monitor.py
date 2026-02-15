@@ -20,6 +20,9 @@ from services.data_fetcher import data_fetcher_service # To fetch token details
 
 logger = logging.getLogger(__name__)
 
+PUMP_FUN_PROGRAM_ID = "6EF8rrecthR5DkZJv9RKzyAXYVqBCTs2Fmb7sK559pwt"
+RAYDIUM_LIQUIDITY_POOL_V4_ID = "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8"
+
 class MempoolMonitorService:
     """
     Service to monitor the Solana mempool for new token launches and potential rugpulls.
@@ -65,8 +68,9 @@ class MempoolMonitorService:
 
         logger.info("Starting transaction monitoring...")
         try:
-            # Subscribe to all new transactions (very high volume!)
-            # In a real bot, you'd filter by program ID or specific instruction types.
+            # Subscribe to logs mentioning Pump.fun or Raydium
+            # For simplicity in this implementation, we subscribe to all and filter,
+            # but in production, multiple subscriptions or a better RPC would be used.
             subscription_id = await self.ws_client.logs_subscribe(
                 filter_='all', commitment=Commitment('processed')
             )
@@ -79,13 +83,18 @@ class MempoolMonitorService:
                     signature = value['signature']
                     logs = value['logs']
 
-                    # Check for potential token creation (initializeMint)
-                    if any("initializeMint" in log for log in logs):
-                        logger.info(f"Potential new token transaction detected: {signature}")
-                        await self._process_new_token_transaction(signature)
+                    # High-speed filtering
+                    is_pump_fun = any(PUMP_FUN_PROGRAM_ID in log for log in logs)
+                    is_raydium = any(RAYDIUM_LIQUIDITY_POOL_V4_ID in log for log in logs)
 
-                    # Check for potential rugpulls (large transfers, LP removal, burn)
-                    await self._process_rugpull_indicators(signature, logs)
+                    if is_pump_fun or is_raydium:
+                        # Check for potential token creation (initializeMint)
+                        if any("initializeMint" in log for log in logs) or any("create" in log.lower() for log in logs):
+                            logger.info(f"Potential new token transaction detected on {'Pump.fun' if is_pump_fun else 'Raydium'}: {signature}")
+                            await self._process_new_token_transaction(signature)
+
+                        # Check for potential rugpulls
+                        await self._process_rugpull_indicators(signature, logs)
 
         except RPCException as e:
             logger.error(f"RPC error during transaction monitoring: {e}")

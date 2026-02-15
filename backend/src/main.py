@@ -3,6 +3,8 @@ from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 import json
 import logging
+import asyncio
+import threading
 from datetime import datetime
 from services.data_fetcher import DataFetcherService
 from services.mempool_monitor import MempoolMonitorService
@@ -19,6 +21,7 @@ from routes.mempool import mempool_bp
 from routes.trading import trading_bp
 from routes.wallet import wallet_bp
 from routes.auto_trader import auto_trader_bp
+from routes.analytics import analytics_bp
 from utils.responses import error_response
 
 # Configure logging
@@ -61,6 +64,7 @@ app.register_blueprint(mempool_bp)
 app.register_blueprint(trading_bp)
 app.register_blueprint(wallet_bp)
 app.register_blueprint(auto_trader_bp)
+app.register_blueprint(analytics_bp)
 
 @app.route('/health', methods=['GET'])
 def health_check():
@@ -81,11 +85,25 @@ def internal_error(error):
     logger.error(f"Internal server error: {error}")
     return error_response('Internal server error', 500)
 
+def run_async_services():
+    """Run asynchronous services in a dedicated event loop."""
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
+    # Start mempool monitoring
+    loop.create_task(mempool_monitor_service.start_monitoring())
+
+    # Start auto trader if needed, or it can be started via API
+    # loop.create_task(auto_trader_service.start_trading())
+
+    loop.run_forever()
+
 if __name__ == '__main__':
-    # Start background services
-    # asyncio.run(mempool_monitor_service.start_monitoring()) # This needs to be run in a separate thread or managed by eventlet
-    # For eventlet, tasks are usually spawned directly
-    socketio.start_background_task(mempool_monitor_service.start_monitoring)
+    # Start background services in a separate thread
+    async_thread = threading.Thread(target=run_async_services, daemon=True)
+    async_thread.start()
+
+    logger.info("Starting Flask-SocketIO server on port 5000...")
     socketio.run(app, host='0.0.0.0', port=5000)
 
 
