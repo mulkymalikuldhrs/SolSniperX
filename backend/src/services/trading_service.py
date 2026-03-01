@@ -13,7 +13,7 @@ from solders.pubkey import Pubkey
 from solders.transaction import VersionedTransaction
 from solders.message import Message
 from spl.token.constants import TOKEN_PROGRAM_ID
-from spl.token.state import Mint
+# from spl.token.state import Mint
 
 from config import SOLANA_RPC_URL
 from services.wallet_service import wallet_service # Import the wallet_service singleton
@@ -43,9 +43,9 @@ class TradingService:
                 logger.warning(f"Mint account not found for {token_mint_address}")
                 return None
             
-            # Decode the mint account data
-            mint_data = Mint.decode(account_info.value.data)
-            return mint_data.decimals
+            # Mint data layout: decimals at offset 44 (1 byte)
+            data = account_info.value.data
+            return data[44]
         except Exception as e:
             logger.error(f"Error fetching decimals for {token_mint_address}: {e}")
             return None
@@ -105,6 +105,29 @@ class TradingService:
             logger.error(f"Unexpected error in _get_swap_instructions: {e}")
             return None
 
+    async def _confirm_transaction_robustly(self, tx_signature: Signature, max_retries: int = 30, delay: float = 2.0) -> bool:
+        """
+        Robustly confirms a transaction by polling get_signature_statuses.
+        """
+        for i in range(max_retries):
+            try:
+                response = self.solana_client.get_signature_statuses([tx_signature])
+                if response.value and response.value[0]:
+                    status = response.value[0]
+                    if status.confirmation_status in ['confirmed', 'finalized']:
+                        if status.err:
+                            logger.error(f"Transaction {tx_signature} failed with error: {status.err}")
+                            return False
+                        logger.info(f"Transaction {tx_signature} {status.confirmation_status}.")
+                        return True
+            except Exception as e:
+                logger.warning(f"Error checking transaction status (retry {i+1}/{max_retries}): {e}")
+
+            await asyncio.sleep(delay)
+
+        logger.error(f"Transaction {tx_signature} confirmation timed out after {max_retries * delay} seconds.")
+        return False
+
     async def execute_buy_order(self, token_address: str, amount_sol: float, slippage: float = 1.0) -> Dict:
         """
         Executes a buy order for a given token using SOL via Jupiter Aggregator.
@@ -142,10 +165,10 @@ class TradingService:
             tx_signature = self.solana_client.send_raw_transaction(bytes(signed_transaction)).value
             logger.info(f"Transaction sent: {tx_signature}")
 
-            # Confirm transaction
-            confirmation = self.solana_client.confirm_transaction(tx_signature, Confirmed)
-            if confirmation.value.err:
-                raise Exception(f"Transaction failed: {confirmation.value.err}")
+            # Confirm transaction robustly
+            confirmed = await self._confirm_transaction_robustly(tx_signature)
+            if not confirmed:
+                raise Exception(f"Transaction failed or could not be confirmed: {tx_signature}")
 
             transaction_id = str(tx_signature)
             trade_data = {
@@ -204,10 +227,10 @@ class TradingService:
             tx_signature = self.solana_client.send_raw_transaction(bytes(signed_transaction)).value
             logger.info(f"Transaction sent: {tx_signature}")
 
-            # Confirm transaction
-            confirmation = self.solana_client.confirm_transaction(tx_signature, Confirmed)
-            if confirmation.value.err:
-                raise Exception(f"Transaction failed: {confirmation.value.err}")
+            # Confirm transaction robustly
+            confirmed = await self._confirm_transaction_robustly(tx_signature)
+            if not confirmed:
+                raise Exception(f"Transaction failed or could not be confirmed: {tx_signature}")
 
             transaction_id = str(tx_signature)
             trade_data = {

@@ -129,6 +129,18 @@ export function ApiProvider({ children }) {
     })
   }, [makeRequest])
 
+  const getTradingSignals = useCallback(async (tokenAddress) => {
+    return makeRequest(`/api/ai/signals/${tokenAddress}`)
+  }, [makeRequest])
+
+  const startAutoTrader = useCallback(async () => {
+    return makeRequest('/api/auto_trader/start', { method: 'POST' })
+  }, [makeRequest])
+
+  const stopAutoTrader = useCallback(async () => {
+    return makeRequest('/api/auto_trader/stop', { method: 'POST' })
+  }, [makeRequest])
+
   const value = {
     loading,
     error,
@@ -140,7 +152,7 @@ export function ApiProvider({ children }) {
     sellToken,
     getDashboardData,
     getTransactions,
-    getTokenHistory, // Add new function
+    getTokenHistory,
     getWalletBalance,
     getTradingSignals,
     startAutoTrader,

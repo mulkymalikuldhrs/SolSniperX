@@ -64,6 +64,7 @@ class AutoTraderService:
             "slippage": 1.0,     # Slippage in percentage (1.0%)
             "profit_target_x": 2.0, # Sell when price is 2x buy price
             "stop_loss_percentage": 0.20, # Sell if price drops 20% from buy price
+            "trailing_stop_loss_percentage": 0.10, # Sell if price drops 10% from peak
             "max_risk_score": 30 # Max AI risk score to consider buying
         }
 
@@ -149,14 +150,26 @@ class AutoTraderService:
 
                     if buy_result.get("success"):
                         logger.info(f"AutoTrader: Successfully bought {token.get('symbol', token.get('address'))}. Transaction: {buy_result.get('transaction_id')}")
+
+                        # Fetch real balance after buy
+                        await asyncio.sleep(5) # Wait for confirmation
+                        wallet_info = await self.wallet_service.get_wallet_info()
+                        token_balance = 0
+                        if wallet_info and 'tokens' in wallet_info:
+                            for t in wallet_info['tokens']:
+                                if t['mint_address'] == token['address']:
+                                    token_balance = t['balance_raw'] # Need to adjust for decimals if possible
+                                    break
+
                         # Record owned token details
                         self.owned_tokens[token['address']] = {
                             "symbol": token.get('symbol'),
                             "buy_price": token['price'], # Price at time of buy
+                            "highest_price": token['price'],
                             "buy_amount_sol": self.config["buy_amount_sol"],
                             "transaction_id": buy_result.get('transaction_id'),
                             "purchase_time": datetime.now().isoformat(),
-                            "current_amount_tokens": 0 # This needs to be updated after the trade confirms and we know how many tokens were received
+                            "current_amount_tokens": token_balance
                         }
                         if self.socketio:
                             self.socketio.emit('auto_trade_event', {'type': 'buy', 'token': token['symbol'], 'amount_sol': self.config["buy_amount_sol"], 'status': 'success'})
@@ -183,53 +196,74 @@ class AutoTraderService:
                 current_price = current_token_data['price']
                 buy_price = details['buy_price']
 
+                # Update highest price for trailing stop-loss
+                if current_price > details['highest_price']:
+                    details['highest_price'] = current_price
+                    logger.info(f"AutoTrader: New highest price for {details['symbol']}: {current_price}")
+
                 # Profit target check
                 if current_price >= buy_price * self.config["profit_target_x"]:
                     logger.info(f"AutoTrader: Profit target reached for {details['symbol']}. Selling...")
-                    # Execute sell order (sell all owned tokens of this type)
-                    # This requires knowing the exact amount of tokens owned, which needs to be updated after buy confirmation
-                    # For now, using a placeholder amount.
-                    sell_amount = details["current_amount_tokens"] if details["current_amount_tokens"] > 0 else 0.000001 # Placeholder
-                    sell_result = await self.trading_service.execute_sell_order(
-                        token_address=token_address,
-                        amount_tokens=sell_amount,
-                        slippage=self.config["slippage"]
-                    )
-                    if sell_result.get("success"):
-                        logger.info(f"AutoTrader: Successfully sold {details['symbol']}. Transaction: {sell_result.get('transaction_id')}")
-                        tokens_to_remove.append(token_address)
-                        if self.socketio:
-                            self.socketio.emit('auto_trade_event', {'type': 'sell', 'token': details['symbol'], 'reason': 'profit_target', 'status': 'success'})
-                    else:
-                        logger.error(f"AutoTrader: Failed to sell {details['symbol']}: {sell_result.get('message')}")
-                        if self.socketio:
-                            self.socketio.emit('auto_trade_event', {'type': 'sell', 'token': details['symbol'], 'reason': 'profit_target', 'status': 'failed', 'error': sell_result.get('message')})
+                    await self._execute_sell(token_address, details, "profit_target", tokens_to_remove)
 
-                # Stop-loss check
+                # Trailing stop-loss check
+                elif current_price <= details['highest_price'] * (1 - self.config["trailing_stop_loss_percentage"]):
+                    logger.warning(f"AutoTrader: Trailing stop-loss triggered for {details['symbol']}. Selling...")
+                    await self._execute_sell(token_address, details, "trailing_stop_loss", tokens_to_remove)
+
+                # Fixed stop-loss check
                 elif current_price <= buy_price * (1 - self.config["stop_loss_percentage"]):
                     logger.warning(f"AutoTrader: Stop-loss triggered for {details['symbol']}. Selling...")
-                    # Execute sell order (sell all owned tokens of this type)
-                    sell_amount = details["current_amount_tokens"] if details["current_amount_tokens"] > 0 else 0.000001 # Placeholder
-                    sell_result = await self.trading_service.execute_sell_order(
-                        token_address=token_address,
-                        amount_tokens=sell_amount,
-                        slippage=self.config["slippage"]
-                    )
-                    if sell_result.get("success"):
-                        logger.info(f"AutoTrader: Successfully sold {details['symbol']}. Transaction: {sell_result.get('transaction_id')}")
-                        tokens_to_remove.append(token_address)
-                        if self.socketio:
-                            self.socketio.emit('auto_trade_event', {'type': 'sell', 'token': details['symbol'], 'reason': 'stop_loss', 'status': 'success'})
-                    else:
-                        logger.error(f"AutoTrader: Failed to sell {details['symbol']}: {sell_result.get('message')}")
-                        if self.socketio:
-                            self.socketio.emit('auto_trade_event', {'type': 'sell', 'token': details['symbol'], 'reason': 'stop_loss', 'status': 'failed', 'error': sell_result.get('message')})
+                    await self._execute_sell(token_address, details, "stop_loss", tokens_to_remove)
 
             except Exception as e:
                 logger.error(f"AutoTrader: Error monitoring {token_address}: {e}")
         
         for token_address in tokens_to_remove:
             del self.owned_tokens[token_address]
+
+    async def _execute_sell(self, token_address, details, reason, tokens_to_remove):
+        # Fetch real balance before sell
+        wallet_info = await self.wallet_service.get_wallet_info()
+        token_balance = 0
+        if wallet_info and 'tokens' in wallet_info:
+            for t in wallet_info['tokens']:
+                if t['mint_address'] == token_address:
+                    token_balance = t['balance_raw'] # In smallest units
+                    break
+
+        # We need to convert balance_raw to human readable for trading_service.execute_sell_order
+        # if trading_service expects human readable amount. Let's check trading_service.
+        # It seems trading_service.execute_sell_order expects float amount of tokens.
+        # This requires knowing decimals.
+
+        decimals = await self.trading_service._get_token_decimals(token_address)
+        if decimals is None:
+            logger.error(f"AutoTrader: Could not determine decimals for {token_address}. Cannot sell.")
+            return
+
+        human_readable_amount = token_balance / (10**decimals)
+
+        if human_readable_amount <= 0:
+            logger.warning(f"AutoTrader: No tokens found in wallet for {details['symbol']}. Marking as sold.")
+            tokens_to_remove.append(token_address)
+            return
+
+        sell_result = await self.trading_service.execute_sell_order(
+            token_address=token_address,
+            amount_tokens=human_readable_amount,
+            slippage=self.config["slippage"]
+        )
+
+        if sell_result.get("success"):
+            logger.info(f"AutoTrader: Successfully sold {details['symbol']} ({reason}). Transaction: {sell_result.get('transaction_id')}")
+            tokens_to_remove.append(token_address)
+            if self.socketio:
+                self.socketio.emit('auto_trade_event', {'type': 'sell', 'token': details['symbol'], 'reason': reason, 'status': 'success'})
+        else:
+            logger.error(f"AutoTrader: Failed to sell {details['symbol']} ({reason}): {sell_result.get('message')}")
+            if self.socketio:
+                self.socketio.emit('auto_trade_event', {'type': 'sell', 'token': details['symbol'], 'reason': reason, 'status': 'failed', 'error': sell_result.get('message')})
 
     async def _handle_rugpull_alert(self, data: Dict):
         token_address = data.get('token_address') or data.get('details', {}).get('mint')

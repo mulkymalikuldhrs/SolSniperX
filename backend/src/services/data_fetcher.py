@@ -15,6 +15,8 @@ class DataFetcherService:
     def __init__(self, socketio=None):
         self.socketio = socketio
         self.http_client = httpx.AsyncClient()
+        self.cache: Dict[str, Dict] = {} # Token address -> {data, timestamp}
+        self.cache_ttl = 60 # Cache TTL in seconds
 
     async def _fetch_from_dexscreener(self, pair_address: Optional[str] = None) -> List[Dict]:
         """
@@ -183,6 +185,11 @@ class DataFetcherService:
         for token in birdeye_data:
             combined_data[token['address']] = {**combined_data.get(token['address'], {}), **token}
         
+        # Update cache
+        current_time = datetime.now()
+        for address, token in combined_data.items():
+            self.cache[address] = {"data": token, "timestamp": current_time}
+
         return list(combined_data.values())
 
     async def get_all_tokens(self) -> List[Dict]:
@@ -193,17 +200,28 @@ class DataFetcherService:
 
     async def get_token_by_address(self, token_address: str) -> Optional[Dict]:
         """
-        Returns details for a specific token by its address, fetching from real-time source.
+        Returns details for a specific token by its address, fetching from real-time source with caching.
         """
+        # Check cache first
+        if token_address in self.cache:
+            cache_entry = self.cache[token_address]
+            if (datetime.now() - cache_entry["timestamp"]).total_seconds() < self.cache_ttl:
+                logger.debug(f"Cache hit for token: {token_address}")
+                return cache_entry["data"]
+
         # Try fetching from Dexscreener first for specific pair
-        dexscreener_token = await self._fetch_from_dexscreener(pair_address=token_address) # Assuming token_address can be used as pair_address
+        dexscreener_token = await self._fetch_from_dexscreener(pair_address=token_address)
         if dexscreener_token:
-            return dexscreener_token[0] # Expecting a list with one token
+            token_data = dexscreener_token[0]
+            self.cache[token_address] = {"data": token_data, "timestamp": datetime.now()}
+            return token_data
 
         # If not found on Dexscreener, try Birdeye
         birdeye_token = await self._fetch_from_birdeye(token_address=token_address)
         if birdeye_token:
-            return birdeye_token[0] # Expecting a list with one token
+            token_data = birdeye_token[0]
+            self.cache[token_address] = {"data": token_data, "timestamp": datetime.now()}
+            return token_data
 
         return None
 
