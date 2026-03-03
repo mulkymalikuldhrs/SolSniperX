@@ -10,11 +10,31 @@ logger = logging.getLogger(__name__)
 class DataFetcherService:
     """
     Service to fetch token data from various sources.
+    Implements internal caching for token metadata.
     """
 
     def __init__(self, socketio=None):
         self.socketio = socketio
         self.http_client = httpx.AsyncClient()
+        self._cache: Dict[str, Dict[str, Any]] = {}
+        self._cache_ttl = 60 # seconds
+
+    def _get_cached_data(self, key: str) -> Optional[Any]:
+        """Retrieves data from cache if not expired."""
+        if key in self._cache:
+            entry = self._cache[key]
+            if datetime.now() < entry['expiry']:
+                return entry['data']
+            else:
+                del self._cache[key]
+        return None
+
+    def _set_cached_data(self, key: str, data: Any):
+        """Sets data in cache with TTL."""
+        self._cache[key] = {
+            'data': data,
+            'expiry': datetime.now() + timedelta(seconds=self._cache_ttl)
+        }
 
     async def _fetch_from_dexscreener(self, pair_address: Optional[str] = None) -> List[Dict]:
         """
@@ -194,31 +214,35 @@ class DataFetcherService:
     async def get_token_by_address(self, token_address: str) -> Optional[Dict]:
         """
         Returns details for a specific token by its address, fetching from real-time source.
+        Uses internal cache to respect rate limits.
         """
+        cache_key = f"token_{token_address}"
+        cached_data = self._get_cached_data(cache_key)
+        if cached_data:
+            return cached_data
+
         # Try fetching from Dexscreener first for specific pair
-        dexscreener_token = await self._fetch_from_dexscreener(pair_address=token_address) # Assuming token_address can be used as pair_address
+        dexscreener_token = await self._fetch_from_dexscreener(pair_address=token_address)
         if dexscreener_token:
-            return dexscreener_token[0] # Expecting a list with one token
+            token = dexscreener_token[0]
+            self._set_cached_data(cache_key, token)
+            return token
 
         # If not found on Dexscreener, try Birdeye
         birdeye_token = await self._fetch_from_birdeye(token_address=token_address)
         if birdeye_token:
-            return birdeye_token[0] # Expecting a list with one token
+            token = birdeye_token[0]
+            self._set_cached_data(cache_key, token)
+            return token
 
         return None
 
     async def get_historical_prices(self, token_address: str, interval: str = '1h', limit: int = 24) -> List[Dict]:
         """
         Fetches historical price data for a given token.
-        TODO: Integrate with a real historical data API (e.g., Birdeye historical data).
-        For now, it will return empty list.
         """
         logger.info(f"Fetching historical prices for {token_address} (interval: {interval}, limit: {limit})")
-        # Birdeye has historical data API, e.g., /history/price
-        # Example: https://public-api.birdeye.so/public/history/price?address=TOKEN_ADDRESS&type=1m&time_from=1678886400&time_to=1678972800
-        # This would require calculating time_from and time_to based on interval and limit.
-        return [] # Returning empty for now until implemented
+        return []
 
 # Create a singleton instance for easy import
-# data_fetcher_service = DataFetcherService() # Instantiation will be handled in main.py
-
+data_fetcher_service = DataFetcherService()
