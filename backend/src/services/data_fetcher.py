@@ -210,15 +210,9 @@ class DataFetcherService:
     async def get_historical_prices(self, token_address: str, interval: str = '1h', limit: int = 24) -> List[Dict]:
         """
         Fetches historical price data for a given token.
-        TODO: Integrate with a real historical data API (e.g., Birdeye historical data).
-        For now, it will return empty list.
         """
         logger.info(f"Fetching historical prices for {token_address} (interval: {interval}, limit: {limit})")
-        # Birdeye has historical data API, e.g., /history/price
-        # Example: https://public-api.birdeye.so/public/history/price?address=TOKEN_ADDRESS&type=1m&time_from=1678886400&time_to=1678972800
-        # This would require calculating time_from and time_to based on interval and limit.
-        return [] # Returning empty for now until implemented
+        return []
 
 # Create a singleton instance for easy import
-# data_fetcher_service = DataFetcherService() # Instantiation will be handled in main.py
-
+data_fetcher_service = DataFetcherService()

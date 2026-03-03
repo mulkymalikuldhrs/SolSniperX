@@ -19,6 +19,7 @@ from routes.mempool import mempool_bp
 from routes.trading import trading_bp
 from routes.wallet import wallet_bp
 from routes.auto_trader import auto_trader_bp
+from routes.analytics import analytics_bp
 from utils.responses import error_response
 
 # Configure logging
@@ -61,6 +62,7 @@ app.register_blueprint(mempool_bp)
 app.register_blueprint(trading_bp)
 app.register_blueprint(wallet_bp)
 app.register_blueprint(auto_trader_bp)
+app.register_blueprint(analytics_bp)
 
 @app.route('/health', methods=['GET'])
 def health_check():
