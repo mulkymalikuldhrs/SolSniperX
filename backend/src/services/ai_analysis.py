@@ -4,7 +4,6 @@ import json
 import logging
 from datetime import datetime
 from typing import Dict, List, Optional, Any
-from services.data_fetcher import data_fetcher_service
 from config import LLM7_BASE_URL, LLM7_API_KEY
 
 logger = logging.getLogger(__name__)
@@ -26,6 +25,7 @@ class AIAnalysisService:
         Analyze token using LLM7 API
         """
         try:
+            from services.data_fetcher import data_fetcher_service
             token_data = await data_fetcher_service.get_token_by_address(token_address)
             if not token_data:
                 logger.warning(f"Token {token_address} not found for AI analysis.")
@@ -79,10 +79,8 @@ class AIAnalysisService:
         """
         Creates a detailed prompt for the LLM based on token data.
         """
-        prompt = f"""Analyze the following Solana memecoin data and provide a comprehensive report. 
+        prompt = f"""Analyze the following Solana memecoin data and provide a comprehensive report in JSON format.
         Focus on identifying high-probability trading opportunities and potential rugpull risks. 
-        Provide a clear sentiment (Bullish, Neutral, Bearish), a probability score (0-100), 
-        and a concise trading recommendation (Buy, Sell, Hold, Avoid).
 
         Token Details:
         - Name: {token_data.get('name')}
@@ -99,58 +97,45 @@ class AIAnalysisService:
         - Top Holder Percentage: {token_data.get('top_holder_percentage'):.2f}%
         - Dev Wallet Active: {token_data.get('dev_wallet_active')}
 
-        Based on this data, provide:
-        1.  **Analysis Summary:** A paragraph summarizing the token's current state, potential, and risks.
-        2.  **Sentiment:** [Bullish/Neutral/Bearish]
-        3.  **Probability Score:** [0-100] (Higher means higher probability of positive movement)
-        4.  **Risk Assessment:** [Low/Medium/High] (Detail potential rugpull indicators or other risks)
-        5.  **Trading Recommendation:** [Buy/Sell/Hold/Avoid] (Justify your recommendation)
-        6.  **Key Factors:** List 3-5 key factors supporting your analysis.
-
-        Format your response clearly, using markdown for readability. Ensure the Sentiment, Probability Score, Risk Assessment, and Trading Recommendation are easily extractable.
+        You MUST respond with a JSON object exactly like this:
+        {{
+            "summary": "A paragraph summarizing the token's current state, potential, and risks.",
+            "sentiment": "Bullish|Neutral|Bearish",
+            "probability_score": 0-100,
+            "risk_assessment": "Low|Medium|High",
+            "recommendation": "Buy|Sell|Hold|Avoid",
+            "key_factors": ["factor 1", "factor 2", "factor 3"]
+        }}
         """
         return prompt
 
     def _parse_llm_analysis(self, analysis_content: str) -> Dict:
         """
-        Parses the LLM's analysis content into a structured dictionary.
-        This is a basic parsing; more robust methods (e.g., regex, keyword extraction)
-        might be needed for complex LLM outputs.
+        Parses the LLM's analysis content from JSON.
         """
-        parsed_data = {
-            "summary": analysis_content, # Default to full content if parsing fails
-            "sentiment": "Neutral",
-            "probability_score": 50,
-            "risk_assessment": "Medium",
-            "recommendation": "Hold",
-            "key_factors": []
-        }
+        try:
+            # Clean up the response in case LLM wraps JSON in markdown blocks
+            content = analysis_content.strip()
+            if content.startswith("```json"):
+                content = content[7:]
+            if content.endswith("```"):
+                content = content[:-3]
+            content = content.strip()
 
-        # Attempt to extract specific fields
-        lines = analysis_content.split('\n')
-        for line in lines:
-            if "Sentiment:" in line:
-                parsed_data["sentiment"] = line.split("Sentiment:")[1].strip().replace("[","").replace("]","")
-            elif "Probability Score:" in line:
-                try:
-                    score_str = line.split("Probability Score:")[1].strip().replace("[","").replace("]","")
-                    parsed_data["probability_score"] = int(score_str.split(" ")[0])
-                except ValueError: pass
-            elif "Risk Assessment:" in line:
-                parsed_data["risk_assessment"] = line.split("Risk Assessment:")[1].strip().replace("[","").replace("]","")
-            elif "Trading Recommendation:" in line:
-                parsed_data["recommendation"] = line.split("Trading Recommendation:")[1].strip().replace("[","").replace("]","")
-            elif "Key Factors:" in line:
-                # This is a simple approach; might need more sophisticated parsing for lists
-                factors = [f.strip() for f in line.split("Key Factors:")[1].strip().split('\n') if f.strip()]
-                parsed_data["key_factors"] = factors
-        
-        # If summary is still the full content, try to extract the first paragraph
-        if parsed_data["summary"] == analysis_content:
-            first_paragraph = analysis_content.split('\n\n')[0]
-            parsed_data["summary"] = first_paragraph.strip()
+            parsed_data = json.loads(content)
 
-        return parsed_data
+            # Basic validation/normalization
+            return {
+                "summary": str(parsed_data.get("summary", "No summary provided.")),
+                "sentiment": str(parsed_data.get("sentiment", "Neutral")),
+                "probability_score": int(parsed_data.get("probability_score", 50)),
+                "risk_assessment": str(parsed_data.get("risk_assessment", "Medium")),
+                "recommendation": str(parsed_data.get("recommendation", "Hold")),
+                "key_factors": list(parsed_data.get("key_factors", []))
+            }
+        except Exception as e:
+            logger.error(f"Error parsing LLM JSON analysis: {e}. Content: {analysis_content}")
+            return self._create_fallback_analysis({})
 
     def _create_fallback_analysis(self, token_data: Dict) -> Dict:
         """

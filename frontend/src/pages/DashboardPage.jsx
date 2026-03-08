@@ -19,43 +19,29 @@ import {
   Star
 } from 'lucide-react'
 import { useApi } from '../contexts/ApiContext'
-import { useAuth } from '../contexts/AuthContext'
-
-// Mock data for development
-const mockStats = {
-  totalProfit: 2847.32,
-  totalTrades: 156,
-  successRate: 87.2,
-  activeTokens: 23,
-  todayProfit: 342.18,
-  weeklyProfit: 1205.67
-}
-
-const mockTopTokens = [
-  { symbol: 'PEPE', price: 0.00001234, change: 45.67, volume: 2340000, risk: 25 },
-  { symbol: 'BONK', price: 0.00000567, change: 23.45, volume: 1890000, risk: 15 },
-  { symbol: 'WIF', price: 0.00002345, change: -12.34, volume: 1560000, risk: 35 },
-  { symbol: 'POPCAT', price: 0.00001890, change: 67.89, volume: 2100000, risk: 20 },
-  { symbol: 'MEW', price: 0.00000789, change: 34.56, volume: 980000, risk: 40 }
-]
-
-const mockRecentTrades = [
-  { token: 'PEPE', type: 'buy', amount: 0.5, profit: 45.67, time: '2 min ago', status: 'completed' },
-  { token: 'BONK', type: 'sell', amount: 1.2, profit: 23.45, time: '5 min ago', status: 'completed' },
-  { token: 'WIF', type: 'buy', amount: 0.8, profit: -12.34, time: '8 min ago', status: 'completed' },
-  { token: 'POPCAT', type: 'sell', amount: 2.1, profit: 67.89, time: '12 min ago', status: 'completed' }
-]
+import { useWebSocket } from '../contexts/WebSocketContext'
 
 export default function DashboardPage() {
   const [dashboardData, setDashboardData] = useState(null)
   const [loading, setLoading] = useState(true)
   const { getDashboardData, startAutoTrader, stopAutoTrader } = useApi()
-  const { autoTraderStatus } = useWebSocket()
-  const [isAutoTraderRunning, setIsAutoTraderRunning] = useState(autoTraderStatus.enabled)
+  const { autoTraderStatus, lastMessage } = useWebSocket()
+  const [isAutoTraderRunning, setIsAutoTraderRunning] = useState(false)
+
+  useEffect(() => {
+    setIsAutoTraderRunning(autoTraderStatus.enabled)
+  }, [autoTraderStatus])
 
   useEffect(() => {
     loadDashboardData()
   }, [])
+
+  useEffect(() => {
+    // Reload dashboard data on certain events
+    if (lastMessage && (lastMessage.type === 'trade_executed' || lastMessage.type === 'auto_trade_event')) {
+      loadDashboardData()
+    }
+  }, [lastMessage])
 
   const handleStartAutoTrader = async () => {
     try {
@@ -86,17 +72,13 @@ export default function DashboardPage() {
   const loadDashboardData = async () => {
     try {
       setLoading(true)
-      // In development, use mock data
-      setTimeout(() => {
-        setDashboardData({
-          stats: mockStats,
-          topTokens: mockTopTokens,
-          recentTrades: mockRecentTrades
-        })
-        setLoading(false)
-      }, 1000)
+      const result = await getDashboardData()
+      if (result.success) {
+        setDashboardData(result.data)
+      }
     } catch (error) {
       console.error('Error loading dashboard data:', error)
+    } finally {
       setLoading(false)
     }
   }
@@ -123,14 +105,36 @@ export default function DashboardPage() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
+        className="mb-8 flex justify-between items-center"
       >
-        <h1 className="text-3xl font-bold text-gradient-primary mb-2">
-          Welcome back, {user?.username || 'Trader'}! 👋
-        </h1>
-        <p className="text-muted-foreground">
-          Here's your trading performance and market overview
-        </p>
+        <div>
+          <h1 className="text-3xl font-bold text-gradient-primary mb-2">
+            SolSniperX Dashboard 👋
+          </h1>
+          <p className="text-muted-foreground">
+            Real-time trading performance and market overview
+          </p>
+        </div>
+
+        <div className="flex items-center space-x-4">
+          <div className={`px-4 py-2 rounded-full border ${
+            isAutoTraderRunning
+              ? 'bg-green-500/10 border-green-500/30 text-green-400'
+              : 'bg-red-500/10 border-red-500/30 text-red-400'
+          }`}>
+            Bot: {isAutoTraderRunning ? 'ACTIVE' : 'INACTIVE'}
+          </div>
+          <button
+            onClick={isAutoTraderRunning ? handleStopAutoTrader : handleStartAutoTrader}
+            className={`px-6 py-2 rounded-lg font-bold transition-all ${
+              isAutoTraderRunning
+                ? 'bg-red-600 hover:bg-red-700 text-white'
+                : 'bg-green-600 hover:bg-green-700 text-white'
+            }`}
+          >
+            {isAutoTraderRunning ? 'STOP BOT' : 'START BOT'}
+          </button>
+        </div>
       </motion.div>
 
       {/* Stats Cards */}

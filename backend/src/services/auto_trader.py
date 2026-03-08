@@ -170,8 +170,31 @@ class AutoTraderService:
         except Exception as e:
             logger.error(f"AutoTrader: Error during scan and buy: {e}")
 
+    async def _update_owned_tokens_balances(self):
+        """Updates the current amount of tokens owned based on real wallet data."""
+        for token_address in list(self.owned_tokens.keys()):
+            try:
+                # Use the new precise balance fetching method
+                balance = await self.wallet_service.get_token_balance(token_address)
+
+                # We need to convert raw amount to human readable using decimals
+                # For auto-trader logic, we should ideally fetch decimals here
+                # or have it cached.
+                decimals = await self.trading_service._get_token_decimals(token_address)
+                if decimals is not None:
+                    human_balance = balance / (10 ** decimals)
+                else:
+                    human_balance = balance # Fallback to raw if decimals unknown
+
+                self.owned_tokens[token_address]['current_amount_tokens'] = human_balance
+                logger.debug(f"AutoTrader: Updated balance for {self.owned_tokens[token_address]['symbol']}: {human_balance}")
+            except Exception as e:
+                logger.error(f"AutoTrader: Error updating balance for {token_address}: {e}")
+
     async def _monitor_and_sell(self):
         logger.info("AutoTrader: Monitoring owned tokens for sell opportunities...")
+        await self._update_owned_tokens_balances()
+
         tokens_to_remove = []
         for token_address, details in self.owned_tokens.items():
             try:
@@ -182,14 +205,15 @@ class AutoTraderService:
 
                 current_price = current_token_data['price']
                 buy_price = details['buy_price']
+                sell_amount = details["current_amount_tokens"]
+
+                if sell_amount <= 0:
+                    logger.debug(f"AutoTrader: Zero balance for {details['symbol']}, skipping sell check.")
+                    continue
 
                 # Profit target check
                 if current_price >= buy_price * self.config["profit_target_x"]:
-                    logger.info(f"AutoTrader: Profit target reached for {details['symbol']}. Selling...")
-                    # Execute sell order (sell all owned tokens of this type)
-                    # This requires knowing the exact amount of tokens owned, which needs to be updated after buy confirmation
-                    # For now, using a placeholder amount.
-                    sell_amount = details["current_amount_tokens"] if details["current_amount_tokens"] > 0 else 0.000001 # Placeholder
+                    logger.info(f"AutoTrader: Profit target reached for {details['symbol']}. Selling {sell_amount} tokens...")
                     sell_result = await self.trading_service.execute_sell_order(
                         token_address=token_address,
                         amount_tokens=sell_amount,

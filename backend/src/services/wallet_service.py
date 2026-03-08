@@ -5,9 +5,6 @@ from solana.rpc.api import Client
 from solana.keypair import Keypair
 # from solana.publickey import PublicKey # Use solders types directly
 from solana.rpc.types import TokenAccountOpts
-from spl.token.client import Token
-from spl.token.instructions import get_associated_token_address
-from spl.token.state import AccountInfo as SplTokenAccountInfo
 from solders.pubkey import Pubkey
 from solders.keypair import Keypair as SoldersKeypair
 from solders.system_program import TransferParams, transfer
@@ -31,6 +28,7 @@ class WalletService:
         self.solana_client = Client(SOLANA_RPC_URL)
         self.wallet_keypair: Optional[SoldersKeypair] = None
         self.wallet_address: Optional[Pubkey] = None
+        self.token_decimals_cache = {}
         self._initialize_wallet()
 
     def _initialize_wallet(self):
@@ -50,6 +48,26 @@ class WalletService:
             self.wallet_keypair = None
             self.wallet_address = None
 
+    async def _get_token_decimals(self, mint_address: str) -> int:
+        """Fetch and cache token decimals."""
+        if mint_address in self.token_decimals_cache:
+            return self.token_decimals_cache[mint_address]
+
+        try:
+            mint_pubkey = Pubkey.from_string(mint_address)
+            account_info = self.solana_client.get_account_info(mint_pubkey)
+            if account_info.value:
+                # Manual byte slicing for decimals (offset 44 in Mint account)
+                data = account_info.value.data
+                if len(data) >= 45:
+                    decimals = data[44]
+                    self.token_decimals_cache[mint_address] = decimals
+                    return decimals
+        except Exception as e:
+            logger.error(f"Error fetching decimals for {mint_address}: {e}")
+
+        return 9 # Fallback
+
     async def get_wallet_info(self) -> Optional[Dict]:
         """
         Retrieves information about the initialized wallet.
@@ -60,9 +78,8 @@ class WalletService:
 
         try:
             balance_response = self.solana_client.get_balance(self.wallet_address)
-            sol_balance = balance_response.value / 10**9  # Convert lamports to SOL
+            sol_balance = balance_response.value / 10**9
 
-            # Fetch token accounts
             token_accounts_response = self.solana_client.get_token_accounts_by_owner(
                 self.wallet_address,
                 TokenAccountOpts(program_id=Pubkey.from_string("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5mW")),
@@ -71,31 +88,49 @@ class WalletService:
             for account_info in token_accounts_response.value:
                 pubkey = account_info.pubkey
                 try:
-                    # Correctly parse the SPL token account data
-                    account_info_data = SplTokenAccountInfo.from_bytes(account_info.account.data)
-                    mint = str(account_info_data.mint)
-                    amount = account_info_data.amount
+                    # Manual byte slicing for Mint and Amount
+                    # Mint is at offset 0 (32 bytes), Amount at 64 (8 bytes)
+                    data = account_info.account.data
+                    mint = str(Pubkey.from_bytes(data[0:32]))
+                    amount_raw = int.from_bytes(data[64:72], "little")
+
+                    if amount_raw == 0:
+                        continue
+
+                    decimals = await self._get_token_decimals(mint)
+                    amount = amount_raw / (10 ** decimals)
  
-                    # To get decimals, we would need another call, which can be slow.
-                    # For now, we'll assume we can fetch it later or display the raw amount.
-                    # A better approach would be to have a token metadata cache.
                     tokens.append({
                         "account_address": str(pubkey),
                         "mint_address": mint,
-                        "balance_raw": amount,
-                        "balance": 0, # Placeholder for balance with decimals
-                        "usd_value": 0.0 # Placeholder
+                        "balance_raw": amount_raw,
+                        "balance": amount,
+                        "decimals": decimals,
+                        "usd_value": 0.0
                     })
                 except Exception as e:
                     logger.warning(f"Could not parse token account {pubkey}: {e}")
 
-            # TODO: Fetch USD value for SOL and tokens
-            usd_value = sol_balance * 0 # Placeholder for actual SOL price
+            # Fetch real SOL price from Jupiter Price API
+            sol_price = 0.0
+            try:
+                import httpx
+                async with httpx.AsyncClient() as client:
+                    price_response = await client.get("https://api.jup.ag/price/v2?ids=So11111111111111111111111111111111111111112")
+                    if price_response.status_code == 200:
+                        price_data = price_response.json()
+                        sol_price = float(price_data['data']['So11111111111111111111111111111111111111112']['price'])
+            except Exception as pe:
+                logger.error(f"Error fetching SOL price: {pe}")
+                sol_price = 0.0
+
+            usd_value = sol_balance * sol_price
             total_value_usd = usd_value + sum(t["usd_value"] for t in tokens)
 
             wallet_info = {
                 "address": str(self.wallet_address),
                 "sol_balance": sol_balance,
+                "sol_price": sol_price,
                 "usd_value": usd_value,
                 "tokens": tokens,
                 "total_value_usd": total_value_usd,
@@ -120,6 +155,31 @@ class WalletService:
                 'last_updated': wallet_info['last_updated']
             }
         return {'sol_balance': 0, 'usd_value': 0, 'tokens': [], 'total_value_usd': 0, 'last_updated': datetime.now().isoformat()}
+
+    async def get_token_balance(self, mint_address: str) -> float:
+        """
+        Retrieves the balance for a specific token mint address.
+        """
+        if not self.wallet_address:
+            return 0.0
+
+        try:
+            opts = TokenAccountOpts(mint=Pubkey.from_string(mint_address))
+            response = self.solana_client.get_token_accounts_by_owner(self.wallet_address, opts)
+
+            if not response.value:
+                return 0.0
+
+            total_balance = 0.0
+            for account_info in response.value:
+                 data = account_info.account.data
+                 amount_raw = int.from_bytes(data[64:72], "little")
+                 total_balance += amount_raw
+
+            return float(total_balance)
+        except Exception as e:
+            logger.error(f"Error fetching token balance for {mint_address}: {e}")
+            return 0.0
 
     # Removed simulated wallet management functions (add_wallet, update_wallet, delete_wallet)
     # as they are no longer relevant for a single, private-key-based wallet.
