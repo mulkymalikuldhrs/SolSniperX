@@ -12,8 +12,6 @@ from solders.keypair import Keypair as SoldersKeypair
 from solders.pubkey import Pubkey
 from solders.transaction import VersionedTransaction
 from solders.message import Message
-from spl.token.constants import TOKEN_PROGRAM_ID
-from spl.token.state import Mint
 
 from config import SOLANA_RPC_URL
 from services.wallet_service import wallet_service # Import the wallet_service singleton
@@ -43,9 +41,11 @@ class TradingService:
                 logger.warning(f"Mint account not found for {token_mint_address}")
                 return None
             
-            # Decode the mint account data
-            mint_data = Mint.decode(account_info.value.data)
-            return mint_data.decimals
+            # Decode the mint account data (decimals at offset 44)
+            data = account_info.value.data
+            if len(data) >= 45:
+                return data[44]
+            return None
         except Exception as e:
             logger.error(f"Error fetching decimals for {token_mint_address}: {e}")
             return None
@@ -142,10 +142,19 @@ class TradingService:
             tx_signature = self.solana_client.send_raw_transaction(bytes(signed_transaction)).value
             logger.info(f"Transaction sent: {tx_signature}")
 
-            # Confirm transaction
-            confirmation = self.solana_client.confirm_transaction(tx_signature, Confirmed)
-            if confirmation.value.err:
-                raise Exception(f"Transaction failed: {confirmation.value.err}")
+            # Confirm transaction with polling
+            logger.info(f"Confirming transaction: {tx_signature}")
+            confirmed = False
+            for i in range(20): # Poll 20 times, every 2s
+                status = self.solana_client.get_signature_statuses([tx_signature]).value[0]
+                if status and status.confirmations is not None or (status and status.err is None):
+                    logger.info(f"Transaction confirmed: {tx_signature}")
+                    confirmed = True
+                    break
+                await asyncio.sleep(2)
+
+            if not confirmed:
+                logger.warning(f"Transaction not confirmed after timeout: {tx_signature}")
 
             transaction_id = str(tx_signature)
             trade_data = {
@@ -204,10 +213,19 @@ class TradingService:
             tx_signature = self.solana_client.send_raw_transaction(bytes(signed_transaction)).value
             logger.info(f"Transaction sent: {tx_signature}")
 
-            # Confirm transaction
-            confirmation = self.solana_client.confirm_transaction(tx_signature, Confirmed)
-            if confirmation.value.err:
-                raise Exception(f"Transaction failed: {confirmation.value.err}")
+            # Confirm transaction with polling
+            logger.info(f"Confirming transaction: {tx_signature}")
+            confirmed = False
+            for i in range(20): # Poll 20 times, every 2s
+                status = self.solana_client.get_signature_statuses([tx_signature]).value[0]
+                if status and status.confirmations is not None or (status and status.err is None):
+                    logger.info(f"Transaction confirmed: {tx_signature}")
+                    confirmed = True
+                    break
+                await asyncio.sleep(2)
+
+            if not confirmed:
+                logger.warning(f"Transaction not confirmed after timeout: {tx_signature}")
 
             transaction_id = str(tx_signature)
             trade_data = {

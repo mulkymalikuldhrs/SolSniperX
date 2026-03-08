@@ -149,6 +149,10 @@ class AutoTraderService:
 
                     if buy_result.get("success"):
                         logger.info(f"AutoTrader: Successfully bought {token.get('symbol', token.get('address'))}. Transaction: {buy_result.get('transaction_id')}")
+
+                        # Wait a bit for balance to reflect on RPC before first update
+                        await asyncio.sleep(5)
+
                         # Record owned token details
                         self.owned_tokens[token['address']] = {
                             "symbol": token.get('symbol'),
@@ -156,8 +160,12 @@ class AutoTraderService:
                             "buy_amount_sol": self.config["buy_amount_sol"],
                             "transaction_id": buy_result.get('transaction_id'),
                             "purchase_time": datetime.now().isoformat(),
-                            "current_amount_tokens": 0 # This needs to be updated after the trade confirms and we know how many tokens were received
+                            "current_amount_tokens": 0
                         }
+
+                        # Update balance immediately
+                        await self._update_token_balance(token['address'])
+
                         if self.socketio:
                             self.socketio.emit('auto_trade_event', {'type': 'buy', 'token': token['symbol'], 'amount_sol': self.config["buy_amount_sol"], 'status': 'success'})
                     else:
@@ -170,8 +178,33 @@ class AutoTraderService:
         except Exception as e:
             logger.error(f"AutoTrader: Error during scan and buy: {e}")
 
+    async def _update_token_balance(self, token_address: str):
+        """Updates the balance for a single token."""
+        try:
+            balance_raw = await self.wallet_service.get_token_balance(token_address)
+            decimals = await self.trading_service._get_token_decimals(token_address)
+
+            if decimals is not None:
+                human_balance = balance_raw / (10 ** decimals)
+            else:
+                human_balance = balance_raw
+
+            if token_address in self.owned_tokens:
+                self.owned_tokens[token_address]['current_amount_tokens'] = human_balance
+                logger.debug(f"AutoTrader: Updated balance for {self.owned_tokens[token_address].get('symbol', token_address)}: {human_balance}")
+        except Exception as e:
+            logger.error(f"AutoTrader: Error updating balance for {token_address}: {e}")
+
+    async def _update_owned_tokens_balances(self):
+        """Updates the current amount of tokens owned based on real wallet data."""
+        tasks = [self._update_token_balance(addr) for addr in self.owned_tokens.keys()]
+        if tasks:
+            await asyncio.gather(*tasks)
+
     async def _monitor_and_sell(self):
         logger.info("AutoTrader: Monitoring owned tokens for sell opportunities...")
+        await self._update_owned_tokens_balances()
+
         tokens_to_remove = []
         for token_address, details in self.owned_tokens.items():
             try:
@@ -182,14 +215,15 @@ class AutoTraderService:
 
                 current_price = current_token_data['price']
                 buy_price = details['buy_price']
+                sell_amount = details["current_amount_tokens"]
+
+                if sell_amount <= 0:
+                    logger.debug(f"AutoTrader: Zero balance for {details['symbol']}, skipping sell check.")
+                    continue
 
                 # Profit target check
                 if current_price >= buy_price * self.config["profit_target_x"]:
-                    logger.info(f"AutoTrader: Profit target reached for {details['symbol']}. Selling...")
-                    # Execute sell order (sell all owned tokens of this type)
-                    # This requires knowing the exact amount of tokens owned, which needs to be updated after buy confirmation
-                    # For now, using a placeholder amount.
-                    sell_amount = details["current_amount_tokens"] if details["current_amount_tokens"] > 0 else 0.000001 # Placeholder
+                    logger.info(f"AutoTrader: Profit target reached for {details['symbol']}. Selling {sell_amount} tokens...")
                     sell_result = await self.trading_service.execute_sell_order(
                         token_address=token_address,
                         amount_tokens=sell_amount,
