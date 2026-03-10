@@ -4,10 +4,15 @@ from flask_socketio import SocketIO, emit
 import json
 import logging
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Load environment variables early
+load_dotenv()
+
 from services.data_fetcher import DataFetcherService
-from services.mempool_monitor import MempoolMonitorService
+from services.mempool_monitor import mempool_monitor_service
 from services.trading_service import TradingService
-from services.wallet_service import WalletService
+from services.wallet_service import wallet_service
 from services.ai_analysis import AIAnalysisService
 from services.auto_trader import AutoTraderService
 
@@ -29,10 +34,11 @@ app = Flask(__name__)
 CORS(app, origins="*")
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
 
-# Service Instantiation
-wallet_service = WalletService(socketio=socketio)
+# Service Initialization with socketio
+# Note: Services using socketio are instantiated here and shared
+wallet_service.socketio = socketio
 trading_service = TradingService(socketio=socketio)
-mempool_monitor_service = MempoolMonitorService(socketio=socketio)
+mempool_monitor_service.socketio = socketio
 data_fetcher_service = DataFetcherService(socketio=socketio)
 ai_analysis_service = AIAnalysisService(socketio=socketio)
 auto_trader_service = AutoTraderService(
@@ -43,7 +49,7 @@ auto_trader_service = AutoTraderService(
     wallet_service=wallet_service
 )
 
-# Add services to the app context for easier access in blueprints if needed later
+# Add services to the app context for easier access in blueprints
 app.services = {
     "wallet": wallet_service,
     "trading": trading_service,
@@ -69,7 +75,7 @@ def health_check():
         'status': 'healthy',
         'timestamp': datetime.now().isoformat(),
         'service': 'SolSniperX Backend v2.0',
-        'features': ['Token Scanner', 'AI Analysis', 'Trading Signals', 'Local Storage']
+        'features': ['Token Scanner', 'AI Analysis', 'Trading Signals', 'Autonomous Mode']
     })
 
 @app.errorhandler(404)
@@ -82,11 +88,6 @@ def internal_error(error):
     return error_response('Internal server error', 500)
 
 if __name__ == '__main__':
-    # Start background services
-    # asyncio.run(mempool_monitor_service.start_monitoring()) # This needs to be run in a separate thread or managed by eventlet
-    # For eventlet, tasks are usually spawned directly
+    # Start background monitoring task
     socketio.start_background_task(mempool_monitor_service.start_monitoring)
     socketio.run(app, host='0.0.0.0', port=5000)
-
-
-
