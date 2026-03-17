@@ -3,11 +3,18 @@ from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 import json
 import logging
+import asyncio
+import threading
 from datetime import datetime
-from services.data_fetcher import DataFetcherService
-from services.mempool_monitor import MempoolMonitorService
+from dotenv import load_dotenv
+
+# Load environment variables early
+load_dotenv()
+
+from services.data_fetcher import data_fetcher_service
+from services.mempool_monitor import mempool_monitor_service
 from services.trading_service import TradingService
-from services.wallet_service import WalletService
+from services.wallet_service import wallet_service
 from services.ai_analysis import AIAnalysisService
 from services.auto_trader import AutoTraderService
 
@@ -22,19 +29,20 @@ from routes.auto_trader import auto_trader_bp
 from utils.responses import error_response
 
 # Configure logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 CORS(app, origins="*")
 socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
 
-# Service Instantiation
-wallet_service = WalletService(socketio=socketio)
+# Service Initialization with socketio
+wallet_service.socketio = socketio
 trading_service = TradingService(socketio=socketio)
-mempool_monitor_service = MempoolMonitorService(socketio=socketio)
-data_fetcher_service = DataFetcherService(socketio=socketio)
-ai_analysis_service = AIAnalysisService(socketio=socketio)
+mempool_monitor_service.socketio = socketio
+mempool_monitor_service.data_fetcher_service = data_fetcher_service
+data_fetcher_service.socketio = socketio
+ai_analysis_service = AIAnalysisService(socketio=socketio, data_fetcher_service=data_fetcher_service)
 auto_trader_service = AutoTraderService(
     socketio=socketio,
     data_fetcher_service=data_fetcher_service,
@@ -43,7 +51,7 @@ auto_trader_service = AutoTraderService(
     wallet_service=wallet_service
 )
 
-# Add services to the app context for easier access in blueprints if needed later
+# Add services to the app context for easier access in blueprints
 app.services = {
     "wallet": wallet_service,
     "trading": trading_service,
@@ -68,8 +76,8 @@ def health_check():
     return jsonify({
         'status': 'healthy',
         'timestamp': datetime.now().isoformat(),
-        'service': 'SolSniperX Backend v2.0',
-        'features': ['Token Scanner', 'AI Analysis', 'Trading Signals', 'Local Storage']
+        'service': 'SolSniperX Backend v2.1 (Production Ready)',
+        'features': ['Token Scanner', 'AI Analysis', 'Trading Signals', 'Autonomous Mode', 'Real Solana Integration']
     })
 
 @app.errorhandler(404)
@@ -81,12 +89,24 @@ def internal_error(error):
     logger.error(f"Internal server error: {error}")
     return error_response('Internal server error', 500)
 
+def start_async_loop():
+    """
+    Starts an asyncio event loop in a background thread for monitoring and auto-trading.
+    """
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
+    # Schedule background tasks
+    loop.create_task(mempool_monitor_service.start_monitoring())
+
+    logger.info("Background asyncio loop started.")
+    loop.run_forever()
+
 if __name__ == '__main__':
-    # Start background services
-    # asyncio.run(mempool_monitor_service.start_monitoring()) # This needs to be run in a separate thread or managed by eventlet
-    # For eventlet, tasks are usually spawned directly
-    socketio.start_background_task(mempool_monitor_service.start_monitoring)
+    # Start background asyncio services in a dedicated thread
+    bg_thread = threading.Thread(target=start_async_loop, daemon=True)
+    bg_thread.start()
+
+    # Run the Flask-SocketIO app
+    logger.info("Starting Flask-SocketIO server on port 5000...")
     socketio.run(app, host='0.0.0.0', port=5000)
-
-
-
