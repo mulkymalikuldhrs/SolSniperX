@@ -1,0 +1,1111 @@
+SOLANA_PRIVATE_KEY environment variable not set. Wallet service will not function.
+2026-03-18 16:59:38,203 - __main__ - INFO - Starting Flask-SocketIO server on port 5000...
+2026-03-18 16:59:38,204 - __main__ - INFO - Background asyncio loop started.
+2026-03-18 16:59:38,204 - services.mempool_monitor - INFO - Starting mempool monitoring task.
+2026-03-18 16:59:38,392 - services.mempool_monitor - INFO - Connected to Solana WebSocket: wss://api.mainnet-beta.solana.com/
+2026-03-18 16:59:38,393 - services.mempool_monitor - INFO - Subscribed to Pump.fun logs.
+2026-03-18 16:59:38,393 - services.mempool_monitor - INFO - Subscribed to Raydium logs.
+2026-03-18 16:59:38,606 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5P9dYzEAdb9gEC3UXaPJg76cLZKF6tKzjRH51iQsTVWVeBJdkCRBWuvLJ2DoovnCsdEgWB46wJJyFifx7W8e5qHJ
+2026-03-18 16:59:38,906 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 200 OK"
+2026-03-18 16:59:38,972 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5VRxtMMgcyWjFKvMBDtSTdVS2f831VY3MxbGwBMzgP1Y6RwiWtADCUpAQGNZ81wivSDLvPz9FyJ6kX9iVVuC1WMx
+2026-03-18 16:59:39,191 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 200 OK"
+2026-03-18 16:59:39,699 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5ZKCzAGYuLwPnpMMdKPV1PZnEcUbthQzHSARv7qy74u8ZvTBhbys6Bn5oP9R4TdXskyNFhWFCKcp4WioBRxPMeqH
+2026-03-18 16:59:39,726 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:39,727 - services.mempool_monitor - ERROR - Error processing new token transaction 5ZKCzAGYuLwPnpMMdKPV1PZnEcUbthQzHSARv7qy74u8ZvTBhbys6Bn5oP9R4TdXskyNFhWFCKcp4WioBRxPMeqH:
+2026-03-18 16:59:40,410 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: qeUrD3JTY1jGA2K7yFhN2ssfA74EuJDPwBRWVGg1KkrU6Q4X9LD7yQksk2bwmvWwhe9mKyc7FBaUFHM4FX59rkm
+2026-03-18 16:59:40,494 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:40,495 - services.mempool_monitor - ERROR - Error processing new token transaction qeUrD3JTY1jGA2K7yFhN2ssfA74EuJDPwBRWVGg1KkrU6Q4X9LD7yQksk2bwmvWwhe9mKyc7FBaUFHM4FX59rkm:
+2026-03-18 16:59:41,144 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4LEpdk1nH675i68GK5yqExZSsoHVuDnyqb5Sn4QdimDdmgYXTVsexMQcqwyCxBF8aXpcSEasLVx1AVo6jaZbhyRW
+2026-03-18 16:59:41,228 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:41,229 - services.mempool_monitor - ERROR - Error processing new token transaction 4LEpdk1nH675i68GK5yqExZSsoHVuDnyqb5Sn4QdimDdmgYXTVsexMQcqwyCxBF8aXpcSEasLVx1AVo6jaZbhyRW:
+2026-03-18 16:59:41,229 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4asBZ2GdyEELtZ9M44DkVyXvE2Zz4WHSsMX9MP5iTNaUWCGf266FMDwXHQDZKLzkQVmm8aMJ1zMv43VEQARRt8kN
+2026-03-18 16:59:41,313 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:41,314 - services.mempool_monitor - ERROR - Error processing new token transaction 4asBZ2GdyEELtZ9M44DkVyXvE2Zz4WHSsMX9MP5iTNaUWCGf266FMDwXHQDZKLzkQVmm8aMJ1zMv43VEQARRt8kN:
+2026-03-18 16:59:44,083 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5doUC1B7zVaXT9wZB7Xv3gQJcncxWrNsC8DE88NNT5bUGCZ8mWvUpUQpdbdjY5rFzseTgqpbA7HC8ULwgC6Wx7VA
+2026-03-18 16:59:44,169 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:44,170 - services.mempool_monitor - ERROR - Error processing new token transaction 5doUC1B7zVaXT9wZB7Xv3gQJcncxWrNsC8DE88NNT5bUGCZ8mWvUpUQpdbdjY5rFzseTgqpbA7HC8ULwgC6Wx7VA:
+2026-03-18 16:59:44,171 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3iZ9scEaK8nZ5d9gJMHsLjwgr9AWwqPuADDTDuhQw9wUJWwtm5jETi2NAC8S2ijHag1TCufLHXoLLjnMWLsyfMUe
+2026-03-18 16:59:44,252 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:44,253 - services.mempool_monitor - ERROR - Error processing new token transaction 3iZ9scEaK8nZ5d9gJMHsLjwgr9AWwqPuADDTDuhQw9wUJWwtm5jETi2NAC8S2ijHag1TCufLHXoLLjnMWLsyfMUe:
+2026-03-18 16:59:44,254 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2Eruwvms6PgSnB93LkLygoJ3kHUAbfY7syF6yzT8z8Sc8wQbghx4KwXoPC3s8PdmBn7EXSKA9QrfxeMjiqd5ajSL
+2026-03-18 16:59:44,339 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:44,340 - services.mempool_monitor - ERROR - Error processing new token transaction 2Eruwvms6PgSnB93LkLygoJ3kHUAbfY7syF6yzT8z8Sc8wQbghx4KwXoPC3s8PdmBn7EXSKA9QrfxeMjiqd5ajSL:
+2026-03-18 16:59:44,340 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: q7ainNoBQsHDd5Ytk7KEGvNzexw3hgnURGfLVhoJqLp6UdWtirTS1tH9AtUJi2jjUytCQjqVAbfppJWGjF2S2rE
+2026-03-18 16:59:44,425 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:44,427 - services.mempool_monitor - ERROR - Error processing new token transaction q7ainNoBQsHDd5Ytk7KEGvNzexw3hgnURGfLVhoJqLp6UdWtirTS1tH9AtUJi2jjUytCQjqVAbfppJWGjF2S2rE:
+2026-03-18 16:59:44,427 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: JvddomQy6DmNu6a7CrgZS1y7vCnzu8aQDpv1ewfDgterKkqiQzveq8qHy34Bv9SEdPLmUREoDQWHgiA4UZZjF6X
+2026-03-18 16:59:44,509 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:44,511 - services.mempool_monitor - ERROR - Error processing new token transaction JvddomQy6DmNu6a7CrgZS1y7vCnzu8aQDpv1ewfDgterKkqiQzveq8qHy34Bv9SEdPLmUREoDQWHgiA4UZZjF6X:
+2026-03-18 16:59:44,511 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 22zvyoAdrGwReTpQnF27Bdcw9cvWWckQsPhLmp8gstvs1o26hPiLaVLPTac8Cg7aJHSeUvzXBiFEZbLqBHxe4QCi
+2026-03-18 16:59:44,597 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:44,598 - services.mempool_monitor - ERROR - Error processing new token transaction 22zvyoAdrGwReTpQnF27Bdcw9cvWWckQsPhLmp8gstvs1o26hPiLaVLPTac8Cg7aJHSeUvzXBiFEZbLqBHxe4QCi:
+2026-03-18 16:59:44,598 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2ACMuFmRhLPchA17kLAEeMJiki7FmEk9mEDEHeBjMkwioS2rX65DVy8MMfy9b2QJsgXGmBrsPnbMzryUAfdjysmh
+2026-03-18 16:59:44,681 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:44,682 - services.mempool_monitor - ERROR - Error processing new token transaction 2ACMuFmRhLPchA17kLAEeMJiki7FmEk9mEDEHeBjMkwioS2rX65DVy8MMfy9b2QJsgXGmBrsPnbMzryUAfdjysmh:
+2026-03-18 16:59:44,683 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 35XNkQDgKhdY5ZZENS4qdD6BgY4duk26egkU1ukqGUnPvryHTXsJoobtK3ig365EgZp7uXaKzJzoMsV8SNAJDste
+2026-03-18 16:59:44,765 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:44,766 - services.mempool_monitor - ERROR - Error processing new token transaction 35XNkQDgKhdY5ZZENS4qdD6BgY4duk26egkU1ukqGUnPvryHTXsJoobtK3ig365EgZp7uXaKzJzoMsV8SNAJDste:
+2026-03-18 16:59:44,767 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: eqBQ5JVdA15Wcv6MRmKq3kW8edmHL8Yi2scMNkwjT4GajTbWKkijhXFCFoZVuyVKtr4vvGANKvBbFKLd7YVTQvR
+2026-03-18 16:59:44,851 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:44,852 - services.mempool_monitor - ERROR - Error processing new token transaction eqBQ5JVdA15Wcv6MRmKq3kW8edmHL8Yi2scMNkwjT4GajTbWKkijhXFCFoZVuyVKtr4vvGANKvBbFKLd7YVTQvR:
+2026-03-18 16:59:44,852 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 33RCfutgkwksLSoomdgaozNfhoy5917MKhycEu8poQY2H3HPKPwxnjsbvAaADpFBcSiC8nciTDL1m3vpF7cTzGXz
+2026-03-18 16:59:44,942 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:44,943 - services.mempool_monitor - ERROR - Error processing new token transaction 33RCfutgkwksLSoomdgaozNfhoy5917MKhycEu8poQY2H3HPKPwxnjsbvAaADpFBcSiC8nciTDL1m3vpF7cTzGXz:
+2026-03-18 16:59:44,944 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4WyAn1KKBACvcxtjXXKYV3c6sC9kwqf5CsNScLpcxNvMxHzSFFUzo6n1hk84W49TezdSA6bzJKPFTYE7HuyA9RuE
+2026-03-18 16:59:45,026 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:45,027 - services.mempool_monitor - ERROR - Error processing new token transaction 4WyAn1KKBACvcxtjXXKYV3c6sC9kwqf5CsNScLpcxNvMxHzSFFUzo6n1hk84W49TezdSA6bzJKPFTYE7HuyA9RuE:
+2026-03-18 16:59:45,485 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3BixtWqiQ1rxQfoo3ct3FHUcYwUS3GKwvgeeM9jDdW8KTub3KoRbEfaCoMYdPzd9KTZr9bwB66DAUi2MsfG5rdAa
+2026-03-18 16:59:45,571 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:45,572 - services.mempool_monitor - ERROR - Error processing new token transaction 3BixtWqiQ1rxQfoo3ct3FHUcYwUS3GKwvgeeM9jDdW8KTub3KoRbEfaCoMYdPzd9KTZr9bwB66DAUi2MsfG5rdAa:
+2026-03-18 16:59:45,833 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2SAmFMPjngzdWsnUSLdZ2AZGvizC8RRcJm88RhjHRRfzuz9awiJDxwHLTcJMy6DqgTmLvtENPNKsVnB3fPXLErMk
+2026-03-18 16:59:45,915 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:45,916 - services.mempool_monitor - ERROR - Error processing new token transaction 2SAmFMPjngzdWsnUSLdZ2AZGvizC8RRcJm88RhjHRRfzuz9awiJDxwHLTcJMy6DqgTmLvtENPNKsVnB3fPXLErMk:
+2026-03-18 16:59:46,190 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2JX6bv3j8WTFVxbu6WmmpDAMS3Usg975NWUbcBM7ph76pVatV1qwYvgMSwAs5tLzAC5semGSKyAVQSEZBKHUjK8m
+2026-03-18 16:59:46,272 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:46,273 - services.mempool_monitor - ERROR - Error processing new token transaction 2JX6bv3j8WTFVxbu6WmmpDAMS3Usg975NWUbcBM7ph76pVatV1qwYvgMSwAs5tLzAC5semGSKyAVQSEZBKHUjK8m:
+2026-03-18 16:59:46,546 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3rVxSVkF7CRwQaqRkZ5FnrgdrTMtVLezJfFgituTKjbQj8krX3ATkR1Ef1acHwMWP2EuB5fsYNk6wFDU3g6DNRk8
+2026-03-18 16:59:46,629 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:46,630 - services.mempool_monitor - ERROR - Error processing new token transaction 3rVxSVkF7CRwQaqRkZ5FnrgdrTMtVLezJfFgituTKjbQj8krX3ATkR1Ef1acHwMWP2EuB5fsYNk6wFDU3g6DNRk8:
+2026-03-18 16:59:46,630 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2jHR7LppXdKmzc59tNXujgzYLJYC2ZkhErfrxR9oJ3MQcYjfsLPsGt6JEV9cTkLnki1e43vfizRdTYvFyy4wEJBN
+2026-03-18 16:59:46,714 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:46,715 - services.mempool_monitor - ERROR - Error processing new token transaction 2jHR7LppXdKmzc59tNXujgzYLJYC2ZkhErfrxR9oJ3MQcYjfsLPsGt6JEV9cTkLnki1e43vfizRdTYvFyy4wEJBN:
+2026-03-18 16:59:46,715 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5dsgPfuoqWreWzMZ5zUUkehLnH7eY8rftscsVPEU85qDkWsayzK2tmn4vi2EnGg1K2a5EH78GYNxdRZmCHBiLq5Q
+2026-03-18 16:59:46,797 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:46,798 - services.mempool_monitor - ERROR - Error processing new token transaction 5dsgPfuoqWreWzMZ5zUUkehLnH7eY8rftscsVPEU85qDkWsayzK2tmn4vi2EnGg1K2a5EH78GYNxdRZmCHBiLq5Q:
+2026-03-18 16:59:48,665 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2pewk5ZGHX2SsPg8iQBCUb1iGWembBWig2gexmaZ6ikdD9or3uBL8oDE5gABgB9yMSDNpZjAwuoEN6gHpfgQSFL3
+2026-03-18 16:59:48,748 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:48,749 - services.mempool_monitor - ERROR - Error processing new token transaction 2pewk5ZGHX2SsPg8iQBCUb1iGWembBWig2gexmaZ6ikdD9or3uBL8oDE5gABgB9yMSDNpZjAwuoEN6gHpfgQSFL3:
+2026-03-18 16:59:49,421 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3Kg3zAoWx7YfdMB7ziJAtG9EYKgRz2ZCZn7JN4W42gcbMcCn2aAjLFPVSd93guHt3imNpoaDJy8nNkpsookKvzrg
+2026-03-18 16:59:49,508 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:49,509 - services.mempool_monitor - ERROR - Error processing new token transaction 3Kg3zAoWx7YfdMB7ziJAtG9EYKgRz2ZCZn7JN4W42gcbMcCn2aAjLFPVSd93guHt3imNpoaDJy8nNkpsookKvzrg:
+2026-03-18 16:59:49,510 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3ZRAkbBh7kLToEn7Wn9TbDMzeLtUn1hnvUMJP8ULTzitWDzhv2oVg4tvGGKmRAxMk87FjxeLPczFYBcVRjU4rgV1
+2026-03-18 16:59:49,593 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:49,594 - services.mempool_monitor - ERROR - Error processing new token transaction 3ZRAkbBh7kLToEn7Wn9TbDMzeLtUn1hnvUMJP8ULTzitWDzhv2oVg4tvGGKmRAxMk87FjxeLPczFYBcVRjU4rgV1:
+2026-03-18 16:59:49,782 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2ukYmgJYPGDPLiDdpSAiK34saEdYohqFQJmDXM3eiDV2K3kbPoipjm7Wihup1frH8fh8iU9vmXnaWjg1GpvuobBq
+2026-03-18 16:59:49,868 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:49,869 - services.mempool_monitor - ERROR - Error processing new token transaction 2ukYmgJYPGDPLiDdpSAiK34saEdYohqFQJmDXM3eiDV2K3kbPoipjm7Wihup1frH8fh8iU9vmXnaWjg1GpvuobBq:
+2026-03-18 16:59:49,869 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: ugVPHiHikEEpZ5WwZakstjMDypAXJuFUkRJXDaZzR9HbZ1PzbpG88yc5cxnrhRLye6BEozhh92CQPpydM8ntLrP
+2026-03-18 16:59:49,952 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:49,953 - services.mempool_monitor - ERROR - Error processing new token transaction ugVPHiHikEEpZ5WwZakstjMDypAXJuFUkRJXDaZzR9HbZ1PzbpG88yc5cxnrhRLye6BEozhh92CQPpydM8ntLrP:
+2026-03-18 16:59:50,891 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: Gjuc71LMKRdjz1SUsRLbsL3xe3ZVAio7GhThatLShQGve6SwNg1Auw5nUVKEyDaA3XhWSZzrDr7EVZYZerR1LJV
+2026-03-18 16:59:50,974 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:50,975 - services.mempool_monitor - ERROR - Error processing new token transaction Gjuc71LMKRdjz1SUsRLbsL3xe3ZVAio7GhThatLShQGve6SwNg1Auw5nUVKEyDaA3XhWSZzrDr7EVZYZerR1LJV:
+2026-03-18 16:59:51,389 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4GMBzvgyxaWYPXANxNieGcifBjXM31G1YFv9sovbc3DVA7rhmmcKtJR4oyZmM8CrD7FztfkxSENYB8Zz3jSWqwNw
+2026-03-18 16:59:51,472 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:51,473 - services.mempool_monitor - ERROR - Error processing new token transaction 4GMBzvgyxaWYPXANxNieGcifBjXM31G1YFv9sovbc3DVA7rhmmcKtJR4oyZmM8CrD7FztfkxSENYB8Zz3jSWqwNw:
+2026-03-18 16:59:52,593 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: xgAwD2pB41yML4RRfLNPLYbpSrDo32c3eK1aucojtrKgvupPuKEcieWr5ArHmGS3GFkF2VhzJHdke5oxCwiUAm3
+2026-03-18 16:59:52,675 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:52,676 - services.mempool_monitor - ERROR - Error processing new token transaction xgAwD2pB41yML4RRfLNPLYbpSrDo32c3eK1aucojtrKgvupPuKEcieWr5ArHmGS3GFkF2VhzJHdke5oxCwiUAm3:
+2026-03-18 16:59:52,964 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2T5g8rgYgsnm4pwJsnGv6DUQBwtMHS8UGoo8GXL6g297EMgHjwS5xEDLNRruFgXjw3oRPgUJ5A3T2kbZU3A8X9Pk
+2026-03-18 16:59:53,050 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:53,051 - services.mempool_monitor - ERROR - Error processing new token transaction 2T5g8rgYgsnm4pwJsnGv6DUQBwtMHS8UGoo8GXL6g297EMgHjwS5xEDLNRruFgXjw3oRPgUJ5A3T2kbZU3A8X9Pk:
+2026-03-18 16:59:54,402 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5EGd2LoF44m2ZdkCvhp9HYTPoE29GSUY2zfRsR9kVNbSUDLrgTpfBXS58te5VSLomWKCLy9oaME33qjguAHpkCM7
+2026-03-18 16:59:54,485 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:54,486 - services.mempool_monitor - ERROR - Error processing new token transaction 5EGd2LoF44m2ZdkCvhp9HYTPoE29GSUY2zfRsR9kVNbSUDLrgTpfBXS58te5VSLomWKCLy9oaME33qjguAHpkCM7:
+2026-03-18 16:59:54,761 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 65XLCKm23KQ3t6MNt6AaR5jWx2ETYndziuXwuMDMAPgH78uvCmZYmzXuQMuNPXozVviCu3oW5McfhZbbt9ZNeaX1
+2026-03-18 16:59:54,844 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:54,845 - services.mempool_monitor - ERROR - Error processing new token transaction 65XLCKm23KQ3t6MNt6AaR5jWx2ETYndziuXwuMDMAPgH78uvCmZYmzXuQMuNPXozVviCu3oW5McfhZbbt9ZNeaX1:
+2026-03-18 16:59:55,501 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5JSdtavKiiW3eE9PEAssVP1zWxLwGvgcnVcnKzZ9zRnx1UBLp5BrNEB6u3wo1KN22nLkGBfJoP6MMxfP2pL9D9sL
+2026-03-18 16:59:55,584 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:55,585 - services.mempool_monitor - ERROR - Error processing new token transaction 5JSdtavKiiW3eE9PEAssVP1zWxLwGvgcnVcnKzZ9zRnx1UBLp5BrNEB6u3wo1KN22nLkGBfJoP6MMxfP2pL9D9sL:
+2026-03-18 16:59:56,022 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2ntaZhNrG6FkEzYSg8iAsjcta38WNc7QNGXmBD8iMWNpex3CrjUAxLX4Li8NGEJgf4Cw9JbKroGKsqKqAVfagU96
+2026-03-18 16:59:56,106 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:56,107 - services.mempool_monitor - ERROR - Error processing new token transaction 2ntaZhNrG6FkEzYSg8iAsjcta38WNc7QNGXmBD8iMWNpex3CrjUAxLX4Li8NGEJgf4Cw9JbKroGKsqKqAVfagU96:
+2026-03-18 16:59:56,107 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: hdUrf7R1Sm3iqBf8LGL7tKumMWQRoVcWPdMgcxQBSB2BpVVptZadxi9H6tgdnq5dzrdX9LdAotjZ519BVbeDypL
+2026-03-18 16:59:56,190 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:56,191 - services.mempool_monitor - ERROR - Error processing new token transaction hdUrf7R1Sm3iqBf8LGL7tKumMWQRoVcWPdMgcxQBSB2BpVVptZadxi9H6tgdnq5dzrdX9LdAotjZ519BVbeDypL:
+2026-03-18 16:59:57,891 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3mEc5NoWUuAZmn8FL4rStxhZeL1HFdPKe3xuJWgrkPDYjYgd7gL46ek8K7ZyomgBePZ8HLWhBnjgjwPcKhs5BF9n
+2026-03-18 16:59:57,974 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:57,975 - services.mempool_monitor - ERROR - Error processing new token transaction 3mEc5NoWUuAZmn8FL4rStxhZeL1HFdPKe3xuJWgrkPDYjYgd7gL46ek8K7ZyomgBePZ8HLWhBnjgjwPcKhs5BF9n:
+2026-03-18 16:59:59,406 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: MLSQjzNWJK9ChERYV7NjDo73CFCWNhAV9LcWKDTKMYxYJU8Vh17fp3XSspMwGHQn1RK1tw1UJNsNHgevpFyn2Qh
+2026-03-18 16:59:59,491 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:59,492 - services.mempool_monitor - ERROR - Error processing new token transaction MLSQjzNWJK9ChERYV7NjDo73CFCWNhAV9LcWKDTKMYxYJU8Vh17fp3XSspMwGHQn1RK1tw1UJNsNHgevpFyn2Qh:
+2026-03-18 16:59:59,493 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4sS4nYKS7YJGcgjH7KQJPS4kqJupb2u187bWAWn1CCJnTHDFHzMqadd3QVBL4qXx7J32Uc2dXWoh6fzrkmhDWou1
+2026-03-18 16:59:59,576 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:59,577 - services.mempool_monitor - ERROR - Error processing new token transaction 4sS4nYKS7YJGcgjH7KQJPS4kqJupb2u187bWAWn1CCJnTHDFHzMqadd3QVBL4qXx7J32Uc2dXWoh6fzrkmhDWou1:
+2026-03-18 16:59:59,578 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5458E9EFpPdw8BEqas2H8AeixYuh46kbqLz6QLPGnVEcBabiMZt3v4tq3dk6YkET7H4rQhr5vX5hfRnaKBLfHusV
+2026-03-18 16:59:59,660 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:59,661 - services.mempool_monitor - ERROR - Error processing new token transaction 5458E9EFpPdw8BEqas2H8AeixYuh46kbqLz6QLPGnVEcBabiMZt3v4tq3dk6YkET7H4rQhr5vX5hfRnaKBLfHusV:
+2026-03-18 16:59:59,762 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5ca1oac6cXmE416RoAp8oFDH1dsyaFspxX9oRtEyqUnVoWy2dwDn18m8RuVV41zBTZ3X5K212dganH2WQ4WvVek1
+2026-03-18 16:59:59,848 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 16:59:59,849 - services.mempool_monitor - ERROR - Error processing new token transaction 5ca1oac6cXmE416RoAp8oFDH1dsyaFspxX9oRtEyqUnVoWy2dwDn18m8RuVV41zBTZ3X5K212dganH2WQ4WvVek1:
+2026-03-18 17:00:00,213 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: wTuLB2RXgNXJsub89rVm6D5UWBTqMjp3k3a9pjXeYoSVGCCKuT9cb2cKmRGjvxrEbqoi5jNY3xbA9cTso68JyZx
+2026-03-18 17:00:00,296 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:00,297 - services.mempool_monitor - ERROR - Error processing new token transaction wTuLB2RXgNXJsub89rVm6D5UWBTqMjp3k3a9pjXeYoSVGCCKuT9cb2cKmRGjvxrEbqoi5jNY3xbA9cTso68JyZx:
+2026-03-18 17:00:00,297 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4qMLu8xFJfHDYUEcF5yBy8SpSevJMTCXhMUuUPzvUcJWZyEQhvMgWGKDaGLrWF7vKn3U7E783jDDdotVvvQLwRDp
+2026-03-18 17:00:00,384 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:00,385 - services.mempool_monitor - ERROR - Error processing new token transaction 4qMLu8xFJfHDYUEcF5yBy8SpSevJMTCXhMUuUPzvUcJWZyEQhvMgWGKDaGLrWF7vKn3U7E783jDDdotVvvQLwRDp:
+2026-03-18 17:00:00,386 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 4ajksjALYzu36BxDSAbg3dWMcdx5dJqnXjVpWQoPdWYaaqaA2qvX3LQK3nYnbpZbGoGrBrt3Z6U8nhTBpU2guNao
+2026-03-18 17:00:00,386 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2aYEvRBvCZeH7nW3DnpwNqq6QHA2Y6hNhg2VsrFYV5YvxMXrztLTKWRsabDTemkVYmfYytCUFaMD8KcbSR6GEB9v
+2026-03-18 17:00:00,469 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:00,471 - services.mempool_monitor - ERROR - Error processing new token transaction 2aYEvRBvCZeH7nW3DnpwNqq6QHA2Y6hNhg2VsrFYV5YvxMXrztLTKWRsabDTemkVYmfYytCUFaMD8KcbSR6GEB9v:
+2026-03-18 17:00:00,561 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3a6JuJtT27VrdLmA9ezY6WrQN3npAHTfMXo5eYeGCyVK6vSMUtmskbgzWEWr2MNWWi8q5wM8MR5GNM9Kzeb5L28R
+2026-03-18 17:00:00,649 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:00,650 - services.mempool_monitor - ERROR - Error processing new token transaction 3a6JuJtT27VrdLmA9ezY6WrQN3npAHTfMXo5eYeGCyVK6vSMUtmskbgzWEWr2MNWWi8q5wM8MR5GNM9Kzeb5L28R:
+2026-03-18 17:00:02,141 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2USsY58CRjgQ6GZDj4N3mG7Z356G6aCAf6uqXLE5KBnMKL1rpyA1ksNmxZ7iZGZC5YPj92dnxrpteKWdgovYmNcz
+2026-03-18 17:00:02,234 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:02,236 - services.mempool_monitor - ERROR - Error processing new token transaction 2USsY58CRjgQ6GZDj4N3mG7Z356G6aCAf6uqXLE5KBnMKL1rpyA1ksNmxZ7iZGZC5YPj92dnxrpteKWdgovYmNcz:
+2026-03-18 17:00:02,236 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3jhRH39Nu7KW6Fr31z8eXZsWCe3moN58huHfLFvKPSjcKbUwT65LFkxujjL8SHEi4bgFJYEyUqViBz5bJWfiT4eZ
+2026-03-18 17:00:02,321 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:02,322 - services.mempool_monitor - ERROR - Error processing new token transaction 3jhRH39Nu7KW6Fr31z8eXZsWCe3moN58huHfLFvKPSjcKbUwT65LFkxujjL8SHEi4bgFJYEyUqViBz5bJWfiT4eZ:
+2026-03-18 17:00:02,493 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2WZBQEW6htWEzink7TBmyWfD4WhUpQFTYeJJihsPDZut2pE3fPEu9dfp5Dx6DgJHGWDcixzHvMiFFM52tfNeJi6B
+2026-03-18 17:00:02,576 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:02,577 - services.mempool_monitor - ERROR - Error processing new token transaction 2WZBQEW6htWEzink7TBmyWfD4WhUpQFTYeJJihsPDZut2pE3fPEu9dfp5Dx6DgJHGWDcixzHvMiFFM52tfNeJi6B:
+2026-03-18 17:00:02,578 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 6EQ1tH1bSC7U8NCyojyC3wZCvN8zbqov2H6mNZtvgyg6rh5VGvXtkMfhTd6WuGPpJT7od5JXmuFYZ1tHJDGKPeB
+2026-03-18 17:00:02,663 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:02,664 - services.mempool_monitor - ERROR - Error processing new token transaction 6EQ1tH1bSC7U8NCyojyC3wZCvN8zbqov2H6mNZtvgyg6rh5VGvXtkMfhTd6WuGPpJT7od5JXmuFYZ1tHJDGKPeB:
+2026-03-18 17:00:02,838 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4HMucaHrjhPdwZB1M7QJLziiBMZh2jUi5W8T8LPtN6S4T8Ev5eetiGVJGku3rCJSzkvHR92Bboj14yhtwKMdVcin
+2026-03-18 17:00:02,922 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:02,923 - services.mempool_monitor - ERROR - Error processing new token transaction 4HMucaHrjhPdwZB1M7QJLziiBMZh2jUi5W8T8LPtN6S4T8Ev5eetiGVJGku3rCJSzkvHR92Bboj14yhtwKMdVcin:
+2026-03-18 17:00:03,349 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 4EW9Uu88jibqETaaZKXf9e3DaTQ1Qe1TompQxVa7PofnL9JUFK9UkvewMqg4KpaAp66gjNePiUaeGxLeRgfuE3Nw
+2026-03-18 17:00:03,351 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 32pBnvLqTejQvZ4C8Z6JZscJj5xs819qabrfzzuhmUUiabVHAYKU1WB8QLUyP9xr7Hd42gwaSHNVNGxUYqQ54Gnb
+2026-03-18 17:00:03,708 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3rguWqAWwY586ADmA2NMvve5t9TrAJHqUbpX7FbFXpveYkQJgHZj2pDnttT1NTxZELH6UwEH2QpX617dTdjHMqgJ
+2026-03-18 17:00:03,791 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:03,792 - services.mempool_monitor - ERROR - Error processing new token transaction 3rguWqAWwY586ADmA2NMvve5t9TrAJHqUbpX7FbFXpveYkQJgHZj2pDnttT1NTxZELH6UwEH2QpX617dTdjHMqgJ:
+2026-03-18 17:00:04,071 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4hxDNSYpYKhAyTLPQmqKcqG5ncy5cdnHfFhgS36YHhqoV2acVZXHuU8UtmAz3tXBmrFAaP6fTWFKqT82YC3cmxtn
+2026-03-18 17:00:04,153 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:04,154 - services.mempool_monitor - ERROR - Error processing new token transaction 4hxDNSYpYKhAyTLPQmqKcqG5ncy5cdnHfFhgS36YHhqoV2acVZXHuU8UtmAz3tXBmrFAaP6fTWFKqT82YC3cmxtn:
+2026-03-18 17:00:04,155 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 8WQcKPNJzV1G9Aby7Z16sERD8g69Zvtcb25yFvjrk2kUnKiEuE5jhvCnQePeDHCyypAJXz4fA6sGs1tnymSdEqZ
+2026-03-18 17:00:04,429 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3582Us8Z2APt5STxpoYtTQQXHQpimBqWkq6E1QVv225xwVubCVxyHasXhwU3RePUsm9fWRScnL76hDjdXWtZEi5m
+2026-03-18 17:00:04,540 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:04,541 - services.mempool_monitor - ERROR - Error processing new token transaction 3582Us8Z2APt5STxpoYtTQQXHQpimBqWkq6E1QVv225xwVubCVxyHasXhwU3RePUsm9fWRScnL76hDjdXWtZEi5m:
+2026-03-18 17:00:04,542 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 4X12b9zhUhTQL9G8UJfSY1fqpN1Ldr9mpvqj54f3ySPKFUv94RjVLUxGuv5nBnpb2EajggaQYuiFpXq3kDw26JoR
+2026-03-18 17:00:04,542 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4zPKTLr4TWzpUx5Vdnzn3zpybn9bqM74EVGiEUaGpzCWqTxCBH8jVZh28cQAhtm1AkhrdB3bH2rDP5AcNCjEEcu1
+2026-03-18 17:00:04,624 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:04,626 - services.mempool_monitor - ERROR - Error processing new token transaction 4zPKTLr4TWzpUx5Vdnzn3zpybn9bqM74EVGiEUaGpzCWqTxCBH8jVZh28cQAhtm1AkhrdB3bH2rDP5AcNCjEEcu1:
+2026-03-18 17:00:04,792 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4c6EP39gdpQFtz8cqAzKbMBzMSmko1CGfNbcjf7SbQQ2QarV5hm3MjL2Xy2NRf64NH9gXivmgNeu85KH79mLJniK
+2026-03-18 17:00:04,878 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:04,879 - services.mempool_monitor - ERROR - Error processing new token transaction 4c6EP39gdpQFtz8cqAzKbMBzMSmko1CGfNbcjf7SbQQ2QarV5hm3MjL2Xy2NRf64NH9gXivmgNeu85KH79mLJniK:
+2026-03-18 17:00:05,154 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: u37EujHd4mqNXFR3f7bQ5tVBrifvMzZbn8PbfXnkdRTpCAnuqHWPymVV59LsvnbeSQUdqUytuKJTuUMm1miv79B
+2026-03-18 17:00:05,241 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:05,243 - services.mempool_monitor - ERROR - Error processing new token transaction u37EujHd4mqNXFR3f7bQ5tVBrifvMzZbn8PbfXnkdRTpCAnuqHWPymVV59LsvnbeSQUdqUytuKJTuUMm1miv79B:
+2026-03-18 17:00:05,521 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3wdjxcR3N45XYd5SCeUDoHpKLcwn37Qa7wpTKLkULJzsnP5pZBuRZqLZSMcDG4BkPNC2c34vn2gLU78CeMaSE4yq
+2026-03-18 17:00:05,605 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:05,606 - services.mempool_monitor - ERROR - Error processing new token transaction 3wdjxcR3N45XYd5SCeUDoHpKLcwn37Qa7wpTKLkULJzsnP5pZBuRZqLZSMcDG4BkPNC2c34vn2gLU78CeMaSE4yq:
+2026-03-18 17:00:07,536 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 34jn5TNAbZ6wVnbcW5WFiFYkAX6sknXorEqw6GE74RB7zQh1wGD71WtfauKFERg9rFvpULmipM3Dq96Xo2vXnc4j
+2026-03-18 17:00:07,620 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:07,621 - services.mempool_monitor - ERROR - Error processing new token transaction 34jn5TNAbZ6wVnbcW5WFiFYkAX6sknXorEqw6GE74RB7zQh1wGD71WtfauKFERg9rFvpULmipM3Dq96Xo2vXnc4j:
+2026-03-18 17:00:07,972 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2bePunZXWaVBGtBToLRy3nEA4NYscqhjSQByRzfZ7TofX3AGV24U73Cvg6vNVkogkS6Mpf69eh7TfbJhQH1bFjdZ
+2026-03-18 17:00:08,059 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:08,060 - services.mempool_monitor - ERROR - Error processing new token transaction 2bePunZXWaVBGtBToLRy3nEA4NYscqhjSQByRzfZ7TofX3AGV24U73Cvg6vNVkogkS6Mpf69eh7TfbJhQH1bFjdZ:
+2026-03-18 17:00:08,060 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: zkNSXKkDawj1PVQZ7V3Espzk94w1qQp4kX2LcMFRjvkvjQggCKpoydwmzP1eteMtucHQyG85sV2DGY6QiM84PMy
+2026-03-18 17:00:08,144 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:08,145 - services.mempool_monitor - ERROR - Error processing new token transaction zkNSXKkDawj1PVQZ7V3Espzk94w1qQp4kX2LcMFRjvkvjQggCKpoydwmzP1eteMtucHQyG85sV2DGY6QiM84PMy:
+2026-03-18 17:00:08,334 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: yJ6ChAHcy5KHHgJ7o9YgvKfnuuJppGjqznYgw6fL58NERSN26W8rSQwrxfyCnHSY3fmi9eBgKsvHyqstoK2scXv
+2026-03-18 17:00:08,420 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:08,421 - services.mempool_monitor - ERROR - Error processing new token transaction yJ6ChAHcy5KHHgJ7o9YgvKfnuuJppGjqznYgw6fL58NERSN26W8rSQwrxfyCnHSY3fmi9eBgKsvHyqstoK2scXv:
+2026-03-18 17:00:08,691 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2bgUz8zXRp5rSkZi2fcXSDiJXTSKmMRo9jLAm5u7L6ZLFvYKtpfDjP2jxr6sdsY5pPequvRXKnYeAiEB493mwASh
+2026-03-18 17:00:08,775 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:08,776 - services.mempool_monitor - ERROR - Error processing new token transaction 2bgUz8zXRp5rSkZi2fcXSDiJXTSKmMRo9jLAm5u7L6ZLFvYKtpfDjP2jxr6sdsY5pPequvRXKnYeAiEB493mwASh:
+2026-03-18 17:00:10,852 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4yxQfokUAWAV7SM7RqTet8Hn1MNbCbZLikFAUMNwzsNKNazAe8NBnQYXzgzFRELi3MjiQ9WYU5NUf3mX47ftvAoW
+2026-03-18 17:00:10,935 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:10,936 - services.mempool_monitor - ERROR - Error processing new token transaction 4yxQfokUAWAV7SM7RqTet8Hn1MNbCbZLikFAUMNwzsNKNazAe8NBnQYXzgzFRELi3MjiQ9WYU5NUf3mX47ftvAoW:
+2026-03-18 17:00:10,937 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 474sVa4jNEpnugymEWtLded4wyzXH4ounTxp3nNpg8vVHcKo3aNESNnYa3jPVDEnmhFxWNb4T8dR9Wy7Eoicrg5g
+2026-03-18 17:00:11,020 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:11,021 - services.mempool_monitor - ERROR - Error processing new token transaction 474sVa4jNEpnugymEWtLded4wyzXH4ounTxp3nNpg8vVHcKo3aNESNnYa3jPVDEnmhFxWNb4T8dR9Wy7Eoicrg5g:
+2026-03-18 17:00:11,022 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4Fb9pRxVF5LBFycDUJKDkagtqt5bzxfwnP7T1Ppr4kNxWfmJccWfXbmqjxiH8gzno29Y4ad6V8Sd1bsFMDsRAvZt
+2026-03-18 17:00:11,107 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:11,108 - services.mempool_monitor - ERROR - Error processing new token transaction 4Fb9pRxVF5LBFycDUJKDkagtqt5bzxfwnP7T1Ppr4kNxWfmJccWfXbmqjxiH8gzno29Y4ad6V8Sd1bsFMDsRAvZt:
+2026-03-18 17:00:12,221 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 46rsEqY4U6Tg7NmU85SGEzQU93RXywr671R1qhLFGqsovoeHMARMNVNaTeRJqHs8786c4sLKt4RYwTpMzGfB8E7e
+2026-03-18 17:00:12,305 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:12,306 - services.mempool_monitor - ERROR - Error processing new token transaction 46rsEqY4U6Tg7NmU85SGEzQU93RXywr671R1qhLFGqsovoeHMARMNVNaTeRJqHs8786c4sLKt4RYwTpMzGfB8E7e:
+2026-03-18 17:00:12,307 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4WGNR8BojwMWZxZTJPyAoN2EMLj6X9BTmbqnBVkyzC9ikCVExVWcFDJkzuArZdtiSYE6vKgsa1wAN76yNbcqMJ3m
+2026-03-18 17:00:12,391 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:12,392 - services.mempool_monitor - ERROR - Error processing new token transaction 4WGNR8BojwMWZxZTJPyAoN2EMLj6X9BTmbqnBVkyzC9ikCVExVWcFDJkzuArZdtiSYE6vKgsa1wAN76yNbcqMJ3m:
+2026-03-18 17:00:12,393 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 59hcCqpxGBFxyGeu2LDjw1DYAT9MTHGSZop9o9qgY3kVF546DmJeWbQVv98WqUxF35sbFAcV3cvNETqAuBproZeD
+2026-03-18 17:00:12,478 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:12,479 - services.mempool_monitor - ERROR - Error processing new token transaction 59hcCqpxGBFxyGeu2LDjw1DYAT9MTHGSZop9o9qgY3kVF546DmJeWbQVv98WqUxF35sbFAcV3cvNETqAuBproZeD:
+2026-03-18 17:00:12,653 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2EV3NTpQtL4K9dPNgzWekaGgPs9B8k94zWzwLEvChocoJzuAciwazuT4fAk7BKJ6AmXPmdRuJodVTkHUyntCvB3U
+2026-03-18 17:00:12,740 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:12,741 - services.mempool_monitor - ERROR - Error processing new token transaction 2EV3NTpQtL4K9dPNgzWekaGgPs9B8k94zWzwLEvChocoJzuAciwazuT4fAk7BKJ6AmXPmdRuJodVTkHUyntCvB3U:
+2026-03-18 17:00:12,980 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4EF4EU1fj5kdide2e9YSrPLhFdkAPfP6WZQ1tG5nm9nGPpPiWE59FXsQJLKcMBV1Ke6STW5zTZHu26LqhrVP2k4A
+2026-03-18 17:00:13,064 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:13,065 - services.mempool_monitor - ERROR - Error processing new token transaction 4EF4EU1fj5kdide2e9YSrPLhFdkAPfP6WZQ1tG5nm9nGPpPiWE59FXsQJLKcMBV1Ke6STW5zTZHu26LqhrVP2k4A:
+2026-03-18 17:00:13,748 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4i8p8pgJM94mxVHFPqKAScDDkd4U5Qq2BhVAW5rFpbSXsvwtCk2pn67hzH93mTx7usxsEVquF6PSwSHLRr6zRdht
+2026-03-18 17:00:13,835 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:13,836 - services.mempool_monitor - ERROR - Error processing new token transaction 4i8p8pgJM94mxVHFPqKAScDDkd4U5Qq2BhVAW5rFpbSXsvwtCk2pn67hzH93mTx7usxsEVquF6PSwSHLRr6zRdht:
+2026-03-18 17:00:13,836 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3uF1xrr6GYEADintpHt3xXisNAx1AxfCgT2vc4w9MEEu4aibr3ucdveosCRos8mtiLstFmjz1Nbh3Y61nCAqVaYc
+2026-03-18 17:00:13,918 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:13,920 - services.mempool_monitor - ERROR - Error processing new token transaction 3uF1xrr6GYEADintpHt3xXisNAx1AxfCgT2vc4w9MEEu4aibr3ucdveosCRos8mtiLstFmjz1Nbh3Y61nCAqVaYc:
+2026-03-18 17:00:13,920 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2LYRW4sC4Ygg7BM2sZFk5SUaH6z15E13NVbbrsWpb8YhzMp3KBxbU6VLeqGX11FsbcsxYBqa3VqXHtWTVNEUMNT6
+2026-03-18 17:00:14,011 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 200 OK"
+2026-03-18 17:00:14,013 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3aBGidmg8MJ1NwouzZgWhZ6vh9DyEZz8mgj4TnMWKWJdBE3vB8wJuQ787zd62e5P3wJHKr8y2qnkrxu3tepE8rzz
+2026-03-18 17:00:14,051 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 200 OK"
+2026-03-18 17:00:14,464 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 221ydWasKFhWTxBHkVZ8FuAiwbzY4FHeGwVBTZ7pFNQhD5D32FJDcEQ6AarTKQyjDsB3oS4QWZSfNPARL53SqUR4
+2026-03-18 17:00:14,492 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:14,493 - services.mempool_monitor - ERROR - Error processing new token transaction 221ydWasKFhWTxBHkVZ8FuAiwbzY4FHeGwVBTZ7pFNQhD5D32FJDcEQ6AarTKQyjDsB3oS4QWZSfNPARL53SqUR4:
+2026-03-18 17:00:14,811 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4rUM2aZhXnqB8r5SeXTrR4oHp3Q46VrC4kcaam3j6AyBCAyya9NHmKRKPqZWqsu5wSDwbw9CGo4UhqaQ9CohvJ2f
+2026-03-18 17:00:14,897 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:14,898 - services.mempool_monitor - ERROR - Error processing new token transaction 4rUM2aZhXnqB8r5SeXTrR4oHp3Q46VrC4kcaam3j6AyBCAyya9NHmKRKPqZWqsu5wSDwbw9CGo4UhqaQ9CohvJ2f:
+2026-03-18 17:00:15,234 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2nvGR6fJt3Jp6CQtE6hNgUm2txmmL3UZHeXT7jLmr41sRpmFQZSPykZSUXv679ajXQpr5vstdwj5g63E6oG1ebJy
+2026-03-18 17:00:15,322 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:15,323 - services.mempool_monitor - ERROR - Error processing new token transaction 2nvGR6fJt3Jp6CQtE6hNgUm2txmmL3UZHeXT7jLmr41sRpmFQZSPykZSUXv679ajXQpr5vstdwj5g63E6oG1ebJy:
+2026-03-18 17:00:15,943 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2zTvZLf5KbGp6pX6G9zxj8ax3qgas8As8PTeSKyESMvkWuYmZb2UKC3XnDm3sbTFnDpqTCZUDK9Dd4zJvmuqFSQa
+2026-03-18 17:00:16,031 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:16,032 - services.mempool_monitor - ERROR - Error processing new token transaction 2zTvZLf5KbGp6pX6G9zxj8ax3qgas8As8PTeSKyESMvkWuYmZb2UKC3XnDm3sbTFnDpqTCZUDK9Dd4zJvmuqFSQa:
+2026-03-18 17:00:16,032 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in SJEa8awMXkf1cnjRh9UK9XriewK6BKawSBeaGkWBQYo54rJZGg2cEuJ5wP3wo1qKjexTZBLgQZtw4KKodbXFiEA
+2026-03-18 17:00:16,312 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2pymhS13Ci9CK4bg9D8tzCz16SYz83mdgvJLFfPUJZ1cSPJRCfRWurbbddTriHR2hZY8w83o4idqeB8HuNRYnTKR
+2026-03-18 17:00:16,395 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:16,397 - services.mempool_monitor - ERROR - Error processing new token transaction 2pymhS13Ci9CK4bg9D8tzCz16SYz83mdgvJLFfPUJZ1cSPJRCfRWurbbddTriHR2hZY8w83o4idqeB8HuNRYnTKR:
+2026-03-18 17:00:16,693 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5qcrKvm36pVaX2sN1wHHku8xWD8T8s9kMcuEYeo4ex75xZieHuYMhSp8M8mgrPiiMnLStjx4dD5aWYM5DkhQryZK
+2026-03-18 17:00:16,776 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:16,777 - services.mempool_monitor - ERROR - Error processing new token transaction 5qcrKvm36pVaX2sN1wHHku8xWD8T8s9kMcuEYeo4ex75xZieHuYMhSp8M8mgrPiiMnLStjx4dD5aWYM5DkhQryZK:
+2026-03-18 17:00:16,777 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2WJR6Mquh3mghxNSZkfL3drRTEZTX7cXcBZR9bu1cCWLzvJRqWCrD4TP8XkrH4SY6CYk34skVfuDVmPGEEiD2Dce
+2026-03-18 17:00:16,862 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:16,863 - services.mempool_monitor - ERROR - Error processing new token transaction 2WJR6Mquh3mghxNSZkfL3drRTEZTX7cXcBZR9bu1cCWLzvJRqWCrD4TP8XkrH4SY6CYk34skVfuDVmPGEEiD2Dce:
+2026-03-18 17:00:17,048 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 4WEyAmg46PMc6sxU3nUhnsZ4ES21EB2oZQu17dAsjE4C1jEZ4HYvgJ6HDZGnCrT9uroQ8i7cuWa52eMjYBkBs8tk
+2026-03-18 17:00:18,186 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2hCL9d7DwVjeujiAweQaJeAahveqbwz5zq7HHdh7achvTCG4ptWgHC8XjYGZfHqtVj6ZeBV83KdyDGbAvkspVEFz
+2026-03-18 17:00:18,271 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:18,272 - services.mempool_monitor - ERROR - Error processing new token transaction 2hCL9d7DwVjeujiAweQaJeAahveqbwz5zq7HHdh7achvTCG4ptWgHC8XjYGZfHqtVj6ZeBV83KdyDGbAvkspVEFz:
+2026-03-18 17:00:18,577 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3vzopoVbXMdCLhmc2SNHU29da9QTT3su8oLrD5bzc4mPiJpMkTiQWZouHATo5XFifF1Zdu5LFa5jLJB8GTe1jwyP
+2026-03-18 17:00:18,666 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:18,667 - services.mempool_monitor - ERROR - Error processing new token transaction 3vzopoVbXMdCLhmc2SNHU29da9QTT3su8oLrD5bzc4mPiJpMkTiQWZouHATo5XFifF1Zdu5LFa5jLJB8GTe1jwyP:
+2026-03-18 17:00:18,668 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 44T2n3PCdc3Zgs7BAaGGhFrndJmGSG7JcUJLRJMtRHC9vu9c9SEAXDzDULSbsuiXT8azZ5rvjjk9M688mQHLsMZv
+2026-03-18 17:00:18,756 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:18,758 - services.mempool_monitor - ERROR - Error processing new token transaction 44T2n3PCdc3Zgs7BAaGGhFrndJmGSG7JcUJLRJMtRHC9vu9c9SEAXDzDULSbsuiXT8azZ5rvjjk9M688mQHLsMZv:
+2026-03-18 17:00:18,973 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 5Nj35VTvxhcm1gYYoi6RrjKb8uvw8S7wryhRjwn3u1ptK1gEyGiXiGkWFyycJMHEmtsP13rFXBErk87Eq2diBNYm
+2026-03-18 17:00:18,974 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: gkt1eXAstMXAbhGCVDxBnbEKMLhCvREDHa3qrZfbxAvhdr599RyczKGWMEGbrNp316KiPQ8tUVjf3rKQPpTbz3z
+2026-03-18 17:00:19,062 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:19,064 - services.mempool_monitor - ERROR - Error processing new token transaction gkt1eXAstMXAbhGCVDxBnbEKMLhCvREDHa3qrZfbxAvhdr599RyczKGWMEGbrNp316KiPQ8tUVjf3rKQPpTbz3z:
+2026-03-18 17:00:19,065 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5uSntGh1F9dqEeAPiFqGtdZ4zS1m2gCEGLS8EPLfwbgwk9ejYnc5qdweK7gHB5bgYfbfqWC9K6MmeNojd7dGXnci
+2026-03-18 17:00:19,154 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:19,155 - services.mempool_monitor - ERROR - Error processing new token transaction 5uSntGh1F9dqEeAPiFqGtdZ4zS1m2gCEGLS8EPLfwbgwk9ejYnc5qdweK7gHB5bgYfbfqWC9K6MmeNojd7dGXnci:
+2026-03-18 17:00:19,385 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 4A7PvU8biGJbsuPVLiy3KpRc8QpyDcoKbJgMfBHKVsVJa2v2Zwm8BLbvuZYYBauqHvfv8ehN138dBr77pVpkUpMQ
+2026-03-18 17:00:19,386 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5joz1Z8163R9qnDeLB74iWwCcTnAA3u4xqGNuPkqrkVgu3Qc1p4YfrSCNWsh3BkdzVEki1ZxqheQpVJ9aty9FsPK
+2026-03-18 17:00:19,475 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:19,476 - services.mempool_monitor - ERROR - Error processing new token transaction 5joz1Z8163R9qnDeLB74iWwCcTnAA3u4xqGNuPkqrkVgu3Qc1p4YfrSCNWsh3BkdzVEki1ZxqheQpVJ9aty9FsPK:
+2026-03-18 17:00:19,477 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4dUyUEuEeMHFEAchR15eJvUHBeEePe9ELTstxpzQxsbxmpgznax6CqHGabE6fNCKH4oqffncyAiFvny8SfU9V7o5
+2026-03-18 17:00:19,563 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:19,564 - services.mempool_monitor - ERROR - Error processing new token transaction 4dUyUEuEeMHFEAchR15eJvUHBeEePe9ELTstxpzQxsbxmpgznax6CqHGabE6fNCKH4oqffncyAiFvny8SfU9V7o5:
+2026-03-18 17:00:20,255 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5u1PKst6hMrYnEr7Y4xt7NA6qEYLRUhzB6RXkNMcBGbK9oiAZDah7V6XGQQva1axLgmpiHnmp97qXqtVjLzNp5LT
+2026-03-18 17:00:20,351 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:20,353 - services.mempool_monitor - ERROR - Error processing new token transaction 5u1PKst6hMrYnEr7Y4xt7NA6qEYLRUhzB6RXkNMcBGbK9oiAZDah7V6XGQQva1axLgmpiHnmp97qXqtVjLzNp5LT:
+2026-03-18 17:00:21,025 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2eUQTdRh9nzMsdbzwNfcRz6Hk9MuNCkXYF5EufDwZ3BdgKEyge3CeTisAnZqU6Wa9GeFkCva6QxjjsofVLmPxBVK
+2026-03-18 17:00:21,117 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:21,119 - services.mempool_monitor - ERROR - Error processing new token transaction 2eUQTdRh9nzMsdbzwNfcRz6Hk9MuNCkXYF5EufDwZ3BdgKEyge3CeTisAnZqU6Wa9GeFkCva6QxjjsofVLmPxBVK:
+2026-03-18 17:00:21,444 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5HXkRZGjLEaHu9N4NGuiuCngwcJV82TCkwHY1m4G7syFftSaTupjfqpsL7cbGX4wyAPzrafZRctMAtBNtvMM7mVB
+2026-03-18 17:00:21,541 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:21,543 - services.mempool_monitor - ERROR - Error processing new token transaction 5HXkRZGjLEaHu9N4NGuiuCngwcJV82TCkwHY1m4G7syFftSaTupjfqpsL7cbGX4wyAPzrafZRctMAtBNtvMM7mVB:
+2026-03-18 17:00:21,869 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: SJmapgZXgF4N4M2B1StPkzATGweRVJrMGe8BfeLAhBcy3GBbKiFZfwdqHpCMcjhLnQyAr56J6WaYdvw9EXnGTYm
+2026-03-18 17:00:21,961 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:21,962 - services.mempool_monitor - ERROR - Error processing new token transaction SJmapgZXgF4N4M2B1StPkzATGweRVJrMGe8BfeLAhBcy3GBbKiFZfwdqHpCMcjhLnQyAr56J6WaYdvw9EXnGTYm:
+2026-03-18 17:00:23,019 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3QhmCrv9iZsUsirg3srV4w1gUsqBUnJatUduFMWxHZs4vKGuVm78nhPz3CTqB3Wb5L4hJWm6nh3mAshT6Anxzrq7
+2026-03-18 17:00:23,113 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:23,116 - services.mempool_monitor - ERROR - Error processing new token transaction 3QhmCrv9iZsUsirg3srV4w1gUsqBUnJatUduFMWxHZs4vKGuVm78nhPz3CTqB3Wb5L4hJWm6nh3mAshT6Anxzrq7:
+2026-03-18 17:00:23,116 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2aMMAiaEH3Rvy2ERZ1YVkstbWUhQP1NZJHRQ45fjVpD6UfCSVMk9cvHrNJiYWBCPwW8V1kG2RBrRvVpisnaEEePX
+2026-03-18 17:00:23,208 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:23,209 - services.mempool_monitor - ERROR - Error processing new token transaction 2aMMAiaEH3Rvy2ERZ1YVkstbWUhQP1NZJHRQ45fjVpD6UfCSVMk9cvHrNJiYWBCPwW8V1kG2RBrRvVpisnaEEePX:
+2026-03-18 17:00:23,373 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: qxRmZ63Zac51qF4orNohk7rQuRknABoZNUDvF91yisdERcKFp92vQhWtzU8GDAYceL9xEATtwrHMpeAkUY548fU
+2026-03-18 17:00:23,461 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:23,462 - services.mempool_monitor - ERROR - Error processing new token transaction qxRmZ63Zac51qF4orNohk7rQuRknABoZNUDvF91yisdERcKFp92vQhWtzU8GDAYceL9xEATtwrHMpeAkUY548fU:
+2026-03-18 17:00:24,078 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in dobR5et66cpp6WyZDsP9k8PHxAdgzzpnZzSMy6t6bgP3fyKDDhohbzv5upjMCWC5Wi4AYpLhL7f1ezDvUK3iwVN
+2026-03-18 17:00:24,457 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 5RZF3wnnPinghBGxuohvPrYqmijAJKf9EicqCi4DZ7SybehQruSuNjWuQBzrnYpmUG9r82aw6r7dAFRQDmV5BR6t
+2026-03-18 17:00:24,460 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2Sn5h13Zrhr4nsGHuUBiEJ5UNdZJSnLeTweM6QX2WPwmgnQCuKaxk2KvuF4a5iDnCaw6CKnm6MAdzpY64iYtTkMN
+2026-03-18 17:00:24,546 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:24,547 - services.mempool_monitor - ERROR - Error processing new token transaction 2Sn5h13Zrhr4nsGHuUBiEJ5UNdZJSnLeTweM6QX2WPwmgnQCuKaxk2KvuF4a5iDnCaw6CKnm6MAdzpY64iYtTkMN:
+2026-03-18 17:00:24,813 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3bfhNgfL9cDHh1gUb75QprwK1b8so5TjmhCHYMiQ7xkKm1L71hjed1H6d2ojQQmDj9zQQw2msP6yjQK9vEcLiiPB
+2026-03-18 17:00:24,897 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:24,898 - services.mempool_monitor - ERROR - Error processing new token transaction 3bfhNgfL9cDHh1gUb75QprwK1b8so5TjmhCHYMiQ7xkKm1L71hjed1H6d2ojQQmDj9zQQw2msP6yjQK9vEcLiiPB:
+2026-03-18 17:00:25,537 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 53MAvmK2xCwAxGoRrw3YRfPbyUJHgEErmSf3856QDYNfPrLP22VAWctD4UbiPMDDj3UaA5RURSDc5S3wkNBpHozo
+2026-03-18 17:00:25,622 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:25,623 - services.mempool_monitor - ERROR - Error processing new token transaction 53MAvmK2xCwAxGoRrw3YRfPbyUJHgEErmSf3856QDYNfPrLP22VAWctD4UbiPMDDj3UaA5RURSDc5S3wkNBpHozo:
+2026-03-18 17:00:25,623 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4H5gjiRzHPqEnY1rHMTrNoiyfHVxzBpASFcJxaMdnahBZ8wNXuXGhSFD5QDh64gJMEDPFFi3kPfjzEDWdVsXkPcc
+2026-03-18 17:00:25,709 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:25,710 - services.mempool_monitor - ERROR - Error processing new token transaction 4H5gjiRzHPqEnY1rHMTrNoiyfHVxzBpASFcJxaMdnahBZ8wNXuXGhSFD5QDh64gJMEDPFFi3kPfjzEDWdVsXkPcc:
+2026-03-18 17:00:25,950 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4EFRswEtiibD25r9EDXb7DpBaaFDFCowK3w1Q5T2NDAWL7MbpddQ3UbKFNtiEeiWLYZjZsSwWqTLLNFJ4k4iWJVH
+2026-03-18 17:00:26,034 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:26,035 - services.mempool_monitor - ERROR - Error processing new token transaction 4EFRswEtiibD25r9EDXb7DpBaaFDFCowK3w1Q5T2NDAWL7MbpddQ3UbKFNtiEeiWLYZjZsSwWqTLLNFJ4k4iWJVH:
+2026-03-18 17:00:26,036 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: uFxMe5cfx1cnCQtYjqENwpjLUGh6Yscrh4Vyb1TRBmmfC8ReYmBd5KpnkjwoFuA7DkwUYj8GaJGGU3JMGEnEzrj
+2026-03-18 17:00:26,118 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:26,120 - services.mempool_monitor - ERROR - Error processing new token transaction uFxMe5cfx1cnCQtYjqENwpjLUGh6Yscrh4Vyb1TRBmmfC8ReYmBd5KpnkjwoFuA7DkwUYj8GaJGGU3JMGEnEzrj:
+2026-03-18 17:00:26,120 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3o1qRNdEAVw1y6oZ5MFKxLqwBHRGPCyPeewZdfDcck6djh7Tq3pgNxXUo1c6ZNDBsqdT6yB2hGmRxzva4UjjkCjV
+2026-03-18 17:00:26,204 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:26,205 - services.mempool_monitor - ERROR - Error processing new token transaction 3o1qRNdEAVw1y6oZ5MFKxLqwBHRGPCyPeewZdfDcck6djh7Tq3pgNxXUo1c6ZNDBsqdT6yB2hGmRxzva4UjjkCjV:
+2026-03-18 17:00:26,206 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: R2VqeSbRnsH8Bh5qEL4pM2SZF4EphP9RUoCkuDE6khb5x3V8Wwm1YEcPCda93VS3iD7JtabGLCzYL3pP8ggALFv
+2026-03-18 17:00:26,290 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:26,291 - services.mempool_monitor - ERROR - Error processing new token transaction R2VqeSbRnsH8Bh5qEL4pM2SZF4EphP9RUoCkuDE6khb5x3V8Wwm1YEcPCda93VS3iD7JtabGLCzYL3pP8ggALFv:
+2026-03-18 17:00:26,291 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: DrQNbWiZswmCMSWJHVsmCpEpnnxRPi3XiwYoK8o3oQBFmMYSmScfvcfaeMyDETqtc3qD3U3amQwQ4vhAQe2t1W9
+2026-03-18 17:00:26,384 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:26,385 - services.mempool_monitor - ERROR - Error processing new token transaction DrQNbWiZswmCMSWJHVsmCpEpnnxRPi3XiwYoK8o3oQBFmMYSmScfvcfaeMyDETqtc3qD3U3amQwQ4vhAQe2t1W9:
+2026-03-18 17:00:26,385 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: ScnxvXPRJtg8fkjGWdiyXYM9jApCjLb2gajmbPvFx8zwHZNngcqrUDnhXiX1dZpvxyh8BdisoXz893EgoiPgA8R
+2026-03-18 17:00:26,468 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:26,469 - services.mempool_monitor - ERROR - Error processing new token transaction ScnxvXPRJtg8fkjGWdiyXYM9jApCjLb2gajmbPvFx8zwHZNngcqrUDnhXiX1dZpvxyh8BdisoXz893EgoiPgA8R:
+2026-03-18 17:00:26,470 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5YeNJa4TeUp5pA9GrSzzPWrZ4N6CPEYnVjK3P1H9na7juCiRqTKgDFntpDXhuzsJXDN2o8uBS26DF9eunti8ywiT
+2026-03-18 17:00:26,553 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:26,554 - services.mempool_monitor - ERROR - Error processing new token transaction 5YeNJa4TeUp5pA9GrSzzPWrZ4N6CPEYnVjK3P1H9na7juCiRqTKgDFntpDXhuzsJXDN2o8uBS26DF9eunti8ywiT:
+2026-03-18 17:00:26,555 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 4xDxcXNCM3zprkU6UvQ9ntDs48yVboUHQqb33HWDYxJ4pg3xAEqnkxJbdWt1McaHHRU7HZctrXQgA9acNfVSvrDD
+2026-03-18 17:00:26,555 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2KME7JUBL99MDN4fVzrR38CHUb3dhekMvxD9FKT6cms9TiFQoiJWT6oYwo2gyq8rybBatvRE3BSG9BhsAYYjbren
+2026-03-18 17:00:26,638 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:26,639 - services.mempool_monitor - ERROR - Error processing new token transaction 2KME7JUBL99MDN4fVzrR38CHUb3dhekMvxD9FKT6cms9TiFQoiJWT6oYwo2gyq8rybBatvRE3BSG9BhsAYYjbren:
+2026-03-18 17:00:26,640 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 5FdGdh6Sg4VG59SwhwLhaVTiUvBCtFMH6o8D6Su2rdSCDPe7PCkTHHjmcPpNfcGoibbXxDydVzp4dfRKT8hqC5PC
+2026-03-18 17:00:27,024 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3SsHUswedox8nuhQLnCWq1FGGZ9yZT2hC152ruTYnhGHubsHLDFbSY3QZSVxV1hKBytFUwPSncEudJ1kAUdF2Vde
+2026-03-18 17:00:27,108 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:27,109 - services.mempool_monitor - ERROR - Error processing new token transaction 3SsHUswedox8nuhQLnCWq1FGGZ9yZT2hC152ruTYnhGHubsHLDFbSY3QZSVxV1hKBytFUwPSncEudJ1kAUdF2Vde:
+2026-03-18 17:00:27,109 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5ULxASxC1ffax3gi3Cq7tXrmtnxun5EiCZFkYxPaknyxWir1q8E2uwKyRbfKdqaNfMbpQxB775jVPjht8qeroj6W
+2026-03-18 17:00:27,192 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:27,193 - services.mempool_monitor - ERROR - Error processing new token transaction 5ULxASxC1ffax3gi3Cq7tXrmtnxun5EiCZFkYxPaknyxWir1q8E2uwKyRbfKdqaNfMbpQxB775jVPjht8qeroj6W:
+2026-03-18 17:00:27,193 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3rweTatQ7XYfXQQntsjmmPk5xt5YiJXDyTTcutyw4ug4frUVbW5Khy7Yy7wsCVp2WzEUU2M5kJqP8mmJDsExiwqQ
+2026-03-18 17:00:27,279 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:27,280 - services.mempool_monitor - ERROR - Error processing new token transaction 3rweTatQ7XYfXQQntsjmmPk5xt5YiJXDyTTcutyw4ug4frUVbW5Khy7Yy7wsCVp2WzEUU2M5kJqP8mmJDsExiwqQ:
+2026-03-18 17:00:27,280 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5RzukAojEtWxYT1gKjJvoPBmmuPwGLheo7gBx6sYvoBkgaQZgjPdsee9n98yJajnv96qV4GHKwzHf2JLWj1ThGPJ
+2026-03-18 17:00:27,367 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:27,368 - services.mempool_monitor - ERROR - Error processing new token transaction 5RzukAojEtWxYT1gKjJvoPBmmuPwGLheo7gBx6sYvoBkgaQZgjPdsee9n98yJajnv96qV4GHKwzHf2JLWj1ThGPJ:
+2026-03-18 17:00:27,368 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4DYdc54vTgN8pPxbRT2KcpCnaryz3hiZrbNfNfTE6ypxEDT4DdnCpGAukGHmB9FvTtf8AUhbd8mCw5EM5jfpqURT
+2026-03-18 17:00:27,451 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:27,453 - services.mempool_monitor - ERROR - Error processing new token transaction 4DYdc54vTgN8pPxbRT2KcpCnaryz3hiZrbNfNfTE6ypxEDT4DdnCpGAukGHmB9FvTtf8AUhbd8mCw5EM5jfpqURT:
+2026-03-18 17:00:27,453 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: Yu9Y7dmhkYJ2qbJQtqT2BCqpT3wMqccHcEhydHDHLLcb1qHmGEi5FwfPYQiMGJ7Rp8Jknqf3w696FXE938stE21
+2026-03-18 17:00:27,538 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:27,539 - services.mempool_monitor - ERROR - Error processing new token transaction Yu9Y7dmhkYJ2qbJQtqT2BCqpT3wMqccHcEhydHDHLLcb1qHmGEi5FwfPYQiMGJ7Rp8Jknqf3w696FXE938stE21:
+2026-03-18 17:00:27,540 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 66cqMMAcjaEHgu9fg6xgWoE8UhgrGhBwDHmeapBhkL3JtjRnKAysaqEGFSzxD54RkENNEGBUz3XaBQsqS4BpJFEB
+2026-03-18 17:00:27,622 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:27,623 - services.mempool_monitor - ERROR - Error processing new token transaction 66cqMMAcjaEHgu9fg6xgWoE8UhgrGhBwDHmeapBhkL3JtjRnKAysaqEGFSzxD54RkENNEGBUz3XaBQsqS4BpJFEB:
+2026-03-18 17:00:27,624 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4nsD4oyf46q7ZkSQQyyL9NhATxsZ5qaXyLiGLmAMZieKopXsJ4bq3fvtwRRPQdxenLW4wXojmyhD4NumaY61c67a
+2026-03-18 17:00:27,708 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:27,709 - services.mempool_monitor - ERROR - Error processing new token transaction 4nsD4oyf46q7ZkSQQyyL9NhATxsZ5qaXyLiGLmAMZieKopXsJ4bq3fvtwRRPQdxenLW4wXojmyhD4NumaY61c67a:
+2026-03-18 17:00:27,902 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2P24zURT1YMtEJkCeNNrvorAXoRyumh5nYrvwHuaFBHqeMsa5p2fBJ9et6MT1YAMRiQx2myQo935GW5WAL2f5a7n
+2026-03-18 17:00:27,992 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:27,993 - services.mempool_monitor - ERROR - Error processing new token transaction 2P24zURT1YMtEJkCeNNrvorAXoRyumh5nYrvwHuaFBHqeMsa5p2fBJ9et6MT1YAMRiQx2myQo935GW5WAL2f5a7n:
+2026-03-18 17:00:28,264 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4eD7AFFBDga9ZRpgeh9bghQLTJRGhKr7EDaMVWFxEG8EeFvY5MykcLvTDvDAbfgksC9zZmnD23sNwLY7X3xoEZfa
+2026-03-18 17:00:28,351 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:28,353 - services.mempool_monitor - ERROR - Error processing new token transaction 4eD7AFFBDga9ZRpgeh9bghQLTJRGhKr7EDaMVWFxEG8EeFvY5MykcLvTDvDAbfgksC9zZmnD23sNwLY7X3xoEZfa:
+2026-03-18 17:00:28,353 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5oFvfSFYijqK5DwTmdJXkg4RPagenEw1qQduoirvRCDFZZHHbG52jBk5q5qPHgdom24DhV4kdhWYF2ZoebLt7HbH
+2026-03-18 17:00:28,438 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:28,439 - services.mempool_monitor - ERROR - Error processing new token transaction 5oFvfSFYijqK5DwTmdJXkg4RPagenEw1qQduoirvRCDFZZHHbG52jBk5q5qPHgdom24DhV4kdhWYF2ZoebLt7HbH:
+2026-03-18 17:00:28,615 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4UsTFQtGU9ynTJvj1ZRx8BwgasxogjvvsdvoZBCMWyHRNYd3VmuByHeZXzorZR8Dr5EtQNfdNRUvjzhFCqM8mcX5
+2026-03-18 17:00:28,705 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:28,706 - services.mempool_monitor - ERROR - Error processing new token transaction 4UsTFQtGU9ynTJvj1ZRx8BwgasxogjvvsdvoZBCMWyHRNYd3VmuByHeZXzorZR8Dr5EtQNfdNRUvjzhFCqM8mcX5:
+2026-03-18 17:00:28,706 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2mpBn8FNS4f89BiGw8SB88BjyEd9Q9po93A8PUT8H2nPdZk2CcSsYmpAx2ezhzL2tKmU1CrA5hL3W4592x4MfgdU
+2026-03-18 17:00:28,790 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:28,791 - services.mempool_monitor - ERROR - Error processing new token transaction 2mpBn8FNS4f89BiGw8SB88BjyEd9Q9po93A8PUT8H2nPdZk2CcSsYmpAx2ezhzL2tKmU1CrA5hL3W4592x4MfgdU:
+2026-03-18 17:00:28,791 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5SjLvdoALYhTpBs7hwJnW8feya5vTBmpNgu3jSfzfC2ko9T3GWQdMiJJZcoBqjbRWfs34qz3XVB5vbfgLo9bzsXg
+2026-03-18 17:00:28,875 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:28,876 - services.mempool_monitor - ERROR - Error processing new token transaction 5SjLvdoALYhTpBs7hwJnW8feya5vTBmpNgu3jSfzfC2ko9T3GWQdMiJJZcoBqjbRWfs34qz3XVB5vbfgLo9bzsXg:
+2026-03-18 17:00:29,098 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4oNWjw3giGURdp2m2husEMHxKF3Q4YvMPTxmSFPfVgzax8MtgcSCcgkHadapKuHbSREmS8fFakmtcebtE7SDPKy6
+2026-03-18 17:00:29,182 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:29,183 - services.mempool_monitor - ERROR - Error processing new token transaction 4oNWjw3giGURdp2m2husEMHxKF3Q4YvMPTxmSFPfVgzax8MtgcSCcgkHadapKuHbSREmS8fFakmtcebtE7SDPKy6:
+2026-03-18 17:00:29,184 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 37A1SWkwEKepQtqm6DS81Q6EACzTBcdeJW8bXdW7FNFW4Meq7cLR1ppn7r5h6LmbV9iNpma6hRMRarGFm7KG3wLh
+2026-03-18 17:00:29,265 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:29,267 - services.mempool_monitor - ERROR - Error processing new token transaction 37A1SWkwEKepQtqm6DS81Q6EACzTBcdeJW8bXdW7FNFW4Meq7cLR1ppn7r5h6LmbV9iNpma6hRMRarGFm7KG3wLh:
+2026-03-18 17:00:29,267 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: x6S88kaiP4CLx12zYtpk7TVgA1bbahQxdWdg5N7sJSZMxZtPq8YjfmDvaAcoM4QhA2bJoXFj3yhGadEK4yVDiDo
+2026-03-18 17:00:29,350 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:29,351 - services.mempool_monitor - ERROR - Error processing new token transaction x6S88kaiP4CLx12zYtpk7TVgA1bbahQxdWdg5N7sJSZMxZtPq8YjfmDvaAcoM4QhA2bJoXFj3yhGadEK4yVDiDo:
+2026-03-18 17:00:29,458 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3B5RmdAAtpg8xa6fk482vTHWvTNBjubbR3TRvV3S3jBqodLFxoMTrqZejtgS4DCx95bEETherBVBdZ1UVdSY5TF9
+2026-03-18 17:00:29,545 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:29,546 - services.mempool_monitor - ERROR - Error processing new token transaction 3B5RmdAAtpg8xa6fk482vTHWvTNBjubbR3TRvV3S3jBqodLFxoMTrqZejtgS4DCx95bEETherBVBdZ1UVdSY5TF9:
+2026-03-18 17:00:29,547 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3vRBb6HGsMA4mbaAEykFmFBFUZaMFaRrdF2rYimM8Hfd8Bv3wqCxvokx2oUMx5kTG8ip877h7pe5R6Rsu41B4Dj1
+2026-03-18 17:00:29,631 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:29,632 - services.mempool_monitor - ERROR - Error processing new token transaction 3vRBb6HGsMA4mbaAEykFmFBFUZaMFaRrdF2rYimM8Hfd8Bv3wqCxvokx2oUMx5kTG8ip877h7pe5R6Rsu41B4Dj1:
+2026-03-18 17:00:29,632 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4KTFpfKFJEyutroGuK5b6PyNgn3Pa3JPUSLe5vDqNJcuhmaTcngFdZpYM1MPkm34EovKWikwVA2x2tnHntRZPuzc
+2026-03-18 17:00:29,718 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:29,719 - services.mempool_monitor - ERROR - Error processing new token transaction 4KTFpfKFJEyutroGuK5b6PyNgn3Pa3JPUSLe5vDqNJcuhmaTcngFdZpYM1MPkm34EovKWikwVA2x2tnHntRZPuzc:
+2026-03-18 17:00:29,828 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4mx2htzCSoPJbpuHoa97uj1oMF1pV5jMU34ebJwsBbokRi95jztCEYA9atiqRmWJWBCSFwtZgb3tsFsAmhEkM9P3
+2026-03-18 17:00:29,911 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:29,912 - services.mempool_monitor - ERROR - Error processing new token transaction 4mx2htzCSoPJbpuHoa97uj1oMF1pV5jMU34ebJwsBbokRi95jztCEYA9atiqRmWJWBCSFwtZgb3tsFsAmhEkM9P3:
+2026-03-18 17:00:29,913 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4dmhxqA2pAKFqKPEYR8BhYSLPXb2Stip6ZVJSLVspcd3vSAR2a5ZwB7cTcpAQeD7jMowZHem1qQ1NtFEx9ey1QHG
+2026-03-18 17:00:29,999 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:30,000 - services.mempool_monitor - ERROR - Error processing new token transaction 4dmhxqA2pAKFqKPEYR8BhYSLPXb2Stip6ZVJSLVspcd3vSAR2a5ZwB7cTcpAQeD7jMowZHem1qQ1NtFEx9ey1QHG:
+2026-03-18 17:00:30,000 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2XxwQTXPxVQ8jUnJrXJTgw8GJeLzcHK66MCWHNUKmQsA5badp1f9tiZ1Vw2F19Tc9sLnC1kzvQG7zmYwemg4mWcS
+2026-03-18 17:00:30,083 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:30,084 - services.mempool_monitor - ERROR - Error processing new token transaction 2XxwQTXPxVQ8jUnJrXJTgw8GJeLzcHK66MCWHNUKmQsA5badp1f9tiZ1Vw2F19Tc9sLnC1kzvQG7zmYwemg4mWcS:
+2026-03-18 17:00:30,084 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3tSgQREp73x2oSuBLAP7YDwCtkGKg4PEqnXCqeLtYGiA3bpEjPcMjEWZ26WbiLe18rrszLqvpenpRuW2HbeBXjhe
+2026-03-18 17:00:30,173 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:30,174 - services.mempool_monitor - ERROR - Error processing new token transaction 3tSgQREp73x2oSuBLAP7YDwCtkGKg4PEqnXCqeLtYGiA3bpEjPcMjEWZ26WbiLe18rrszLqvpenpRuW2HbeBXjhe:
+2026-03-18 17:00:30,691 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5avMfhRAM5spvmLdvF8DGPDpXsWueZGo2Qmkz2yy6AW53eN4eVsuyY5YkUVu9rtL99NbTxapBTpFGpGmJcvejsSS
+2026-03-18 17:00:30,918 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 200 OK"
+2026-03-18 17:00:31,471 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4ESxMwzngM1iD7jccwdpRPD3prQ5kC2525AGbvkMCTYzSc89fSJYWVbYx6YD1TkzR94LaMMpycFC91yRt9nYTZ4y
+2026-03-18 17:00:31,689 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 200 OK"
+2026-03-18 17:00:32,473 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 51mB4g73wiFhtBkbuAoS2ctAr72AgrCoXYa1sAPZzNE73BDMwLstbarSXjCv5uwpgvN8kg1z9FN7UhKtH4BiPCeV
+2026-03-18 17:00:32,501 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:32,502 - services.mempool_monitor - ERROR - Error processing new token transaction 51mB4g73wiFhtBkbuAoS2ctAr72AgrCoXYa1sAPZzNE73BDMwLstbarSXjCv5uwpgvN8kg1z9FN7UhKtH4BiPCeV:
+2026-03-18 17:00:33,261 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3STiJWWx74HFcs6V1u3x6m6fqwfguL1Y8wQYtzQcMc7P2uPNPiRAeHMctMt5qd349v1QNcNDRM5SZ4fZdrpSmLUk
+2026-03-18 17:00:33,349 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:33,350 - services.mempool_monitor - ERROR - Error processing new token transaction 3STiJWWx74HFcs6V1u3x6m6fqwfguL1Y8wQYtzQcMc7P2uPNPiRAeHMctMt5qd349v1QNcNDRM5SZ4fZdrpSmLUk:
+2026-03-18 17:00:33,350 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5ty4gsz64DJYX4T7wUBdeaAXMTYnNkkHpM19tPF3Y5Fz4HcMJ3CshrqbDGgfSxTu26j1GfbMRHaNFEcQJwyhTk7B
+2026-03-18 17:00:33,433 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:33,434 - services.mempool_monitor - ERROR - Error processing new token transaction 5ty4gsz64DJYX4T7wUBdeaAXMTYnNkkHpM19tPF3Y5Fz4HcMJ3CshrqbDGgfSxTu26j1GfbMRHaNFEcQJwyhTk7B:
+2026-03-18 17:00:34,114 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 4zrrYTz9FLsVpMBJr5j5RsaYe1reWdkcesDaGRos9VyRqhdGKzcfvoDhEr8P2nPc8s2Ns71FG8nvg6N4gw7Tu9ie
+2026-03-18 17:00:34,964 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3x6BPHxnBQYGyz2FfGZL4t19HxCQNDkKCuX6FaTXViuw4LWzbBhjU1GCgCnStkf99JHbjjqDRuuy9f7N94NXd4UY
+2026-03-18 17:00:35,054 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:35,056 - services.mempool_monitor - ERROR - Error processing new token transaction 3x6BPHxnBQYGyz2FfGZL4t19HxCQNDkKCuX6FaTXViuw4LWzbBhjU1GCgCnStkf99JHbjjqDRuuy9f7N94NXd4UY:
+2026-03-18 17:00:35,057 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2Cb97UsBaDHhdHzDNJuX37qQiPBdvjWc5mx1hmkYjTEApZ7LuFUBs36cr9GCwFXj1dAeRNPGMwEEzoDKVNmrxrHP
+2026-03-18 17:00:35,146 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:35,148 - services.mempool_monitor - ERROR - Error processing new token transaction 2Cb97UsBaDHhdHzDNJuX37qQiPBdvjWc5mx1hmkYjTEApZ7LuFUBs36cr9GCwFXj1dAeRNPGMwEEzoDKVNmrxrHP:
+2026-03-18 17:00:35,148 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: SpWBrw2EnkHiCGkyLCYbLo19tXFmud9XMUXTXU5hf6tMmyjqHqtMPrugSekMx46XFKzj68o98bifGWCHkuBZ48c
+2026-03-18 17:00:35,236 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:35,237 - services.mempool_monitor - ERROR - Error processing new token transaction SpWBrw2EnkHiCGkyLCYbLo19tXFmud9XMUXTXU5hf6tMmyjqHqtMPrugSekMx46XFKzj68o98bifGWCHkuBZ48c:
+2026-03-18 17:00:35,237 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2bxR1Lezgrz6Bg72GzWjiac6dLGyNZTy5zEx6TJPn3QC7GbW6wtQpyyfFJgyuG2vnMiTkdd3CeAQmq1yfxyXnJ5M
+2026-03-18 17:00:35,321 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:35,322 - services.mempool_monitor - ERROR - Error processing new token transaction 2bxR1Lezgrz6Bg72GzWjiac6dLGyNZTy5zEx6TJPn3QC7GbW6wtQpyyfFJgyuG2vnMiTkdd3CeAQmq1yfxyXnJ5M:
+2026-03-18 17:00:35,323 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: U2i5CTmNfbmipuWFdPF1KBc3ayXz6JZ3smgn5V3BabDCnhkhDjJkXFqBAn796d3v6mxoy6i3mFJQC6MqYuJez9Q
+2026-03-18 17:00:35,407 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:35,408 - services.mempool_monitor - ERROR - Error processing new token transaction U2i5CTmNfbmipuWFdPF1KBc3ayXz6JZ3smgn5V3BabDCnhkhDjJkXFqBAn796d3v6mxoy6i3mFJQC6MqYuJez9Q:
+2026-03-18 17:00:35,409 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2v9dLNy1Ji3YkfzP3SzeNAP23By4pBTyei1GVttAgXT5bpao4UyJbaVSZZ7C5Ck2RT5BCwAgc6JoGv3zNfD6hUvp
+2026-03-18 17:00:35,493 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:35,494 - services.mempool_monitor - ERROR - Error processing new token transaction 2v9dLNy1Ji3YkfzP3SzeNAP23By4pBTyei1GVttAgXT5bpao4UyJbaVSZZ7C5Ck2RT5BCwAgc6JoGv3zNfD6hUvp:
+2026-03-18 17:00:35,494 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 65wdmPs4vo1rKbsqaet75DSTdyqtw6Te5sPyNuCNyd9CXXkTJikuogmwGZMUDnYVhUCK7C14vtZCxb2LfwnY5cgU
+2026-03-18 17:00:35,583 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:35,584 - services.mempool_monitor - ERROR - Error processing new token transaction 65wdmPs4vo1rKbsqaet75DSTdyqtw6Te5sPyNuCNyd9CXXkTJikuogmwGZMUDnYVhUCK7C14vtZCxb2LfwnY5cgU:
+2026-03-18 17:00:35,584 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2sAjaW7WtiNzULmyfqXv3sh2RCPWRzMZKXvtgnqDyoFLTpFY89bTCDZCunEJqHpjpAJZKD5gKx8hRxrasUDiYGdb
+2026-03-18 17:00:35,667 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:35,667 - services.mempool_monitor - ERROR - Error processing new token transaction 2sAjaW7WtiNzULmyfqXv3sh2RCPWRzMZKXvtgnqDyoFLTpFY89bTCDZCunEJqHpjpAJZKD5gKx8hRxrasUDiYGdb:
+2026-03-18 17:00:35,877 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4yfXBChtf8BANcasujW8StSDBP3txuMVHKQK41nmWcPfKHWd7kvARoBcpuhDDVyiBg2ZRi5DMvTnmkKGTBtfdEHv
+2026-03-18 17:00:35,965 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:35,966 - services.mempool_monitor - ERROR - Error processing new token transaction 4yfXBChtf8BANcasujW8StSDBP3txuMVHKQK41nmWcPfKHWd7kvARoBcpuhDDVyiBg2ZRi5DMvTnmkKGTBtfdEHv:
+2026-03-18 17:00:36,237 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3PxZLaKsi8aqZH4EdWwjyt289koeXiJHGYyWbzEyGgm6ngs9ck8xpVrjfFaEqUGEYXy1m19XejwxX4g1iheYJP4J
+2026-03-18 17:00:36,326 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:36,327 - services.mempool_monitor - ERROR - Error processing new token transaction 3PxZLaKsi8aqZH4EdWwjyt289koeXiJHGYyWbzEyGgm6ngs9ck8xpVrjfFaEqUGEYXy1m19XejwxX4g1iheYJP4J:
+2026-03-18 17:00:36,327 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4VWqG37pYK6s9yro1sV4ZgUSmpEmdWUhnEwtBcoXudxg2TVDit5ff1qH4fT5LohnDpfw3AAPDFQWreCbMYYp4bbA
+2026-03-18 17:00:36,409 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:36,410 - services.mempool_monitor - ERROR - Error processing new token transaction 4VWqG37pYK6s9yro1sV4ZgUSmpEmdWUhnEwtBcoXudxg2TVDit5ff1qH4fT5LohnDpfw3AAPDFQWreCbMYYp4bbA:
+2026-03-18 17:00:36,411 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3iaXk92yBVHPp1yjRyHebTBZ2Zv5pMzX8tA7SywtwpCV46X1DCYdEb8NLKdxkomyKWQh62AfxvoQLCAW7b8Venhw
+2026-03-18 17:00:36,495 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:36,496 - services.mempool_monitor - ERROR - Error processing new token transaction 3iaXk92yBVHPp1yjRyHebTBZ2Zv5pMzX8tA7SywtwpCV46X1DCYdEb8NLKdxkomyKWQh62AfxvoQLCAW7b8Venhw:
+2026-03-18 17:00:36,606 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4es3nFapU1wjB2kH5yyqH6VNRQhkfWCuqsZudNmZAmooLPiFd2N52xMbNVLCifRvG7UiFEFEsjDwmc8i2QZZnPan
+2026-03-18 17:00:36,693 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:36,694 - services.mempool_monitor - ERROR - Error processing new token transaction 4es3nFapU1wjB2kH5yyqH6VNRQhkfWCuqsZudNmZAmooLPiFd2N52xMbNVLCifRvG7UiFEFEsjDwmc8i2QZZnPan:
+2026-03-18 17:00:37,507 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: dd6Rww4SkMpv486uqfJTWE14xVEKfvpuPKsFXHJeTKMeL7RKjMA4FL4eRqyDHPpgPmBK7PpKjM8sckZozLTjv2D
+2026-03-18 17:00:37,589 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:37,590 - services.mempool_monitor - ERROR - Error processing new token transaction dd6Rww4SkMpv486uqfJTWE14xVEKfvpuPKsFXHJeTKMeL7RKjMA4FL4eRqyDHPpgPmBK7PpKjM8sckZozLTjv2D:
+2026-03-18 17:00:37,591 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3c1q5nWfdV7EaahXbJhLAH2YoszYUibm4hcBkqbdiH1AzrVj3LsV9VHBWLcN9TDyJfesqnWkXSSniRyMrFTaj6x2
+2026-03-18 17:00:37,675 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:37,675 - services.mempool_monitor - ERROR - Error processing new token transaction 3c1q5nWfdV7EaahXbJhLAH2YoszYUibm4hcBkqbdiH1AzrVj3LsV9VHBWLcN9TDyJfesqnWkXSSniRyMrFTaj6x2:
+2026-03-18 17:00:37,907 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 43JALhswWZJBzZEvvwpvhvEUHUwajZPeo2dn8CGivkU1tAVjqsXFPsNhzbUQ9u6MsEbGTuhRfHLcezPW6VVWJBcx
+2026-03-18 17:00:37,989 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:37,990 - services.mempool_monitor - ERROR - Error processing new token transaction 43JALhswWZJBzZEvvwpvhvEUHUwajZPeo2dn8CGivkU1tAVjqsXFPsNhzbUQ9u6MsEbGTuhRfHLcezPW6VVWJBcx:
+2026-03-18 17:00:37,991 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5CtFqJ29rJ2Hoz9bEQUNP85EueWACMtFUL4VizoH6HiZrvB6bkcbLnvN8wxpUmpGi3TBimkHwe5WUmKVHGUrKYmy
+2026-03-18 17:00:38,077 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:38,078 - services.mempool_monitor - ERROR - Error processing new token transaction 5CtFqJ29rJ2Hoz9bEQUNP85EueWACMtFUL4VizoH6HiZrvB6bkcbLnvN8wxpUmpGi3TBimkHwe5WUmKVHGUrKYmy:
+2026-03-18 17:00:38,705 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2UHpqG3znrFb6oSp8iBMpPzeTtFytYvrBBontDXq8EMdsAtAPD4Wi2FfHaNeAy8TrLX6xbQWnKRC2uB4RvTMGmfg
+2026-03-18 17:00:38,792 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:38,793 - services.mempool_monitor - ERROR - Error processing new token transaction 2UHpqG3znrFb6oSp8iBMpPzeTtFytYvrBBontDXq8EMdsAtAPD4Wi2FfHaNeAy8TrLX6xbQWnKRC2uB4RvTMGmfg:
+2026-03-18 17:00:38,793 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 2UHpqG3znrFb6oSp8iBMpPzeTtFytYvrBBontDXq8EMdsAtAPD4Wi2FfHaNeAy8TrLX6xbQWnKRC2uB4RvTMGmfg
+2026-03-18 17:00:38,793 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5JF5wuyjYuycMSaTBHZqPh4wnk62U4LLesaLm88nyRKKJ5Mx7nAZfwz2Jq6Wz1r3Uc2x8UEHkWbiC1fNA4ye7FjC
+2026-03-18 17:00:38,879 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:38,880 - services.mempool_monitor - ERROR - Error processing new token transaction 5JF5wuyjYuycMSaTBHZqPh4wnk62U4LLesaLm88nyRKKJ5Mx7nAZfwz2Jq6Wz1r3Uc2x8UEHkWbiC1fNA4ye7FjC:
+2026-03-18 17:00:39,209 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: VCdRpeHR8AyzFBHNz3uuCwaGEMbRrYk2hVDAV3mFsBjkD7MMZagWJdGdZbYQkGEHEm5P42gychCVxBdZZjA1VB6
+2026-03-18 17:00:39,293 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:39,294 - services.mempool_monitor - ERROR - Error processing new token transaction VCdRpeHR8AyzFBHNz3uuCwaGEMbRrYk2hVDAV3mFsBjkD7MMZagWJdGdZbYQkGEHEm5P42gychCVxBdZZjA1VB6:
+2026-03-18 17:00:39,929 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5UB9QHk11YVEVtuZguz4EjhU7yAHEuwuBKH7dgNDJd33TbZx5kqFcSTHYCFiLQHqjwkehGsUkY5KeWu8sz6aDCKJ
+2026-03-18 17:00:40,014 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:40,015 - services.mempool_monitor - ERROR - Error processing new token transaction 5UB9QHk11YVEVtuZguz4EjhU7yAHEuwuBKH7dgNDJd33TbZx5kqFcSTHYCFiLQHqjwkehGsUkY5KeWu8sz6aDCKJ:
+2026-03-18 17:00:40,272 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3dMQvGXyTRKWbp2jgLu9uJs7xwaxdXM9Gx8vqDnqUsryMuHxbkuA2Pq8s6zLc2FKX2HCn9fknWnkKALiyGXgQSP2
+2026-03-18 17:00:40,356 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:40,357 - services.mempool_monitor - ERROR - Error processing new token transaction 3dMQvGXyTRKWbp2jgLu9uJs7xwaxdXM9Gx8vqDnqUsryMuHxbkuA2Pq8s6zLc2FKX2HCn9fknWnkKALiyGXgQSP2:
+2026-03-18 17:00:40,357 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: cMjxYJ2G7w7Y524hod4xE7KbZrddj1Emyn4wKBzDKv9YL3QZRurL8iw7v4pJESGovwXuD5tGvbY3M82FV68Et2B
+2026-03-18 17:00:40,451 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:40,452 - services.mempool_monitor - ERROR - Error processing new token transaction cMjxYJ2G7w7Y524hod4xE7KbZrddj1Emyn4wKBzDKv9YL3QZRurL8iw7v4pJESGovwXuD5tGvbY3M82FV68Et2B:
+2026-03-18 17:00:41,234 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3D277BahUdfmcfDTsBQV3mtTnfSTxTEXWyPfKzjtQ4zQLGtDxB7uDps2VmjM7QP8K4cxg7XSHyb7AgyKvsjieS9b
+2026-03-18 17:00:41,316 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:41,317 - services.mempool_monitor - ERROR - Error processing new token transaction 3D277BahUdfmcfDTsBQV3mtTnfSTxTEXWyPfKzjtQ4zQLGtDxB7uDps2VmjM7QP8K4cxg7XSHyb7AgyKvsjieS9b:
+2026-03-18 17:00:41,580 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4DonezkT2ij9HbSpeREPRTW9mk6sFXZCs6WAVZr1iHREeKgqxwPtSeBJdsBCqoaXG5GfracMdbYjHJgWvBJRLxdF
+2026-03-18 17:00:41,667 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:41,668 - services.mempool_monitor - ERROR - Error processing new token transaction 4DonezkT2ij9HbSpeREPRTW9mk6sFXZCs6WAVZr1iHREeKgqxwPtSeBJdsBCqoaXG5GfracMdbYjHJgWvBJRLxdF:
+2026-03-18 17:00:42,434 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5keufEzvEceVYSAjuwM7aSn1wEEaiwexx9at9awDBKLnK6o5dHHPEAF4fBy2tV7yMdAjuujWByfWrVnSgpDJs5kZ
+2026-03-18 17:00:42,522 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:42,523 - services.mempool_monitor - ERROR - Error processing new token transaction 5keufEzvEceVYSAjuwM7aSn1wEEaiwexx9at9awDBKLnK6o5dHHPEAF4fBy2tV7yMdAjuujWByfWrVnSgpDJs5kZ:
+2026-03-18 17:00:42,832 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5pWBrGAitjU9DLWFhrf5bUSZ1ZNV7yw6t5772guPUmVUFhX22DKrSADMDFBrEctE5wRRH7WPTSR65J1XKTTMbcDH
+2026-03-18 17:00:42,915 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:42,916 - services.mempool_monitor - ERROR - Error processing new token transaction 5pWBrGAitjU9DLWFhrf5bUSZ1ZNV7yw6t5772guPUmVUFhX22DKrSADMDFBrEctE5wRRH7WPTSR65J1XKTTMbcDH:
+2026-03-18 17:00:43,648 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 53p9Ro5SBr6dVejQ2L5juMk9PJtAvCQhL1fgsy58FwZSv6U4pdpbwX2U8SdRZ7TqP3EMfyZRQALkRZ16rBwtuV5X
+2026-03-18 17:00:43,736 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:43,737 - services.mempool_monitor - ERROR - Error processing new token transaction 53p9Ro5SBr6dVejQ2L5juMk9PJtAvCQhL1fgsy58FwZSv6U4pdpbwX2U8SdRZ7TqP3EMfyZRQALkRZ16rBwtuV5X:
+2026-03-18 17:00:44,085 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: t3K2KQUgwbcHqwWsFu45otX4BbyUySNFdkamwCDnmv9j4WoiESVDxqouAtTm3G7szBxY27yMyqQabmoNqEgv9aR
+2026-03-18 17:00:44,169 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:44,170 - services.mempool_monitor - ERROR - Error processing new token transaction t3K2KQUgwbcHqwWsFu45otX4BbyUySNFdkamwCDnmv9j4WoiESVDxqouAtTm3G7szBxY27yMyqQabmoNqEgv9aR:
+2026-03-18 17:00:44,171 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4hAhDrZHg4AwDuKoBkSefk4LPJ5aW7J53Goan8hJbf37qvKkVVEF3JQpAZoCJJq54ttMUAQEJn7LoQpsPXnjAcVZ
+2026-03-18 17:00:44,254 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:44,255 - services.mempool_monitor - ERROR - Error processing new token transaction 4hAhDrZHg4AwDuKoBkSefk4LPJ5aW7J53Goan8hJbf37qvKkVVEF3JQpAZoCJJq54ttMUAQEJn7LoQpsPXnjAcVZ:
+2026-03-18 17:00:44,255 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5ibp4S2oduW7ax1PoRzSSHp8uM1xjj5qgCA9PyUbpkR8XKUxFWd7AQGQViaiHD61wNDR4Hhg9B4mKeJ7zKSATybz
+2026-03-18 17:00:44,338 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:44,339 - services.mempool_monitor - ERROR - Error processing new token transaction 5ibp4S2oduW7ax1PoRzSSHp8uM1xjj5qgCA9PyUbpkR8XKUxFWd7AQGQViaiHD61wNDR4Hhg9B4mKeJ7zKSATybz:
+2026-03-18 17:00:44,339 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: XwYL878gyUPP8pYrjJx9msVHSCRGNX7eLGAf5YKFbaGxWaCDVdZeeaoYrvjpV3MFk3AbcaFxJcjxvB84yhZ7S5k
+2026-03-18 17:00:44,431 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:44,432 - services.mempool_monitor - ERROR - Error processing new token transaction XwYL878gyUPP8pYrjJx9msVHSCRGNX7eLGAf5YKFbaGxWaCDVdZeeaoYrvjpV3MFk3AbcaFxJcjxvB84yhZ7S5k:
+2026-03-18 17:00:45,730 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2CmHDyEoMQ49AbyxCZRiYepKpRaw8Aj2LdjbLLEwz3uoahuvxsU1sgDaZmfk6pVTpBVnmyvp9u36wfia6zNq7BX8
+2026-03-18 17:00:45,823 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 200 OK"
+2026-03-18 17:00:46,085 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3831goqawF5HkFustDujF6zrVKkecAgJ7vE7RqV3brUvoEhCvhw9SSroJhWh9MWQYFDhVKPbRJ6GLXZvpara4ubT
+2026-03-18 17:00:46,112 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:46,113 - services.mempool_monitor - ERROR - Error processing new token transaction 3831goqawF5HkFustDujF6zrVKkecAgJ7vE7RqV3brUvoEhCvhw9SSroJhWh9MWQYFDhVKPbRJ6GLXZvpara4ubT:
+2026-03-18 17:00:46,114 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: REQnovegd3C6uDr23byhNCGoSNVBaG3ttUAyv61qEcgTxFyiTuSgTEdDseCZnePkhu11pKhiCdbhue7iA1zE2eb
+2026-03-18 17:00:46,197 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:46,198 - services.mempool_monitor - ERROR - Error processing new token transaction REQnovegd3C6uDr23byhNCGoSNVBaG3ttUAyv61qEcgTxFyiTuSgTEdDseCZnePkhu11pKhiCdbhue7iA1zE2eb:
+2026-03-18 17:00:46,198 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3nQikdtFMGJS4faUMcdsZfW71g4BdZt25Zem2C3QjBtzwunR96dG7USruWf8YWYMbpseCtXYXsTR3rGjZb17yXrN
+2026-03-18 17:00:46,281 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:46,282 - services.mempool_monitor - ERROR - Error processing new token transaction 3nQikdtFMGJS4faUMcdsZfW71g4BdZt25Zem2C3QjBtzwunR96dG7USruWf8YWYMbpseCtXYXsTR3rGjZb17yXrN:
+2026-03-18 17:00:46,282 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 3nQikdtFMGJS4faUMcdsZfW71g4BdZt25Zem2C3QjBtzwunR96dG7USruWf8YWYMbpseCtXYXsTR3rGjZb17yXrN
+2026-03-18 17:00:46,447 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2VJZYnvT2zaU9rXS5iWufHQayGib4BzYuaKxQobqykYrhxQjZhVM9UcjLJWQrwLSBwywnWK7YB1ZJfr7Xkw7Lbo3
+2026-03-18 17:00:46,530 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:46,531 - services.mempool_monitor - ERROR - Error processing new token transaction 2VJZYnvT2zaU9rXS5iWufHQayGib4BzYuaKxQobqykYrhxQjZhVM9UcjLJWQrwLSBwywnWK7YB1ZJfr7Xkw7Lbo3:
+2026-03-18 17:00:46,793 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4Vh8x7BRx3dF3zEUMsmnshn9D6axFtD8MuprxCBJRCGW7NZpuSsSvWAyaTGXiTqZ7tx6yRg8UShyGGxExQY8g6Yk
+2026-03-18 17:00:46,878 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:46,879 - services.mempool_monitor - ERROR - Error processing new token transaction 4Vh8x7BRx3dF3zEUMsmnshn9D6axFtD8MuprxCBJRCGW7NZpuSsSvWAyaTGXiTqZ7tx6yRg8UShyGGxExQY8g6Yk:
+2026-03-18 17:00:46,879 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 6771998mvcsk2gn3T8eNjtVnBntcQnwQXzMjfYVc4w6bJ7xXULJXXz8ZaZW5P4tgh5m78U3btLsei9CpFQesYWEq
+2026-03-18 17:00:46,962 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:46,963 - services.mempool_monitor - ERROR - Error processing new token transaction 6771998mvcsk2gn3T8eNjtVnBntcQnwQXzMjfYVc4w6bJ7xXULJXXz8ZaZW5P4tgh5m78U3btLsei9CpFQesYWEq:
+2026-03-18 17:00:46,964 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4kSy4xgKC8FuCGdpxwf34E89Hfw79dEmge5Shd2MeAKcz4PzDTCG5WJZgevckCrLoqPKN9S8PShfnPpcezYHHWQU
+2026-03-18 17:00:47,048 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:47,049 - services.mempool_monitor - ERROR - Error processing new token transaction 4kSy4xgKC8FuCGdpxwf34E89Hfw79dEmge5Shd2MeAKcz4PzDTCG5WJZgevckCrLoqPKN9S8PShfnPpcezYHHWQU:
+2026-03-18 17:00:47,153 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: SGVQByjiNLE49Wq8mD5KKwdaem6tL56hmpQjJcsqqGfGuo4rX9BaWYkH2LTqGDBmV23mChBaYRanbGfv95Lp92m
+2026-03-18 17:00:47,238 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:47,239 - services.mempool_monitor - ERROR - Error processing new token transaction SGVQByjiNLE49Wq8mD5KKwdaem6tL56hmpQjJcsqqGfGuo4rX9BaWYkH2LTqGDBmV23mChBaYRanbGfv95Lp92m:
+2026-03-18 17:00:47,239 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3mQ2SABFHdNszzjSbGtN26yni7XsdckEjDJS4fuYggjy6qwpEdiJt3E6hifcFGg1rWeJz7EHJaKh4SfNBjEj1S2B
+2026-03-18 17:00:47,327 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:47,328 - services.mempool_monitor - ERROR - Error processing new token transaction 3mQ2SABFHdNszzjSbGtN26yni7XsdckEjDJS4fuYggjy6qwpEdiJt3E6hifcFGg1rWeJz7EHJaKh4SfNBjEj1S2B:
+2026-03-18 17:00:47,635 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3fo3aZJSzUaeJRCLZ9sW21vxpeMUz94Mnkmsfptkhine2hKfBNibhSBQadZbh68u2dktCdQWM55xxoTyYKat8V1r
+2026-03-18 17:00:47,722 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:47,723 - services.mempool_monitor - ERROR - Error processing new token transaction 3fo3aZJSzUaeJRCLZ9sW21vxpeMUz94Mnkmsfptkhine2hKfBNibhSBQadZbh68u2dktCdQWM55xxoTyYKat8V1r:
+2026-03-18 17:00:48,427 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5fjUpV4gX7LG8uyd47BgH83xgeR4GWAhDaBCxLNNE4HR3HLsCqWTAgGbc7uVwF8tVwewNtE8WihfpDRmCGVUcEC
+2026-03-18 17:00:48,513 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:48,514 - services.mempool_monitor - ERROR - Error processing new token transaction 5fjUpV4gX7LG8uyd47BgH83xgeR4GWAhDaBCxLNNE4HR3HLsCqWTAgGbc7uVwF8tVwewNtE8WihfpDRmCGVUcEC:
+2026-03-18 17:00:48,920 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: tcZHJhqSrmYBxxDAJThc2VCMLKysh2Hy7788YmcvSoWwqRickWXgxrrR2CDNhxJRNfzZUfSeZ8esPJLoomQcb2d
+2026-03-18 17:00:49,026 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:49,027 - services.mempool_monitor - ERROR - Error processing new token transaction tcZHJhqSrmYBxxDAJThc2VCMLKysh2Hy7788YmcvSoWwqRickWXgxrrR2CDNhxJRNfzZUfSeZ8esPJLoomQcb2d:
+2026-03-18 17:00:49,629 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4kY7uWY1iUmGLggNe5ia5uFfvzUAVVXa5y2ExtMRkow9tyjyFLdyv8LmXSgy9FZzHx8Aj8DQoXFc8k4dopCNzAa
+2026-03-18 17:00:49,712 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:49,713 - services.mempool_monitor - ERROR - Error processing new token transaction 4kY7uWY1iUmGLggNe5ia5uFfvzUAVVXa5y2ExtMRkow9tyjyFLdyv8LmXSgy9FZzHx8Aj8DQoXFc8k4dopCNzAa:
+2026-03-18 17:00:50,475 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 85gwZuWZwF9svZqGpXAG7mxHpWvGztqoK4mp5qNPY73XPwC2Tf9BiFwn3bXcaLpzw7ap79f2s13r1UR23KAc7bt
+2026-03-18 17:00:50,573 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 200 OK"
+2026-03-18 17:00:50,575 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: hNAH4fotqd4aUBQdg7YMuL63im8Wd2ogaNUWFLf2uSTsgv8541TkovR9xAaRRa2t6t9QmH91Mzh5HTE37DGMWT2
+2026-03-18 17:00:50,603 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:50,604 - services.mempool_monitor - ERROR - Error processing new token transaction hNAH4fotqd4aUBQdg7YMuL63im8Wd2ogaNUWFLf2uSTsgv8541TkovR9xAaRRa2t6t9QmH91Mzh5HTE37DGMWT2:
+2026-03-18 17:00:50,604 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3NT7aj8g1tWVJG2Vwc9VXtLEsgbVd7rRJz5s6j1xq4gzirEWYZDKEvHtDvJMdgxp5T86QNjK5axAMGpT9r45PQTK
+2026-03-18 17:00:50,691 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:50,692 - services.mempool_monitor - ERROR - Error processing new token transaction 3NT7aj8g1tWVJG2Vwc9VXtLEsgbVd7rRJz5s6j1xq4gzirEWYZDKEvHtDvJMdgxp5T86QNjK5axAMGpT9r45PQTK:
+2026-03-18 17:00:50,836 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 47eMQW7Tycg6DTPN3w7Ae1BzkQiecpYbyaGTfmfLBvP8TopuQ7YbQTB14dZgE3DLsDTfcNbpyin8JDqkPdynjmLf
+2026-03-18 17:00:50,921 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:50,923 - services.mempool_monitor - ERROR - Error processing new token transaction 47eMQW7Tycg6DTPN3w7Ae1BzkQiecpYbyaGTfmfLBvP8TopuQ7YbQTB14dZgE3DLsDTfcNbpyin8JDqkPdynjmLf:
+2026-03-18 17:00:51,540 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2Jcs4fA9YYzk6EPfG8DcKaMGMAFG1rdjTCUeedwhoAKUpVgoFVsqQjwBBNe4L935DoN2Hfmm2VaMHCHfcavNjER7
+2026-03-18 17:00:51,625 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:51,626 - services.mempool_monitor - ERROR - Error processing new token transaction 2Jcs4fA9YYzk6EPfG8DcKaMGMAFG1rdjTCUeedwhoAKUpVgoFVsqQjwBBNe4L935DoN2Hfmm2VaMHCHfcavNjER7:
+2026-03-18 17:00:52,009 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: f5UCLmahMLc3jQM41dYnWcPeCqLgNAdxsgwCNdU8Y1mi1ox7T4Z8E3BkXF5Fws3u2CHWfFy62MC3BE4cTV6B9GV
+2026-03-18 17:00:52,105 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:52,107 - services.mempool_monitor - ERROR - Error processing new token transaction f5UCLmahMLc3jQM41dYnWcPeCqLgNAdxsgwCNdU8Y1mi1ox7T4Z8E3BkXF5Fws3u2CHWfFy62MC3BE4cTV6B9GV:
+2026-03-18 17:00:52,721 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: Bk3yc1Q7JQfgb8d7pmEkLuQYms1HqepV8Pufb44vmmgBqMK5NF5efjERjiNJKcUXDkZERhUM2A15raSAMSHfWXS
+2026-03-18 17:00:52,807 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:52,808 - services.mempool_monitor - ERROR - Error processing new token transaction Bk3yc1Q7JQfgb8d7pmEkLuQYms1HqepV8Pufb44vmmgBqMK5NF5efjERjiNJKcUXDkZERhUM2A15raSAMSHfWXS:
+2026-03-18 17:00:53,087 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 2k4ZBe37X7znwwKSfremniWx1AgXMmj8xMtcywQWpJnm3hAYZJ1yAxt2uTEDdNx4GC46RyJd7t3fdj9SAujtPwh4
+2026-03-18 17:00:53,526 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: u6W4KE4PUDYvbPuT21aNfJchq8tKvfDB1qxGWLPmuhErTaYqetoXrtQUSSShW6gpxaGusFhDden9QkRxoCiektx
+2026-03-18 17:00:53,609 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:53,610 - services.mempool_monitor - ERROR - Error processing new token transaction u6W4KE4PUDYvbPuT21aNfJchq8tKvfDB1qxGWLPmuhErTaYqetoXrtQUSSShW6gpxaGusFhDden9QkRxoCiektx:
+2026-03-18 17:00:53,611 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3DUmraaJhSiujLckFSymqud2sLXeZAasdZwQ1dz37vg2mSQn5pZcQF4XqUzWugtFhPodYCSekLbkqwGV9BdDKHUX
+2026-03-18 17:00:53,693 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:53,694 - services.mempool_monitor - ERROR - Error processing new token transaction 3DUmraaJhSiujLckFSymqud2sLXeZAasdZwQ1dz37vg2mSQn5pZcQF4XqUzWugtFhPodYCSekLbkqwGV9BdDKHUX:
+2026-03-18 17:00:53,870 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2Lb5HzLJBU2D45UCxPdMjBbGaMRhYz7DgrDtmWvJUNpoqhqcskVW5URT6HpeumXCNkQcb4wiLsz4baWe7QhWnsVM
+2026-03-18 17:00:53,961 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:53,963 - services.mempool_monitor - ERROR - Error processing new token transaction 2Lb5HzLJBU2D45UCxPdMjBbGaMRhYz7DgrDtmWvJUNpoqhqcskVW5URT6HpeumXCNkQcb4wiLsz4baWe7QhWnsVM:
+2026-03-18 17:00:54,235 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5MqbfZX4LPHV4AoCASPUs7e6nwGUi1YARegXMwL34AwnEMWuW9XmbaJVaeK5Bs8f2BkKomKaHgeHL4f53oa2qsZA
+2026-03-18 17:00:54,319 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:54,320 - services.mempool_monitor - ERROR - Error processing new token transaction 5MqbfZX4LPHV4AoCASPUs7e6nwGUi1YARegXMwL34AwnEMWuW9XmbaJVaeK5Bs8f2BkKomKaHgeHL4f53oa2qsZA:
+2026-03-18 17:00:54,320 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 5MqbfZX4LPHV4AoCASPUs7e6nwGUi1YARegXMwL34AwnEMWuW9XmbaJVaeK5Bs8f2BkKomKaHgeHL4f53oa2qsZA
+2026-03-18 17:00:54,321 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5mJikS87KwhJTBZoGe6GeftZQjSW7uY6K64tJPagAsJbhoRGDYzu1UscAB6REyqJ3CsQExjAhe1M7DeZKiWkUQeT
+2026-03-18 17:00:54,404 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:54,405 - services.mempool_monitor - ERROR - Error processing new token transaction 5mJikS87KwhJTBZoGe6GeftZQjSW7uY6K64tJPagAsJbhoRGDYzu1UscAB6REyqJ3CsQExjAhe1M7DeZKiWkUQeT:
+2026-03-18 17:00:54,405 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 28VLXcUGqYBsJtXKT6gp2kdf2zaGMV91hDWdxNtSDYjvKNiw654z7M1N74TPvbxP3j5TNJp8tTXY7yVNmsT2XRhT
+2026-03-18 17:00:54,488 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:54,489 - services.mempool_monitor - ERROR - Error processing new token transaction 28VLXcUGqYBsJtXKT6gp2kdf2zaGMV91hDWdxNtSDYjvKNiw654z7M1N74TPvbxP3j5TNJp8tTXY7yVNmsT2XRhT:
+2026-03-18 17:00:55,808 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 34NT92eXHwfC35mSL4Eexy36RsMPkCeWAqajgM9e4ovmerW4RrgroQ3HpTVxbyaSZ3MKM9phNRzDRSAHxxpBZgwQ
+2026-03-18 17:00:55,896 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:55,898 - services.mempool_monitor - ERROR - Error processing new token transaction 34NT92eXHwfC35mSL4Eexy36RsMPkCeWAqajgM9e4ovmerW4RrgroQ3HpTVxbyaSZ3MKM9phNRzDRSAHxxpBZgwQ:
+2026-03-18 17:00:56,233 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: y6F2etydUvHEKDjGtv63iEajsPw8dSfHFZxWCbvFxVxq7xYR3km2Cv6TaTE9Hwh6orc23GXUbQTtc5pda2Maz4G
+2026-03-18 17:00:56,318 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:56,319 - services.mempool_monitor - ERROR - Error processing new token transaction y6F2etydUvHEKDjGtv63iEajsPw8dSfHFZxWCbvFxVxq7xYR3km2Cv6TaTE9Hwh6orc23GXUbQTtc5pda2Maz4G:
+2026-03-18 17:00:58,181 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: VWAWfS3WL8cZfiLimJj8SfuVqKGKzvdALEuMU4e6mR9NY4sWG2m5KUGtasXGS2Rp8PTQ8RitLaMcRQYado7UNnA
+2026-03-18 17:00:58,264 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:58,265 - services.mempool_monitor - ERROR - Error processing new token transaction VWAWfS3WL8cZfiLimJj8SfuVqKGKzvdALEuMU4e6mR9NY4sWG2m5KUGtasXGS2Rp8PTQ8RitLaMcRQYado7UNnA:
+2026-03-18 17:00:58,265 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4m2xoaS6exVPmZpAVFzLgkQmTPUnoNBu415ifHuHwTUxTwvWmnMTRCGgCRsWSGUvo6SdEzaDGWHVj5VeGxPj3mT7
+2026-03-18 17:00:58,348 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:58,349 - services.mempool_monitor - ERROR - Error processing new token transaction 4m2xoaS6exVPmZpAVFzLgkQmTPUnoNBu415ifHuHwTUxTwvWmnMTRCGgCRsWSGUvo6SdEzaDGWHVj5VeGxPj3mT7:
+2026-03-18 17:00:58,349 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: cG93iN8qTi6z83M22GUqRSNYdBxAcYVLuBpvh8SgfgKqBvk3HCGqjZuQk7v43V5NRXHwLxwrvesENFG9DLZJh9B
+2026-03-18 17:00:58,431 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:58,432 - services.mempool_monitor - ERROR - Error processing new token transaction cG93iN8qTi6z83M22GUqRSNYdBxAcYVLuBpvh8SgfgKqBvk3HCGqjZuQk7v43V5NRXHwLxwrvesENFG9DLZJh9B:
+2026-03-18 17:00:58,432 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4PukBXehFo57MxyVr8AR4t8BqELQMLM8bRxXkxF9spK3Xu8c7H9Zn6Yei85oWdKNpNhcTH1YZsb9AgDtiwKSbqhP
+2026-03-18 17:00:58,514 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:58,515 - services.mempool_monitor - ERROR - Error processing new token transaction 4PukBXehFo57MxyVr8AR4t8BqELQMLM8bRxXkxF9spK3Xu8c7H9Zn6Yei85oWdKNpNhcTH1YZsb9AgDtiwKSbqhP:
+2026-03-18 17:00:58,899 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 233omMfUgNKx79dhmpND1CTP8gLG6pmia2aPAMeWMUGWcZMtDjGNuuZdNTuDhEbFncobUeoExSF2jN9RZQvTkzkN
+2026-03-18 17:00:58,983 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:58,984 - services.mempool_monitor - ERROR - Error processing new token transaction 233omMfUgNKx79dhmpND1CTP8gLG6pmia2aPAMeWMUGWcZMtDjGNuuZdNTuDhEbFncobUeoExSF2jN9RZQvTkzkN:
+2026-03-18 17:00:59,240 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2H453vqUNeKbjiswt4zabv4U7dYF91852biUASsz3g6JbSKrqGoMcgvGNmY52BotQVCx5q57KAUdLrLntadxsyS1
+2026-03-18 17:00:59,324 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:00:59,325 - services.mempool_monitor - ERROR - Error processing new token transaction 2H453vqUNeKbjiswt4zabv4U7dYF91852biUASsz3g6JbSKrqGoMcgvGNmY52BotQVCx5q57KAUdLrLntadxsyS1:
+2026-03-18 17:01:00,184 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4vdMPsKKXstqrszn4dQDmvZpKtPmEHsNBP7j8jxvBjcp1n3pzji8BKr3gpmqikNuPZxvv5xjvxmP6hKkd37dJZwd
+2026-03-18 17:01:00,271 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:00,272 - services.mempool_monitor - ERROR - Error processing new token transaction 4vdMPsKKXstqrszn4dQDmvZpKtPmEHsNBP7j8jxvBjcp1n3pzji8BKr3gpmqikNuPZxvv5xjvxmP6hKkd37dJZwd:
+2026-03-18 17:01:00,272 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4NvHex1Wxn8wmFtKVuL57uJwfBeReAvBWK59dLk1c43vGfW3VMpqniSGFkEYaHoEcRXcVrzf4iH5nk7YhzivNqHj
+2026-03-18 17:01:00,357 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:00,358 - services.mempool_monitor - ERROR - Error processing new token transaction 4NvHex1Wxn8wmFtKVuL57uJwfBeReAvBWK59dLk1c43vGfW3VMpqniSGFkEYaHoEcRXcVrzf4iH5nk7YhzivNqHj:
+2026-03-18 17:01:00,359 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2QnW5W1zxsr1USDu6ip8YCW7g5iiGjc6fUwz9XaoDfseUDe3CXTv6B7sxhW27vVVZXwzb34Pbp4JayoSfZ7Fan9b
+2026-03-18 17:01:00,444 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:00,445 - services.mempool_monitor - ERROR - Error processing new token transaction 2QnW5W1zxsr1USDu6ip8YCW7g5iiGjc6fUwz9XaoDfseUDe3CXTv6B7sxhW27vVVZXwzb34Pbp4JayoSfZ7Fan9b:
+2026-03-18 17:01:00,596 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2vdEuwoZ4koem6BQbVJd1HAMUX7LxY1ZmYiDRMrjmnMVLg5aApb18fMnbMqoE9UR2vAvdZNwbXe4erkqZghszWvh
+2026-03-18 17:01:00,680 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:00,681 - services.mempool_monitor - ERROR - Error processing new token transaction 2vdEuwoZ4koem6BQbVJd1HAMUX7LxY1ZmYiDRMrjmnMVLg5aApb18fMnbMqoE9UR2vAvdZNwbXe4erkqZghszWvh:
+2026-03-18 17:01:00,681 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 25RPdiGwoBePvSCqtfm74qsRfQcTgRk5TxzQijtwHrdZSLFgFsWdso64JtiA9agX3kBWLpZ5D4tLeQh9h5PbWi9E
+2026-03-18 17:01:00,768 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:00,769 - services.mempool_monitor - ERROR - Error processing new token transaction 25RPdiGwoBePvSCqtfm74qsRfQcTgRk5TxzQijtwHrdZSLFgFsWdso64JtiA9agX3kBWLpZ5D4tLeQh9h5PbWi9E:
+2026-03-18 17:01:01,747 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 311QsFwT2FmaU1N7m82vL4Fwy5Ed1ApPAPPB4Ft2mWkoFHU3wecaAN5xpaF7B87bRJhT76N7y8fgsWx1yjdY9R7U
+2026-03-18 17:01:01,835 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:01,836 - services.mempool_monitor - ERROR - Error processing new token transaction 311QsFwT2FmaU1N7m82vL4Fwy5Ed1ApPAPPB4Ft2mWkoFHU3wecaAN5xpaF7B87bRJhT76N7y8fgsWx1yjdY9R7U:
+2026-03-18 17:01:01,836 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5UjxbRXsMdzqDm7xn5y7Snju2pnCyfqUdSwke12u1E7PuXieXT7TaKbSPHXocbfvMCsZB986nLXW9J7XVx21L9Rf
+2026-03-18 17:01:01,919 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:01,920 - services.mempool_monitor - ERROR - Error processing new token transaction 5UjxbRXsMdzqDm7xn5y7Snju2pnCyfqUdSwke12u1E7PuXieXT7TaKbSPHXocbfvMCsZB986nLXW9J7XVx21L9Rf:
+2026-03-18 17:01:02,103 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3BJvd9kbazsG78AXxb1UQddHaemASj23hywvgUf7WTqDAZuXkoFZCfsfXK3CGq6rzZdekGXi4Gxw3kCKAN48HSJW
+2026-03-18 17:01:02,189 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:02,190 - services.mempool_monitor - ERROR - Error processing new token transaction 3BJvd9kbazsG78AXxb1UQddHaemASj23hywvgUf7WTqDAZuXkoFZCfsfXK3CGq6rzZdekGXi4Gxw3kCKAN48HSJW:
+2026-03-18 17:01:02,190 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2rU3Kbj4YGXm3P6M2NgMKtoK3LJWnzpMsQBRT4q4RjgJ241AwYwqCRiLcbCHwhCJeUoegFp9gjZgLsYKNRqt4wFc
+2026-03-18 17:01:02,273 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:02,274 - services.mempool_monitor - ERROR - Error processing new token transaction 2rU3Kbj4YGXm3P6M2NgMKtoK3LJWnzpMsQBRT4q4RjgJ241AwYwqCRiLcbCHwhCJeUoegFp9gjZgLsYKNRqt4wFc:
+2026-03-18 17:01:02,849 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 44L2f524ddpzegU9LxdejMh7qtgc6uiAGhsQxrb6zx1jDdqkZwTtNrmCmGhruXsebAkH6N66kV9kWRuoLroCPg52
+2026-03-18 17:01:02,931 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:02,932 - services.mempool_monitor - ERROR - Error processing new token transaction 44L2f524ddpzegU9LxdejMh7qtgc6uiAGhsQxrb6zx1jDdqkZwTtNrmCmGhruXsebAkH6N66kV9kWRuoLroCPg52:
+2026-03-18 17:01:02,932 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3QeNyLe2VqSgYbVGoHqD4VEYHNzRNr2naoZoqGXCas7AYZcaziPMJ1QC3dcUMqodNPpGFegfaFsAmJqiR6X1M61v
+2026-03-18 17:01:03,015 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:03,016 - services.mempool_monitor - ERROR - Error processing new token transaction 3QeNyLe2VqSgYbVGoHqD4VEYHNzRNr2naoZoqGXCas7AYZcaziPMJ1QC3dcUMqodNPpGFegfaFsAmJqiR6X1M61v:
+2026-03-18 17:01:03,017 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 47yebdasQCXAbMF1jMbJwjVe1DQe6YsZRH3WBegY2DQbVgyfudv3RjMZ12vtYMJsKpz5YcbVtgcroKuQUJtojXHa
+2026-03-18 17:01:03,100 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:03,101 - services.mempool_monitor - ERROR - Error processing new token transaction 47yebdasQCXAbMF1jMbJwjVe1DQe6YsZRH3WBegY2DQbVgyfudv3RjMZ12vtYMJsKpz5YcbVtgcroKuQUJtojXHa:
+2026-03-18 17:01:04,338 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3S4jcTjvXq3bc4ddeEcu7QX2UWxTnjZ2tXtfc8iMTNYHfNhmZVN1yLu8sRq3nwVUERVCTXt4DxaTGwpK8HYciL51
+2026-03-18 17:01:04,421 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:04,422 - services.mempool_monitor - ERROR - Error processing new token transaction 3S4jcTjvXq3bc4ddeEcu7QX2UWxTnjZ2tXtfc8iMTNYHfNhmZVN1yLu8sRq3nwVUERVCTXt4DxaTGwpK8HYciL51:
+2026-03-18 17:01:04,422 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 42r6sm8BSj834M3D9iFjvjXNGEPZHRCqWMStFa7m8YUft2THitKQ3srcw57SM57U81Q9RmTA1MRS5og6SW5nriaE
+2026-03-18 17:01:04,505 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:04,506 - services.mempool_monitor - ERROR - Error processing new token transaction 42r6sm8BSj834M3D9iFjvjXNGEPZHRCqWMStFa7m8YUft2THitKQ3srcw57SM57U81Q9RmTA1MRS5og6SW5nriaE:
+2026-03-18 17:01:04,683 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: uEsV8MZU1HQpRLwnnVs3iW12SSGsGAH6QQuFTYkSf1Ggz6cm95DpUcN9rLrn2J3nXD9rYa3R39xX6obhd3o4Tfs
+2026-03-18 17:01:04,771 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:04,772 - services.mempool_monitor - ERROR - Error processing new token transaction uEsV8MZU1HQpRLwnnVs3iW12SSGsGAH6QQuFTYkSf1Ggz6cm95DpUcN9rLrn2J3nXD9rYa3R39xX6obhd3o4Tfs:
+2026-03-18 17:01:05,387 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 64dR1UUVQEhdxRt6Qm6pNmCpFLBYg969H5hXWdhNTmi9iheQeG8KTruPyhQFZHj8uNYLjcgquDzincUXeuVH6PhV
+2026-03-18 17:01:05,475 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:05,476 - services.mempool_monitor - ERROR - Error processing new token transaction 64dR1UUVQEhdxRt6Qm6pNmCpFLBYg969H5hXWdhNTmi9iheQeG8KTruPyhQFZHj8uNYLjcgquDzincUXeuVH6PhV:
+2026-03-18 17:01:05,892 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 35gat38ac4wdGKNdERjp6wWMqiijZVdGHWUtJLc35ULrg4W4g643miKZVNd1517FLsnBhgKE4wKQFhifNZSSdTTp
+2026-03-18 17:01:15,897 - services.mempool_monitor - ERROR - Error processing new token transaction 35gat38ac4wdGKNdERjp6wWMqiijZVdGHWUtJLc35ULrg4W4g643miKZVNd1517FLsnBhgKE4wKQFhifNZSSdTTp:
+2026-03-18 17:01:15,898 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5QxPKKPMNzjzK4tn25hbuiBYeYsY3eoLijcPeVRo1fdt7CYcTC4ApWLt3YoCJ6aLVVqCBjhpuRqFKwSpDwCM3aip
+2026-03-18 17:01:15,982 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:15,983 - services.mempool_monitor - ERROR - Error processing new token transaction 5QxPKKPMNzjzK4tn25hbuiBYeYsY3eoLijcPeVRo1fdt7CYcTC4ApWLt3YoCJ6aLVVqCBjhpuRqFKwSpDwCM3aip:
+2026-03-18 17:01:15,983 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3CpTrv9WvDBn1izJVu1w7Kz79uNUhmTxpFPsinxSHjsM3bh6ZLavt6iXuABckxGfEcbyq75jGuHN3GybE7z3Cnrf
+2026-03-18 17:01:25,275 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 200 OK"
+2026-03-18 17:01:25,278 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: HjAZtPTneFNi4PNUVSer8AhzUofRwhphtKdqbDwZZ43Y9q4L1TThzQtoBXJqMzPYM7FETckXptHiFrHcncSSbcw
+2026-03-18 17:01:25,313 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 200 OK"
+2026-03-18 17:01:25,320 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5QcjKUM2T2TUgb95HaXzwVNWAREy22tkoWv3dp4CLL8FFJbgJULSdTEUv7ZyAB919guuzKCvLurkjRJvGFBKk1kv
+2026-03-18 17:01:25,348 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:25,349 - services.mempool_monitor - ERROR - Error processing new token transaction 5QcjKUM2T2TUgb95HaXzwVNWAREy22tkoWv3dp4CLL8FFJbgJULSdTEUv7ZyAB919guuzKCvLurkjRJvGFBKk1kv:
+2026-03-18 17:01:25,350 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3iiJgBwaAqAns3di9MMC6KkWsb9km5x3ZK2ZEYeP7yJGNDhH5y6aErMLfCZNE9V83zLU4pKx2e7W5WSpKUYDXDkB
+2026-03-18 17:01:25,432 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:25,433 - services.mempool_monitor - ERROR - Error processing new token transaction 3iiJgBwaAqAns3di9MMC6KkWsb9km5x3ZK2ZEYeP7yJGNDhH5y6aErMLfCZNE9V83zLU4pKx2e7W5WSpKUYDXDkB:
+2026-03-18 17:01:25,435 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3V6jbK3f2wsayKaUEmV1m37zafzYMC95XUyeuzCB52wjx93nmm7Fp5aY6rDcqq4ReggFJxtU8xhXVMwGN35tthtj
+2026-03-18 17:01:25,521 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:25,522 - services.mempool_monitor - ERROR - Error processing new token transaction 3V6jbK3f2wsayKaUEmV1m37zafzYMC95XUyeuzCB52wjx93nmm7Fp5aY6rDcqq4ReggFJxtU8xhXVMwGN35tthtj:
+2026-03-18 17:01:25,526 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2sDUsbioviqTruCz6HKzxtzQ3uZFEwJ7fgGLbZ2ZFyiqW4b2LPizRMBZX5p6mu2kKj8ra9rn9jH4Y57hvQniMJex
+2026-03-18 17:01:25,608 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:25,609 - services.mempool_monitor - ERROR - Error processing new token transaction 2sDUsbioviqTruCz6HKzxtzQ3uZFEwJ7fgGLbZ2ZFyiqW4b2LPizRMBZX5p6mu2kKj8ra9rn9jH4Y57hvQniMJex:
+2026-03-18 17:01:25,611 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5Vfyk641YNhzr7d9W2sNTPhKsKgTNdzSpu2UHnVwUUsiQUY2t4ZJC6CcBdkMdCMnwZNkuah4o6xCEhQ4gDLXHfE3
+2026-03-18 17:01:25,699 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:25,700 - services.mempool_monitor - ERROR - Error processing new token transaction 5Vfyk641YNhzr7d9W2sNTPhKsKgTNdzSpu2UHnVwUUsiQUY2t4ZJC6CcBdkMdCMnwZNkuah4o6xCEhQ4gDLXHfE3:
+2026-03-18 17:01:25,701 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4XeocPNDFdjdwEZUWGK1KH3irW9QkY7pzYtcH6HT9W43qCgHK7mrFhgeQExkU5rJAtuuLK9jQBWAA9pbGoq277mx
+2026-03-18 17:01:25,784 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:25,785 - services.mempool_monitor - ERROR - Error processing new token transaction 4XeocPNDFdjdwEZUWGK1KH3irW9QkY7pzYtcH6HT9W43qCgHK7mrFhgeQExkU5rJAtuuLK9jQBWAA9pbGoq277mx:
+2026-03-18 17:01:25,786 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 44nMDQRSrS6hdCbVCdr6C3phehN2B3KMTZS89g1GptyWCN2LuLMmdM8wAfE4DngPgJzdE6J57PDrip9Qmb17KKkL
+2026-03-18 17:01:25,869 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:25,870 - services.mempool_monitor - ERROR - Error processing new token transaction 44nMDQRSrS6hdCbVCdr6C3phehN2B3KMTZS89g1GptyWCN2LuLMmdM8wAfE4DngPgJzdE6J57PDrip9Qmb17KKkL:
+2026-03-18 17:01:25,871 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 52MgAhGD2EmSfjCf5wymsPHfdxnT21ScAWKKZD4AGmGwS3xMZRgd8bxvBbebQsbSdx8v2miR8E4py2D4jW9gN34N
+2026-03-18 17:01:25,954 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:25,955 - services.mempool_monitor - ERROR - Error processing new token transaction 52MgAhGD2EmSfjCf5wymsPHfdxnT21ScAWKKZD4AGmGwS3xMZRgd8bxvBbebQsbSdx8v2miR8E4py2D4jW9gN34N:
+2026-03-18 17:01:25,957 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: MkZix4vgBscmwcMoNLzEUfeEVUX4Z3mKFYayhaPVYpKRtDZhR618bHswr9iK9X9KSF7vsvMc8ha3gnZoPcDXKaq
+2026-03-18 17:01:26,041 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:26,043 - services.mempool_monitor - ERROR - Error processing new token transaction MkZix4vgBscmwcMoNLzEUfeEVUX4Z3mKFYayhaPVYpKRtDZhR618bHswr9iK9X9KSF7vsvMc8ha3gnZoPcDXKaq:
+2026-03-18 17:01:26,043 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3yT3LuQpDz2if4WDLDHPxERiyUQtMBfJ1tZGUKSCu5Lg3ncM5Z3obSde6jHgdcWzX9H9Nd6jUtrkC6X8gTahmJf2
+2026-03-18 17:01:26,127 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:26,128 - services.mempool_monitor - ERROR - Error processing new token transaction 3yT3LuQpDz2if4WDLDHPxERiyUQtMBfJ1tZGUKSCu5Lg3ncM5Z3obSde6jHgdcWzX9H9Nd6jUtrkC6X8gTahmJf2:
+2026-03-18 17:01:26,129 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: BTB1Kt8aSm92Gsaqyc2Pnj5zvq9HkcHjKS87Dyxdho5nmxD6puYMPpJGVNNCQScL5hDLKcc9SRKzuXFxdZTMdpJ
+2026-03-18 17:01:26,214 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:26,215 - services.mempool_monitor - ERROR - Error processing new token transaction BTB1Kt8aSm92Gsaqyc2Pnj5zvq9HkcHjKS87Dyxdho5nmxD6puYMPpJGVNNCQScL5hDLKcc9SRKzuXFxdZTMdpJ:
+2026-03-18 17:01:26,218 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2MJ8KhQJaiwWE1LRPGFo2nwPwCaouhw7HFFqwrXJu9Yq7B51C1BTJRCZErxycrmzxBGUBAJXxyTM1GPbFZ15vmFd
+2026-03-18 17:01:26,302 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:26,303 - services.mempool_monitor - ERROR - Error processing new token transaction 2MJ8KhQJaiwWE1LRPGFo2nwPwCaouhw7HFFqwrXJu9Yq7B51C1BTJRCZErxycrmzxBGUBAJXxyTM1GPbFZ15vmFd:
+2026-03-18 17:01:26,303 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5CowzWq2LbBhHsg7oR4wihcBceku6QTApw81b528ziefc7FWU2XqucMCwwqru3Ee3XnhHkLPXG2SRqSsgzedkTso
+2026-03-18 17:01:26,386 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:26,387 - services.mempool_monitor - ERROR - Error processing new token transaction 5CowzWq2LbBhHsg7oR4wihcBceku6QTApw81b528ziefc7FWU2XqucMCwwqru3Ee3XnhHkLPXG2SRqSsgzedkTso:
+2026-03-18 17:01:26,388 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4cFpeDWinZRDDwmNDPK5FvbKTQiuNGr9VwaWidbefZYJK8cvVhSa14a5S3AVZ6fcEwuexkGTvW1uxtbXjYfeLQzZ
+2026-03-18 17:01:26,474 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:26,475 - services.mempool_monitor - ERROR - Error processing new token transaction 4cFpeDWinZRDDwmNDPK5FvbKTQiuNGr9VwaWidbefZYJK8cvVhSa14a5S3AVZ6fcEwuexkGTvW1uxtbXjYfeLQzZ:
+2026-03-18 17:01:26,475 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4pCwEo8rvHSLs9tUfy5dHYF8jpg6uohTHckL5DTdL45hc7aWBZSiSQKQJamfXERKpkxWZM98fBuNK31N61ZtpHDD
+2026-03-18 17:01:36,487 - services.mempool_monitor - ERROR - Error processing new token transaction 4pCwEo8rvHSLs9tUfy5dHYF8jpg6uohTHckL5DTdL45hc7aWBZSiSQKQJamfXERKpkxWZM98fBuNK31N61ZtpHDD:
+2026-03-18 17:01:36,489 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4BrZDPPpbT5zih1PC1XDzGvZofpkmeyRPNCzYorx4Kz85SCD82L2X2WpqHAzjMdsLduy1mPFfABoQpWGjY6GwVkS
+2026-03-18 17:01:36,576 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:36,578 - services.mempool_monitor - ERROR - Error processing new token transaction 4BrZDPPpbT5zih1PC1XDzGvZofpkmeyRPNCzYorx4Kz85SCD82L2X2WpqHAzjMdsLduy1mPFfABoQpWGjY6GwVkS:
+2026-03-18 17:01:36,578 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 67WSpT4y62YaxuUPTPDz23Vp67eAozE2x5mPnmNhQhgLMYYuWT2Q9Sisau6X8Vxs3Hy74xPNQ6dRGPcS8isQdzqQ
+2026-03-18 17:01:36,661 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:36,662 - services.mempool_monitor - ERROR - Error processing new token transaction 67WSpT4y62YaxuUPTPDz23Vp67eAozE2x5mPnmNhQhgLMYYuWT2Q9Sisau6X8Vxs3Hy74xPNQ6dRGPcS8isQdzqQ:
+2026-03-18 17:01:36,662 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2XYbH8RxNWsmZA94djGKgJdyesGSFWFr7qJMEPtqMkzXcBtEpXC48WALCUzgjKzDiyA1PA8LUwWjMc1xd8gwz4UR
+2026-03-18 17:01:36,761 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:36,762 - services.mempool_monitor - ERROR - Error processing new token transaction 2XYbH8RxNWsmZA94djGKgJdyesGSFWFr7qJMEPtqMkzXcBtEpXC48WALCUzgjKzDiyA1PA8LUwWjMc1xd8gwz4UR:
+2026-03-18 17:01:36,762 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 237wPL4Vm3kWpgyYr4vdMwgiJVkTySwpaPQgspwN6ghoYtPVmE1kbFnFR4eyyr8KvpkUAdchrk5jwMgzeQr7NGQr
+2026-03-18 17:01:36,845 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:36,846 - services.mempool_monitor - ERROR - Error processing new token transaction 237wPL4Vm3kWpgyYr4vdMwgiJVkTySwpaPQgspwN6ghoYtPVmE1kbFnFR4eyyr8KvpkUAdchrk5jwMgzeQr7NGQr:
+2026-03-18 17:01:36,847 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3okN9EwhDf4XM3aPeztXefYMQz2oR8xxYdLLmtn7Kia54jdPznHV8BLvHKEzEeGMxSsk2uAzmBR2Z7hAqQtmFGni
+2026-03-18 17:01:36,931 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:36,932 - services.mempool_monitor - ERROR - Error processing new token transaction 3okN9EwhDf4XM3aPeztXefYMQz2oR8xxYdLLmtn7Kia54jdPznHV8BLvHKEzEeGMxSsk2uAzmBR2Z7hAqQtmFGni:
+2026-03-18 17:01:36,932 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 6D9B6k7magp9dDKCwtnRuoYTmgLDK1nFe3ZujSq3SiGJdSkGa1JyeGTniiBRP9QYG46PUEZudXXwwHdB59dRF9z
+2026-03-18 17:01:37,015 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:37,016 - services.mempool_monitor - ERROR - Error processing new token transaction 6D9B6k7magp9dDKCwtnRuoYTmgLDK1nFe3ZujSq3SiGJdSkGa1JyeGTniiBRP9QYG46PUEZudXXwwHdB59dRF9z:
+2026-03-18 17:01:37,016 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: ceJx1JMmZYLka2f7wPKpMH4Esa2SDUHtviRCcgiUu2RUzN2Ezwr9LiqutQNcQMxhDcwvkHasuQZFNQUEpem2gwF
+2026-03-18 17:01:37,101 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:37,103 - services.mempool_monitor - ERROR - Error processing new token transaction ceJx1JMmZYLka2f7wPKpMH4Esa2SDUHtviRCcgiUu2RUzN2Ezwr9LiqutQNcQMxhDcwvkHasuQZFNQUEpem2gwF:
+2026-03-18 17:01:37,103 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4DEa7NeKubdB3vWrXKPDv1k7dy1Bv4aeeL1thGSNwEMRsUhC7NVSxvVBcj17SLzsxn2AGoYCaA9wj8W7wDLNustV
+2026-03-18 17:01:37,187 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:37,188 - services.mempool_monitor - ERROR - Error processing new token transaction 4DEa7NeKubdB3vWrXKPDv1k7dy1Bv4aeeL1thGSNwEMRsUhC7NVSxvVBcj17SLzsxn2AGoYCaA9wj8W7wDLNustV:
+2026-03-18 17:01:37,188 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3XXBHYWpTJerYLAgFAjc3P3q5iQdXCSUWvinDkAcu5aXLLH3in8SCLZdwgJUuoX8KcQhANc9DXtyqxGBhGDJHVi3
+2026-03-18 17:01:37,269 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:37,270 - services.mempool_monitor - ERROR - Error processing new token transaction 3XXBHYWpTJerYLAgFAjc3P3q5iQdXCSUWvinDkAcu5aXLLH3in8SCLZdwgJUuoX8KcQhANc9DXtyqxGBhGDJHVi3:
+2026-03-18 17:01:37,271 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4uiK837tiuzu6jdgLEhoesRPjFFz2gw6o2PDX61eneKUsr2psMrywpLTynZYgauLiVtNa3ARTNCgTJU8BSEq6Yea
+2026-03-18 17:01:37,354 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:37,355 - services.mempool_monitor - ERROR - Error processing new token transaction 4uiK837tiuzu6jdgLEhoesRPjFFz2gw6o2PDX61eneKUsr2psMrywpLTynZYgauLiVtNa3ARTNCgTJU8BSEq6Yea:
+2026-03-18 17:01:37,356 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4xYC6gzGHNEw2g5Rt8NSVpmx2dkhiTPqujdPoBgE4e2Fo8GuoZXyxH8LsnKcnWfciX3jqXHs8hkLv3YrQCMFRp1J
+2026-03-18 17:01:37,447 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:37,448 - services.mempool_monitor - ERROR - Error processing new token transaction 4xYC6gzGHNEw2g5Rt8NSVpmx2dkhiTPqujdPoBgE4e2Fo8GuoZXyxH8LsnKcnWfciX3jqXHs8hkLv3YrQCMFRp1J:
+2026-03-18 17:01:37,449 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5kzmNUViyx9edPR3RPzH5PYhRvVVscrAcXr4Gtb31oDtFpMuy9QoxEzXbLu5w1vFcBYnNx6nde6XPo7i2X1todCW
+2026-03-18 17:01:37,531 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:37,532 - services.mempool_monitor - ERROR - Error processing new token transaction 5kzmNUViyx9edPR3RPzH5PYhRvVVscrAcXr4Gtb31oDtFpMuy9QoxEzXbLu5w1vFcBYnNx6nde6XPo7i2X1todCW:
+2026-03-18 17:01:37,533 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 56k5Ajej9poAenKFy3HNbWF6vBrXQvEmGn5G6Xy2SHKZ3HgBdjtCiUcMA42HtB86N9k6YnZ5EhFeUr89BvHr6yA8
+2026-03-18 17:01:37,617 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:37,618 - services.mempool_monitor - ERROR - Error processing new token transaction 56k5Ajej9poAenKFy3HNbWF6vBrXQvEmGn5G6Xy2SHKZ3HgBdjtCiUcMA42HtB86N9k6YnZ5EhFeUr89BvHr6yA8:
+2026-03-18 17:01:37,619 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5mmDFpiidCX6NRebvgtfEexBiux5bqfvJ6BxCjRW9xKWEQT212B53Z4i6BHteQWuNZ3ZBr4MJmZQsJLx79R9evBG
+2026-03-18 17:01:37,705 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:37,706 - services.mempool_monitor - ERROR - Error processing new token transaction 5mmDFpiidCX6NRebvgtfEexBiux5bqfvJ6BxCjRW9xKWEQT212B53Z4i6BHteQWuNZ3ZBr4MJmZQsJLx79R9evBG:
+2026-03-18 17:01:37,706 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5XnmjFVejCTfCLisHFci7gEDda47jHUv3phjaN67AdyHYgC7ah1tNek9DhFXbF1kkKce7Z5JXwHBbrFqpcwKMsSM
+2026-03-18 17:01:37,791 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:37,792 - services.mempool_monitor - ERROR - Error processing new token transaction 5XnmjFVejCTfCLisHFci7gEDda47jHUv3phjaN67AdyHYgC7ah1tNek9DhFXbF1kkKce7Z5JXwHBbrFqpcwKMsSM:
+2026-03-18 17:01:37,794 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 26xF6H7BbiucqkwH751NC6ZZJjQjn8bTdGLfLWvToYiNgiq9Vhdn5RMeKuJTzc6VtFMN4NfGViGf4vF9CaJxFr69
+2026-03-18 17:01:37,878 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:37,879 - services.mempool_monitor - ERROR - Error processing new token transaction 26xF6H7BbiucqkwH751NC6ZZJjQjn8bTdGLfLWvToYiNgiq9Vhdn5RMeKuJTzc6VtFMN4NfGViGf4vF9CaJxFr69:
+2026-03-18 17:01:37,880 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 267XhWR1MkqYrw7c6mfZc68WieyoN4szroHJNY3WMCBZRFqraY23z6C88ikfNHa6UhX1fuNJCLyCxFMHsNgayLbu
+2026-03-18 17:01:37,963 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:37,964 - services.mempool_monitor - ERROR - Error processing new token transaction 267XhWR1MkqYrw7c6mfZc68WieyoN4szroHJNY3WMCBZRFqraY23z6C88ikfNHa6UhX1fuNJCLyCxFMHsNgayLbu:
+2026-03-18 17:01:37,964 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5DtwyPHgbQggvkTbfPWVCFpf282a1JgA9QLHufqZsan2roL9c5QPSrwpR24kxrvNFnRqWa7iGFtnkMiHeLsSKPvG
+2026-03-18 17:01:38,048 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:38,049 - services.mempool_monitor - ERROR - Error processing new token transaction 5DtwyPHgbQggvkTbfPWVCFpf282a1JgA9QLHufqZsan2roL9c5QPSrwpR24kxrvNFnRqWa7iGFtnkMiHeLsSKPvG:
+2026-03-18 17:01:38,051 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 5qKZSuwi2pZmGscaWEhBAi7sWxVwWe6Xj7LNTDLd7q7jG9Td6uXfdDEs7rSoREACx9wV41Eyuejg4pF5cQ13H3be
+2026-03-18 17:01:38,053 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 5EEicfEgZGoDfLM9JTRsRRwAPWt6uvvoBp44G1krxsQBfMmW4d77z6VzhgMjufWNZ5EzEkXXekMmtqgkpzu45GXK
+2026-03-18 17:01:38,056 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5rnt1YVQZ7e5QA2RGmTUp93zZeNgkn87vh1T5XDQDVeCD8XDNuDyVucKt4Mh3Y2ZNfB8sBmRxdGWsdS8tdUC6sYd
+2026-03-18 17:01:38,144 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:38,145 - services.mempool_monitor - ERROR - Error processing new token transaction 5rnt1YVQZ7e5QA2RGmTUp93zZeNgkn87vh1T5XDQDVeCD8XDNuDyVucKt4Mh3Y2ZNfB8sBmRxdGWsdS8tdUC6sYd:
+2026-03-18 17:01:38,146 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5K4QHYfPKLektGrXm4JRWFiLbixJ2Q1p3adz57gxr1Wdmj8qUezr6uQUuGnFkDSwqtsraLy2XDVbPEK39KtCFxPB
+2026-03-18 17:01:38,232 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:38,233 - services.mempool_monitor - ERROR - Error processing new token transaction 5K4QHYfPKLektGrXm4JRWFiLbixJ2Q1p3adz57gxr1Wdmj8qUezr6uQUuGnFkDSwqtsraLy2XDVbPEK39KtCFxPB:
+2026-03-18 17:01:38,234 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2Lh9nVRa3arLRa7ppYWzGzPaGfsT13bfnsGeqaVm5mr4h1B3CUa27LiKQjA6pFrpkuzQ31kUQ8FtzKiEBmszNrv4
+2026-03-18 17:01:38,316 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:38,318 - services.mempool_monitor - ERROR - Error processing new token transaction 2Lh9nVRa3arLRa7ppYWzGzPaGfsT13bfnsGeqaVm5mr4h1B3CUa27LiKQjA6pFrpkuzQ31kUQ8FtzKiEBmszNrv4:
+2026-03-18 17:01:38,320 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3GunemakgpuHHm5JBGyTNcthwxLXdHBoigUVj1QFVpRjBeniphBQXYQ8g6w5PC4iqybQSaBEfGp2sxGQ7DNsEVX6
+2026-03-18 17:01:38,404 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:38,405 - services.mempool_monitor - ERROR - Error processing new token transaction 3GunemakgpuHHm5JBGyTNcthwxLXdHBoigUVj1QFVpRjBeniphBQXYQ8g6w5PC4iqybQSaBEfGp2sxGQ7DNsEVX6:
+2026-03-18 17:01:38,406 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2H64Fds7StWy8GZPUtbF7pFw4CUXyi2WftcpXg4HBLAB9tAoKTLMM8QimPfySriMsnb8aBroEbSrDLWuSt5wABPU
+2026-03-18 17:01:38,491 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:38,492 - services.mempool_monitor - ERROR - Error processing new token transaction 2H64Fds7StWy8GZPUtbF7pFw4CUXyi2WftcpXg4HBLAB9tAoKTLMM8QimPfySriMsnb8aBroEbSrDLWuSt5wABPU:
+2026-03-18 17:01:38,492 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 4h79kDzbA7UGRuUneBGk3P9ooaJxRQsRCsUhWiWjK4ANuyU1eity6KAC3RysDk58ofWxHPN9kFCGsjRQroj6CP8K
+2026-03-18 17:01:38,493 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 3HTC8GiH1qubXXm5XrHpEYLs6wuec1Gy4ZFKq9nGzLvWqVTM8F7njB2kcswDxY5MQBY7PUURccJbBf6Qi252gsxY
+2026-03-18 17:01:38,493 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 63oL6HHKvy1bPvLVj1UwhpJMJwd3oYVa8ofngR1U9PTWRLmEM6wt8qs1SMYPEXoZKL73jJqhgJLbEiyeciTmPzND
+2026-03-18 17:01:38,493 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in qJKHVFYgMgcn518GaVDeNfBPQCYQQezaARGpUxM6dbjXS1YQoMgSkTYeDMLqQziTjKP615aV5SaF6jsDdXTWdvK
+2026-03-18 17:01:38,494 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 4cQeUnKtfbcibfLALGL2tnZwCSz14F5r2BGcFJw5sJKBSkPPgCyk76ehvPKLhbGjx5P56kSLfFTeBfJGYpcxW2Hh
+2026-03-18 17:01:38,494 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2Xn13ZJCRamiZKawbSjLLHPTcfc1TnWWCuummzNFH8y84cVx9KRrvPpSUMT2bgJt9Dov1TSMBxvMUJetMFCZLRUk
+2026-03-18 17:01:38,579 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:38,580 - services.mempool_monitor - ERROR - Error processing new token transaction 2Xn13ZJCRamiZKawbSjLLHPTcfc1TnWWCuummzNFH8y84cVx9KRrvPpSUMT2bgJt9Dov1TSMBxvMUJetMFCZLRUk:
+2026-03-18 17:01:38,581 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 2VWAjNAwEvGAGNG1LscpgUGBSEbPZ61fJE51kPstUYo3gzsvd7STE5SaaDDGpvSUCnnvvwGwoChxCqw8yUssS4aV
+2026-03-18 17:01:38,582 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 9awLQWRiJfNhWZN7QWDxAeY2MrY8HU9qtLa6zXBkAQZ8Y7JDCyJD6zrfak4ZZT4Dj1LpshRpXihxARyjPMY5Gdr
+2026-03-18 17:01:38,664 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:38,665 - services.mempool_monitor - ERROR - Error processing new token transaction 9awLQWRiJfNhWZN7QWDxAeY2MrY8HU9qtLa6zXBkAQZ8Y7JDCyJD6zrfak4ZZT4Dj1LpshRpXihxARyjPMY5Gdr:
+2026-03-18 17:01:38,666 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2X7MtNkWRmikTJofr8tNX4DSbHMBD98NL1WkXap48RTZWQpGMcCfLn5rBkd1dK6EXsM5U1W9LLqB67F9GYZinKp9
+2026-03-18 17:01:38,749 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:38,750 - services.mempool_monitor - ERROR - Error processing new token transaction 2X7MtNkWRmikTJofr8tNX4DSbHMBD98NL1WkXap48RTZWQpGMcCfLn5rBkd1dK6EXsM5U1W9LLqB67F9GYZinKp9:
+2026-03-18 17:01:38,751 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5EATsdwVpcabUFvkM18kmW2xWbmNHYuL3GToB4pSK5dhi2kx5aJmqo8opZNwDFTSERndpBpRkHuHegJm9J8iBP6H
+2026-03-18 17:01:38,834 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:38,835 - services.mempool_monitor - ERROR - Error processing new token transaction 5EATsdwVpcabUFvkM18kmW2xWbmNHYuL3GToB4pSK5dhi2kx5aJmqo8opZNwDFTSERndpBpRkHuHegJm9J8iBP6H:
+2026-03-18 17:01:38,836 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 5EATsdwVpcabUFvkM18kmW2xWbmNHYuL3GToB4pSK5dhi2kx5aJmqo8opZNwDFTSERndpBpRkHuHegJm9J8iBP6H
+2026-03-18 17:01:38,836 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2WB1hbPNzxfzkcEz4ug2mvdqNZazZMt2LvprzpoKD2qr2eXTj9hxR4G9HWzXLDWKELLez69g3LfErAUuoxLj9FCD
+2026-03-18 17:01:38,922 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:38,923 - services.mempool_monitor - ERROR - Error processing new token transaction 2WB1hbPNzxfzkcEz4ug2mvdqNZazZMt2LvprzpoKD2qr2eXTj9hxR4G9HWzXLDWKELLez69g3LfErAUuoxLj9FCD:
+2026-03-18 17:01:38,924 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 3UXE8iGT1iev7SiHrUxbH8r3UuzWtkKyUGDfPADmpoGL7w3jD4bTVwbxfig6RApRBuaiHJxJVLXgGTEzZiU3zZiM
+2026-03-18 17:01:38,925 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 65sd1fJre23atkyPKdLPAZGrFDjZnUkkSVec3phnrNo9SoehjXmqmmBmuwsdsTATbtjSWTzsRKT1SSe5SPEMCkyx
+2026-03-18 17:01:38,925 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 4x3zyKJKYHPquJVvTZUhaoDNSzznt522y1MkGyRcVwpwu7mzGSqbXQCjHfZ73K7W5sMTm6Bu4yMJXctxBh8bd2Wm
+2026-03-18 17:01:38,925 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 4TDXFFrvWW42YoAaUPFPca44UfiFhkjR2qDs5CYNjHtt4qawWPn8K9ffggqnUKRrarVC2CnHHyjvyksdrEs4zPg5
+2026-03-18 17:01:38,925 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5vgaZDxDyLq2D53SUtmg3nCdUUc9sYK9pdi8vWG1CWTacQibTpnEctQUBRVCSEeZJ6tbtKBHnyCJQZwL5Gj9jDUh
+2026-03-18 17:01:39,011 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:39,012 - services.mempool_monitor - ERROR - Error processing new token transaction 5vgaZDxDyLq2D53SUtmg3nCdUUc9sYK9pdi8vWG1CWTacQibTpnEctQUBRVCSEeZJ6tbtKBHnyCJQZwL5Gj9jDUh:
+2026-03-18 17:01:39,012 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2XYkAFrtscq2oz7WKH1BmcbimixH7JbwaSn1YVk1ez22en3pyvzwKfgbLbvy9tpVunYfSr7eZ6r7gQiA3L5HVMMK
+2026-03-18 17:01:39,095 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:39,096 - services.mempool_monitor - ERROR - Error processing new token transaction 2XYkAFrtscq2oz7WKH1BmcbimixH7JbwaSn1YVk1ez22en3pyvzwKfgbLbvy9tpVunYfSr7eZ6r7gQiA3L5HVMMK:
+2026-03-18 17:01:39,097 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4gVw89qsedhhtyZPfCgF2cKBcFHBJ4BDoBzCxudP9NyvHJ2sPqC9W3jAPx3rR5oRU7KHKvjskhHAygeNQWrKQ6rY
+2026-03-18 17:01:39,181 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:39,182 - services.mempool_monitor - ERROR - Error processing new token transaction 4gVw89qsedhhtyZPfCgF2cKBcFHBJ4BDoBzCxudP9NyvHJ2sPqC9W3jAPx3rR5oRU7KHKvjskhHAygeNQWrKQ6rY:
+2026-03-18 17:01:39,183 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 7k3W7X32WtuQqFs1PqTLPdHC6TD9rHfq5JNw8AjTGYWt4Qz5p8pVhKQEFwPckTpHbhD4yRYpWDiubDiNLXvoYdB
+2026-03-18 17:01:41,297 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:41,298 - services.mempool_monitor - ERROR - Error processing new token transaction 7k3W7X32WtuQqFs1PqTLPdHC6TD9rHfq5JNw8AjTGYWt4Qz5p8pVhKQEFwPckTpHbhD4yRYpWDiubDiNLXvoYdB:
+2026-03-18 17:01:41,299 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 26fXw4Bvwyj2CX3vDv9qXpHPMDcW2nHxjwFaZg6uSPDT4dU3G1bcK36veDVz3FygVmvyVxoEEfNuFYp2YwV3z4h7
+2026-03-18 17:01:41,383 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:41,384 - services.mempool_monitor - ERROR - Error processing new token transaction 26fXw4Bvwyj2CX3vDv9qXpHPMDcW2nHxjwFaZg6uSPDT4dU3G1bcK36veDVz3FygVmvyVxoEEfNuFYp2YwV3z4h7:
+2026-03-18 17:01:41,385 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4andZKzxZ8mmyeoR13ed8CHqjuSrBAMGjpXkBVZGqtY1JhDrYtgDU3ygXM5iEgHH3tm5tRFJA6qB2ZEs8JwY7SEw
+2026-03-18 17:01:41,469 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:41,471 - services.mempool_monitor - ERROR - Error processing new token transaction 4andZKzxZ8mmyeoR13ed8CHqjuSrBAMGjpXkBVZGqtY1JhDrYtgDU3ygXM5iEgHH3tm5tRFJA6qB2ZEs8JwY7SEw:
+2026-03-18 17:01:41,471 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2QtWAXLXxZgZFYN7TpfcLq7nWQs7fvHR11MH5tbMNmrBMVgnTPUxy3jTC1PmYWab8MeZHZV5JxWhjswZnfepFnsZ
+2026-03-18 17:01:41,555 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:41,556 - services.mempool_monitor - ERROR - Error processing new token transaction 2QtWAXLXxZgZFYN7TpfcLq7nWQs7fvHR11MH5tbMNmrBMVgnTPUxy3jTC1PmYWab8MeZHZV5JxWhjswZnfepFnsZ:
+2026-03-18 17:01:41,557 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 3t52sog8G3Gov5A5pHGB2nbhDyf3LdCxR4N5e1FcP45XfiwZqin3y3cvhvKmG68ZtRMDYVBz9SGUqrz64mAXpu73
+2026-03-18 17:01:41,557 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: PkB9fCrt6qu1AH8ef8jsjAF4ekA3mbA6mrZJMBgj2iFnzza9afcQSLF81fvHeMXDY9EwvZe4p2yAzWAEa8Auy2V
+2026-03-18 17:01:41,643 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:41,644 - services.mempool_monitor - ERROR - Error processing new token transaction PkB9fCrt6qu1AH8ef8jsjAF4ekA3mbA6mrZJMBgj2iFnzza9afcQSLF81fvHeMXDY9EwvZe4p2yAzWAEa8Auy2V:
+2026-03-18 17:01:41,645 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4h5dx42QEtziMgHaWjNoe1U9S2gA3ugKagRN8atbWUJYoi4TeRJrwkArT1Hm46vSEzVc9jqXGjhJ8tfC7DZq3nV6
+2026-03-18 17:01:41,728 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:41,729 - services.mempool_monitor - ERROR - Error processing new token transaction 4h5dx42QEtziMgHaWjNoe1U9S2gA3ugKagRN8atbWUJYoi4TeRJrwkArT1Hm46vSEzVc9jqXGjhJ8tfC7DZq3nV6:
+2026-03-18 17:01:41,730 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3N1GzaVqXswUHaXeahkSgeRkjjgtAxJLRDJR6uhQZV1FYMVSnRYdWjpWimNdDrmnDTDgikWCPH3wBJAdCT7iEz43
+2026-03-18 17:01:41,813 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:41,815 - services.mempool_monitor - ERROR - Error processing new token transaction 3N1GzaVqXswUHaXeahkSgeRkjjgtAxJLRDJR6uhQZV1FYMVSnRYdWjpWimNdDrmnDTDgikWCPH3wBJAdCT7iEz43:
+2026-03-18 17:01:41,815 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4kirKWTBNKYfXuwKQe4kAt4sQcbBgzBhmt9mpC627BrF1SwULpgc5re3Bh2LNanktoJzDXp1gQQzfjVq42vsydvt
+2026-03-18 17:01:41,902 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:41,903 - services.mempool_monitor - ERROR - Error processing new token transaction 4kirKWTBNKYfXuwKQe4kAt4sQcbBgzBhmt9mpC627BrF1SwULpgc5re3Bh2LNanktoJzDXp1gQQzfjVq42vsydvt:
+2026-03-18 17:01:41,904 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4WUfR7R5JFbK7GfQfBVwgxMemPyLUkg7NZfPTe43CWouHsNq6f8YRWFf9ZcxMVBEvXRCSfckp7MGT89998G8aNBS
+2026-03-18 17:01:41,988 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:41,989 - services.mempool_monitor - ERROR - Error processing new token transaction 4WUfR7R5JFbK7GfQfBVwgxMemPyLUkg7NZfPTe43CWouHsNq6f8YRWFf9ZcxMVBEvXRCSfckp7MGT89998G8aNBS:
+2026-03-18 17:01:41,989 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 51tN3eTewZB1E3g1BVuVEdvRUHdWUWAPLqCNNkFshCAfzcF5BzEPpFAEnwgSsJgFqLyW1juSKiEfujx45SDNMSFo
+2026-03-18 17:01:42,073 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:42,074 - services.mempool_monitor - ERROR - Error processing new token transaction 51tN3eTewZB1E3g1BVuVEdvRUHdWUWAPLqCNNkFshCAfzcF5BzEPpFAEnwgSsJgFqLyW1juSKiEfujx45SDNMSFo:
+2026-03-18 17:01:42,075 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3yCr9Eb4jv1ePTLp44N9wVpPSEAEGrMt5e6qZ4bnQJdDdxqkUvtpSRp8JqTgPvLn4E8SnQ9pYsHWhjVWYqcdXDqk
+2026-03-18 17:01:42,159 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:42,160 - services.mempool_monitor - ERROR - Error processing new token transaction 3yCr9Eb4jv1ePTLp44N9wVpPSEAEGrMt5e6qZ4bnQJdDdxqkUvtpSRp8JqTgPvLn4E8SnQ9pYsHWhjVWYqcdXDqk:
+2026-03-18 17:01:42,160 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2jQ3u4GC77Kyky28Jf6zNyjcYZgugMr6rcZswj1Nzf9QR57YNcc4KeE7SGw2295Zex2w1YivwSvW8R6D38Tso26
+2026-03-18 17:01:42,245 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:42,246 - services.mempool_monitor - ERROR - Error processing new token transaction 2jQ3u4GC77Kyky28Jf6zNyjcYZgugMr6rcZswj1Nzf9QR57YNcc4KeE7SGw2295Zex2w1YivwSvW8R6D38Tso26:
+2026-03-18 17:01:42,248 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: NM3hDmKYdP7mJZm6nf7nvVBhYooCXzctWxbrtb9sU5jpkFxuHKk1w55ZfCeiwLwKSxgHEfLaxd9ECod5KC7Uhww
+2026-03-18 17:01:42,331 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:42,332 - services.mempool_monitor - ERROR - Error processing new token transaction NM3hDmKYdP7mJZm6nf7nvVBhYooCXzctWxbrtb9sU5jpkFxuHKk1w55ZfCeiwLwKSxgHEfLaxd9ECod5KC7Uhww:
+2026-03-18 17:01:42,333 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4zFFCHvji5S2wb7EKRKshzpcsAAEa2hcerpfzKyt858HPYoGc9D4idbMH5XVciymMZ64KKs6xu2MpURgRhemLM76
+2026-03-18 17:01:42,418 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:42,419 - services.mempool_monitor - ERROR - Error processing new token transaction 4zFFCHvji5S2wb7EKRKshzpcsAAEa2hcerpfzKyt858HPYoGc9D4idbMH5XVciymMZ64KKs6xu2MpURgRhemLM76:
+2026-03-18 17:01:42,419 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2PhNJYs5LMUdnxn4C8gir8TjJq93BsT5oRKwQV3oeU43KonSjcdXFcD98Wvn429KsvyJm2Z4V6qc7rLQKih6tp4y
+2026-03-18 17:01:42,504 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:42,505 - services.mempool_monitor - ERROR - Error processing new token transaction 2PhNJYs5LMUdnxn4C8gir8TjJq93BsT5oRKwQV3oeU43KonSjcdXFcD98Wvn429KsvyJm2Z4V6qc7rLQKih6tp4y:
+2026-03-18 17:01:42,506 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5Tit7QCXjkphsXW71U6U27Az8oRQHXsCt91HEggucZKaXutMMziEj2zvGoMg8XLT2cGU5TAU5n5HBBw9roym7S4j
+2026-03-18 17:01:42,593 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:42,594 - services.mempool_monitor - ERROR - Error processing new token transaction 5Tit7QCXjkphsXW71U6U27Az8oRQHXsCt91HEggucZKaXutMMziEj2zvGoMg8XLT2cGU5TAU5n5HBBw9roym7S4j:
+2026-03-18 17:01:42,595 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3d515DeDouCcDLoYaqGzN3bbtUPLkvWY2JGs5GGkPzcCa95mMtfWFUrN3GK3gvbpi5hH6vm1LWPDuePvyh38B4BT
+2026-03-18 17:01:42,682 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:42,684 - services.mempool_monitor - ERROR - Error processing new token transaction 3d515DeDouCcDLoYaqGzN3bbtUPLkvWY2JGs5GGkPzcCa95mMtfWFUrN3GK3gvbpi5hH6vm1LWPDuePvyh38B4BT:
+2026-03-18 17:01:42,684 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: HvDGTxjugjKxf2XWx8FTzycnxmbCExqA2pnm5QvQ7YWa7e2Nmbj3AEQoDKQN25Ay5sdQ6AfgcbR4womtSj6mfio
+2026-03-18 17:01:42,770 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:42,771 - services.mempool_monitor - ERROR - Error processing new token transaction HvDGTxjugjKxf2XWx8FTzycnxmbCExqA2pnm5QvQ7YWa7e2Nmbj3AEQoDKQN25Ay5sdQ6AfgcbR4womtSj6mfio:
+2026-03-18 17:01:42,771 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 57wxX7Exb6km5poqE6zHnvhNctBK8uMYUdomc7Vco5KKwGyXitmeugJDJJaSvaHuqrDSUbhf4Z81NRwqyz7XEszh
+2026-03-18 17:01:42,857 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:42,858 - services.mempool_monitor - ERROR - Error processing new token transaction 57wxX7Exb6km5poqE6zHnvhNctBK8uMYUdomc7Vco5KKwGyXitmeugJDJJaSvaHuqrDSUbhf4Z81NRwqyz7XEszh:
+2026-03-18 17:01:42,859 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4JspntkA2PQUv81PGdM4BS9WKg6RuVWgCM2EXuszpoimMiJ1o9X4MAwJKzfgDzEqGM5M9KfiSgiS2URUH6rtGs87
+2026-03-18 17:01:42,943 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:42,944 - services.mempool_monitor - ERROR - Error processing new token transaction 4JspntkA2PQUv81PGdM4BS9WKg6RuVWgCM2EXuszpoimMiJ1o9X4MAwJKzfgDzEqGM5M9KfiSgiS2URUH6rtGs87:
+2026-03-18 17:01:42,945 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3fJ3p3rstnrNxZ44TUuNQB2f6mJhLP5zETbeKBZPg9fkcE3WH8BfXjHdhinkCBpFVpDxNYBqnDnAj3Hirp9E5TfE
+2026-03-18 17:01:43,028 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:43,029 - services.mempool_monitor - ERROR - Error processing new token transaction 3fJ3p3rstnrNxZ44TUuNQB2f6mJhLP5zETbeKBZPg9fkcE3WH8BfXjHdhinkCBpFVpDxNYBqnDnAj3Hirp9E5TfE:
+2026-03-18 17:01:43,029 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5VLh4UvnDZCZymKRnaj3co99MzFRRuY2HQY4uvtm7eHUaP6JKXpDNhdiwU1zMV8NdBEdcHsptMefrLnoY2ysB74E
+2026-03-18 17:01:43,114 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:43,115 - services.mempool_monitor - ERROR - Error processing new token transaction 5VLh4UvnDZCZymKRnaj3co99MzFRRuY2HQY4uvtm7eHUaP6JKXpDNhdiwU1zMV8NdBEdcHsptMefrLnoY2ysB74E:
+2026-03-18 17:01:43,116 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: jb3bjpJs5bJ5bgV2urbWLiqtpky2UZe5ThqELwxiDq1od2u5C7HjumBtaiKv4ZtuecQSbLJREJjzPp7ePUND6nF
+2026-03-18 17:01:43,203 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:43,204 - services.mempool_monitor - ERROR - Error processing new token transaction jb3bjpJs5bJ5bgV2urbWLiqtpky2UZe5ThqELwxiDq1od2u5C7HjumBtaiKv4ZtuecQSbLJREJjzPp7ePUND6nF:
+2026-03-18 17:01:43,205 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2Jk9cLiG8tbmAKnTeAqL8xeQ2kYisun2pWo2HLNbdPTdQu6RowBijEVnQcQRzHs5gLdqE5chS6k3wnw9LXsrHYuR
+2026-03-18 17:01:43,288 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:43,289 - services.mempool_monitor - ERROR - Error processing new token transaction 2Jk9cLiG8tbmAKnTeAqL8xeQ2kYisun2pWo2HLNbdPTdQu6RowBijEVnQcQRzHs5gLdqE5chS6k3wnw9LXsrHYuR:
+2026-03-18 17:01:43,290 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3mGVXygwRg7LLFvHBdtx7jHYZxSJFSk2UAYKqiKd9kpiEgKqbCkY3UkSc3SF7q2Jg5bi4QvkioQkvQQjyBSwTf64
+2026-03-18 17:01:43,374 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:43,375 - services.mempool_monitor - ERROR - Error processing new token transaction 3mGVXygwRg7LLFvHBdtx7jHYZxSJFSk2UAYKqiKd9kpiEgKqbCkY3UkSc3SF7q2Jg5bi4QvkioQkvQQjyBSwTf64:
+2026-03-18 17:01:43,376 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 26feQD2eMfneBHZ2p5bEbfZiYCWz5NA6tGi9TqK9wqUQ3pLRccUAYcV24c9GLNfermrtRAvR78Q9sULUNqu62XiH
+2026-03-18 17:01:43,463 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:43,464 - services.mempool_monitor - ERROR - Error processing new token transaction 26feQD2eMfneBHZ2p5bEbfZiYCWz5NA6tGi9TqK9wqUQ3pLRccUAYcV24c9GLNfermrtRAvR78Q9sULUNqu62XiH:
+2026-03-18 17:01:43,465 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 6XFT4upLqCsNNHiYs67bUia2GicksciahJB2p2YVRYR8UUJASG73XzSXZxKA4q1rf2CyV6s1dwhzP22qVBKikAg
+2026-03-18 17:01:43,549 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:43,550 - services.mempool_monitor - ERROR - Error processing new token transaction 6XFT4upLqCsNNHiYs67bUia2GicksciahJB2p2YVRYR8UUJASG73XzSXZxKA4q1rf2CyV6s1dwhzP22qVBKikAg:
+2026-03-18 17:01:43,551 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 2oUar5qVCt3MYCacYidMvaDG6VDLzFbsez9eLpvBkxUrbjbEAktp7wCn83gHMVP2kJq4QaGx172Vn9f8sFf9iWya
+2026-03-18 17:01:43,552 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 3mSHzTBe9YZV34HaLjo8CuommQABmP9xh5zP6dobx2DU8Qdu6554rWeK8n1quWKzaMRo1PMLptMW6UTA2MUh4rX7
+2026-03-18 17:01:43,553 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 26pSJv1L5CKZWbbuTa3veZuLBJSjf9xtEjkKEJCoKdxwLCNpAKCYrAqjr17KsApAUztBKhiFmzywxuHevsSyejdK
+2026-03-18 17:01:43,553 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3JYX97RjL2dR2XhVCWjq15KZYD6RxfzP38AWmSYBzGXZwU3yUyZSATPcVraB4n4PNv6jmhYAEtpG746566ryryML
+2026-03-18 17:01:43,636 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:43,637 - services.mempool_monitor - ERROR - Error processing new token transaction 3JYX97RjL2dR2XhVCWjq15KZYD6RxfzP38AWmSYBzGXZwU3yUyZSATPcVraB4n4PNv6jmhYAEtpG746566ryryML:
+2026-03-18 17:01:43,638 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3oFV8yHdx1arhChYXjQs3aGHP4XcRBmGpmbLJHVW2SzkGF45MDeebHK7Y861GYqJJXaZq3haHABMEuT1HK8Y11Ys
+2026-03-18 17:01:43,721 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:43,723 - services.mempool_monitor - ERROR - Error processing new token transaction 3oFV8yHdx1arhChYXjQs3aGHP4XcRBmGpmbLJHVW2SzkGF45MDeebHK7Y861GYqJJXaZq3haHABMEuT1HK8Y11Ys:
+2026-03-18 17:01:43,723 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2E39CJDNAr5KQX3Le6n5izbhnArCyGnkahB35gz8kQuUxbMq3RR2qCZ1RJnmUZEdqfxpyMbh1BUNqP8gChkiYn53
+2026-03-18 17:01:43,806 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:43,807 - services.mempool_monitor - ERROR - Error processing new token transaction 2E39CJDNAr5KQX3Le6n5izbhnArCyGnkahB35gz8kQuUxbMq3RR2qCZ1RJnmUZEdqfxpyMbh1BUNqP8gChkiYn53:
+2026-03-18 17:01:43,808 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: oX1GAGteMvGQPT9dfeaSw8FnUnyNkgcX38W3Bzyho7SkiwsYkT4kb6o3shLXnpJfKXa5dpdsjKggwpkjCejb9PX
+2026-03-18 17:01:43,891 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:43,893 - services.mempool_monitor - ERROR - Error processing new token transaction oX1GAGteMvGQPT9dfeaSw8FnUnyNkgcX38W3Bzyho7SkiwsYkT4kb6o3shLXnpJfKXa5dpdsjKggwpkjCejb9PX:
+2026-03-18 17:01:43,893 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 54DntRbyLFEj6vmMrRv9NQmVsS4mMzj8xQ5aGk9miXoh7NkmTstDT31diMwP3w7pmDfs9HF9VtW53iJJfXduGyM3
+2026-03-18 17:01:43,975 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:43,976 - services.mempool_monitor - ERROR - Error processing new token transaction 54DntRbyLFEj6vmMrRv9NQmVsS4mMzj8xQ5aGk9miXoh7NkmTstDT31diMwP3w7pmDfs9HF9VtW53iJJfXduGyM3:
+2026-03-18 17:01:43,977 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5KVmDfC2zrfFhRNig7ovjYMyxME7webjfoR4TZUxekbrb3xwZLKfGZMjpeTpqgEbQS6toMS38kKRjH1VYCKD1PWa
+2026-03-18 17:01:44,059 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:44,060 - services.mempool_monitor - ERROR - Error processing new token transaction 5KVmDfC2zrfFhRNig7ovjYMyxME7webjfoR4TZUxekbrb3xwZLKfGZMjpeTpqgEbQS6toMS38kKRjH1VYCKD1PWa:
+2026-03-18 17:01:44,061 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4tDgLZkxXi2iuHnMFH5Vy3Cb8WRYoskGy6nH5E21NJBrUVfqjEEZ1mMpeoRhhLXyTe7waQG9xeVh1eUxKvzpv1zE
+2026-03-18 17:01:44,151 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:44,152 - services.mempool_monitor - ERROR - Error processing new token transaction 4tDgLZkxXi2iuHnMFH5Vy3Cb8WRYoskGy6nH5E21NJBrUVfqjEEZ1mMpeoRhhLXyTe7waQG9xeVh1eUxKvzpv1zE:
+2026-03-18 17:01:44,152 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 64fB4YFAzjALk73nmzMsqCVVqhyQjjLWiYzrbDo5bNmnLU2eZvfJq9xbkvXP8pUUtfNFZKamqdsxJXLk8fcJjBU6
+2026-03-18 17:01:44,236 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:44,237 - services.mempool_monitor - ERROR - Error processing new token transaction 64fB4YFAzjALk73nmzMsqCVVqhyQjjLWiYzrbDo5bNmnLU2eZvfJq9xbkvXP8pUUtfNFZKamqdsxJXLk8fcJjBU6:
+2026-03-18 17:01:44,502 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2U8u5q37xBZvxNmKtbGQS8kdMDKWXTUJmp7Tk56gNAWHGkbRmw3GGikWY3tzwyCzT9GzvusKaARVCAYr6VxFnMVJ
+2026-03-18 17:01:44,587 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:44,588 - services.mempool_monitor - ERROR - Error processing new token transaction 2U8u5q37xBZvxNmKtbGQS8kdMDKWXTUJmp7Tk56gNAWHGkbRmw3GGikWY3tzwyCzT9GzvusKaARVCAYr6VxFnMVJ:
+2026-03-18 17:01:44,588 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2bF7k7d7hPZGetAGMAUkLPCfCY1Lnf8MSHPYYsg82YPXxzXRbKKuTkQB45MeRKeEmrM14LMS8zVJqjcPE9w1woXJ
+2026-03-18 17:01:44,672 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:44,673 - services.mempool_monitor - ERROR - Error processing new token transaction 2bF7k7d7hPZGetAGMAUkLPCfCY1Lnf8MSHPYYsg82YPXxzXRbKKuTkQB45MeRKeEmrM14LMS8zVJqjcPE9w1woXJ:
+2026-03-18 17:01:44,673 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2bwiRVAdq666oA8BzA8nCufyFmcErhT5EBbvh1F6EWn4c5tikmTfaDmj13s5mR3RkWBDyVXbCLNwqC3Ckkd9ySxC
+2026-03-18 17:01:44,756 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:44,757 - services.mempool_monitor - ERROR - Error processing new token transaction 2bwiRVAdq666oA8BzA8nCufyFmcErhT5EBbvh1F6EWn4c5tikmTfaDmj13s5mR3RkWBDyVXbCLNwqC3Ckkd9ySxC:
+2026-03-18 17:01:44,758 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4Bv8NXTJTaEZFeY8TaMhM2tW8V816gPiKZwA5CXh3GiuCdiXk2syYBS3Tv4XV1KTJN9Fx7HauAxAT73HgcCDGuGQ
+2026-03-18 17:01:44,840 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:44,841 - services.mempool_monitor - ERROR - Error processing new token transaction 4Bv8NXTJTaEZFeY8TaMhM2tW8V816gPiKZwA5CXh3GiuCdiXk2syYBS3Tv4XV1KTJN9Fx7HauAxAT73HgcCDGuGQ:
+2026-03-18 17:01:45,963 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4td4AAjQhCsVPxVqgZRLZTefKgEaGkK1GR5VjvXCpUVNQZCUJKFXpDUgD9HBVS8R7rDSCrBLsjKRsxgjsYje5Ew9
+2026-03-18 17:01:46,052 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:46,053 - services.mempool_monitor - ERROR - Error processing new token transaction 4td4AAjQhCsVPxVqgZRLZTefKgEaGkK1GR5VjvXCpUVNQZCUJKFXpDUgD9HBVS8R7rDSCrBLsjKRsxgjsYje5Ew9:
+2026-03-18 17:01:46,053 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 41q2MS94rjoYq8MsPsmbHcMN2Pj5HuWAHxykBp8Auo4PgUopGTLoqbb5xj2sJ3ssPQFhC9s49otCusTrWhw7Wzpt
+2026-03-18 17:01:47,020 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2v6uKveGruwT4XbBcg7dhP6fLRsVSSh7qUJoYvvspSiVTKy7BCuqH6BZHc36SSAPSXq15g5TBEg2aLJJvPLFodY3
+2026-03-18 17:01:47,104 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:47,105 - services.mempool_monitor - ERROR - Error processing new token transaction 2v6uKveGruwT4XbBcg7dhP6fLRsVSSh7qUJoYvvspSiVTKy7BCuqH6BZHc36SSAPSXq15g5TBEg2aLJJvPLFodY3:
+2026-03-18 17:01:47,475 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: oycqPwyPmpJM5CPTyEHaiK2HPuGCQspgvsEe9Gs41hAL6J2hV6yYH6M3atAN2fh9BPsFU2WeQoHzEL4Vkbq6WAd
+2026-03-18 17:01:47,560 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:47,561 - services.mempool_monitor - ERROR - Error processing new token transaction oycqPwyPmpJM5CPTyEHaiK2HPuGCQspgvsEe9Gs41hAL6J2hV6yYH6M3atAN2fh9BPsFU2WeQoHzEL4Vkbq6WAd:
+2026-03-18 17:01:47,907 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2HUQ3x2SkEaLaMXnsvkz9udSgq1vpMFUVdf3nTsGgLXt5PYFAWbj1pxcKw7tRijeYkDMxY8qqKHS5yQo1r2hPH9i
+2026-03-18 17:01:47,993 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:47,994 - services.mempool_monitor - ERROR - Error processing new token transaction 2HUQ3x2SkEaLaMXnsvkz9udSgq1vpMFUVdf3nTsGgLXt5PYFAWbj1pxcKw7tRijeYkDMxY8qqKHS5yQo1r2hPH9i:
+2026-03-18 17:01:47,995 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3U87kpHJKeVpgNzD5dXdBvEvo2pW1n3BDxjnsjqdAwJ7tyjr858zRQNeEFtvC5FceW4HVNzqqVZWraLi8kKrctHy
+2026-03-18 17:01:48,078 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:48,079 - services.mempool_monitor - ERROR - Error processing new token transaction 3U87kpHJKeVpgNzD5dXdBvEvo2pW1n3BDxjnsjqdAwJ7tyjr858zRQNeEFtvC5FceW4HVNzqqVZWraLi8kKrctHy:
+2026-03-18 17:01:49,961 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3Ws9Nyaqy5eJLjh7Svd3AapEfN4rYmCpuYrRE91Sjzc2pGnMcPJerwAzyqg6BX7QTUwEmxscERgp6g1xaxLrEnsh
+2026-03-18 17:01:50,411 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:50,412 - services.mempool_monitor - ERROR - Error processing new token transaction 3Ws9Nyaqy5eJLjh7Svd3AapEfN4rYmCpuYrRE91Sjzc2pGnMcPJerwAzyqg6BX7QTUwEmxscERgp6g1xaxLrEnsh:
+2026-03-18 17:01:50,412 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3xbZWtqSXBNaqWByFwyBSGd6rpaKZgtJPqNJ3MYqoCvd9i8vSfgu3DN2z4vEyRGeubMHmbCx4aRLmbV441CtGRWs
+2026-03-18 17:01:50,494 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:50,495 - services.mempool_monitor - ERROR - Error processing new token transaction 3xbZWtqSXBNaqWByFwyBSGd6rpaKZgtJPqNJ3MYqoCvd9i8vSfgu3DN2z4vEyRGeubMHmbCx4aRLmbV441CtGRWs:
+2026-03-18 17:01:50,496 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3ABhcBw8hN8CnMuA5Si8DWg4DmXURUwyC9FhL7yPQbUE2ETXfXerHVKu8cUp8omaFTvYUfKgfMknru4SSZJASPUs
+2026-03-18 17:01:50,585 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:50,586 - services.mempool_monitor - ERROR - Error processing new token transaction 3ABhcBw8hN8CnMuA5Si8DWg4DmXURUwyC9FhL7yPQbUE2ETXfXerHVKu8cUp8omaFTvYUfKgfMknru4SSZJASPUs:
+2026-03-18 17:01:50,586 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5QqFceknrpnNWgymCD3rWwRY5XPDPJftSDkHPFj5PGKAqcuNBmiLKXMRJoQTWFzNWPAumLKpRZMGGj1htgVuRiM4
+2026-03-18 17:01:50,799 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:50,800 - services.mempool_monitor - ERROR - Error processing new token transaction 5QqFceknrpnNWgymCD3rWwRY5XPDPJftSDkHPFj5PGKAqcuNBmiLKXMRJoQTWFzNWPAumLKpRZMGGj1htgVuRiM4:
+2026-03-18 17:01:50,800 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: ULHbCbLYqv85DpynmBJrCFYunSeAye1zk6rELz4LvYzuCWD6FKvFg3jnFRxgruskPL3ZaWucHPCz1n3h8xLoWsg
+2026-03-18 17:01:50,947 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:50,948 - services.mempool_monitor - ERROR - Error processing new token transaction ULHbCbLYqv85DpynmBJrCFYunSeAye1zk6rELz4LvYzuCWD6FKvFg3jnFRxgruskPL3ZaWucHPCz1n3h8xLoWsg:
+2026-03-18 17:01:51,460 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3mWAijZGa17XZxwStVm6XHnw6vxzVdWT4VmBgZhZxEH6MNgjr8DicxLhkKUCJmRiyArh1h7nCLK8LPTJPZZfvqxf
+2026-03-18 17:01:51,542 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:51,544 - services.mempool_monitor - ERROR - Error processing new token transaction 3mWAijZGa17XZxwStVm6XHnw6vxzVdWT4VmBgZhZxEH6MNgjr8DicxLhkKUCJmRiyArh1h7nCLK8LPTJPZZfvqxf:
+2026-03-18 17:01:51,544 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 21RA7qSSZom1Vqq3doWcqmgk595iVnqUrg2sEzno9CxwktszsbLLzC2MAuGKLvidSWHJgjXzGa4FXP9J6Qdbumka
+2026-03-18 17:01:51,882 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:51,883 - services.mempool_monitor - ERROR - Error processing new token transaction 21RA7qSSZom1Vqq3doWcqmgk595iVnqUrg2sEzno9CxwktszsbLLzC2MAuGKLvidSWHJgjXzGa4FXP9J6Qdbumka:
+2026-03-18 17:01:52,185 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: iaq97YKFfnqnWHPVNWjxWcJUyQhCCohEsX2ip1e6z14grHM2pNkS59RDP8KMdizJLHAPVnkGj7PYxB4ahj8SsgF
+2026-03-18 17:01:52,268 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:52,269 - services.mempool_monitor - ERROR - Error processing new token transaction iaq97YKFfnqnWHPVNWjxWcJUyQhCCohEsX2ip1e6z14grHM2pNkS59RDP8KMdizJLHAPVnkGj7PYxB4ahj8SsgF:
+2026-03-18 17:01:52,269 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5bMfnTrKbgVsrCrAewQvDvuYdSovUz1guvxjdEF3K9pkXEdcExQJU9MF3T6kqhaAhJaJBWYZxWnH3SihWMTTTp13
+2026-03-18 17:01:52,352 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:52,353 - services.mempool_monitor - ERROR - Error processing new token transaction 5bMfnTrKbgVsrCrAewQvDvuYdSovUz1guvxjdEF3K9pkXEdcExQJU9MF3T6kqhaAhJaJBWYZxWnH3SihWMTTTp13:
+2026-03-18 17:01:52,353 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3aDVpvaEzm2Uz9dYo5jZnumUPsa6YVZYj8KZYuYWmMS9jR7ngB6WUyuxiWMUxdoR9GL4AjA7TnZ8hJQEY2kqj9D1
+2026-03-18 17:01:52,435 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:52,436 - services.mempool_monitor - ERROR - Error processing new token transaction 3aDVpvaEzm2Uz9dYo5jZnumUPsa6YVZYj8KZYuYWmMS9jR7ngB6WUyuxiWMUxdoR9GL4AjA7TnZ8hJQEY2kqj9D1:
+2026-03-18 17:01:52,437 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 7NGa1F74SGZjx9dDhafdqnREW9z3nsdd4hMtwLfrfu1y9ue1ZTusiCYSBk1n47CUKbXVpNZTQu6qGCYyyYuCrST
+2026-03-18 17:01:52,520 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:52,521 - services.mempool_monitor - ERROR - Error processing new token transaction 7NGa1F74SGZjx9dDhafdqnREW9z3nsdd4hMtwLfrfu1y9ue1ZTusiCYSBk1n47CUKbXVpNZTQu6qGCYyyYuCrST:
+2026-03-18 17:01:52,521 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5ojKMuqJBNet4bPYUJ542VbMCwFFUxwVaRGUg6zdctkXcwtPG48c8zDsw34pvcxyvBcsXy5Kj2CCnMZ6GGutZkTc
+2026-03-18 17:01:52,604 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:52,605 - services.mempool_monitor - ERROR - Error processing new token transaction 5ojKMuqJBNet4bPYUJ542VbMCwFFUxwVaRGUg6zdctkXcwtPG48c8zDsw34pvcxyvBcsXy5Kj2CCnMZ6GGutZkTc:
+2026-03-18 17:01:53,730 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 25dKtEEoR9WjSqfNeNvsHwhwRhMJCbwWJwQTfctiXrQ756TNU58cUuP6neBQJhuFShELTzsQX88CGqhEZcaH9sFy
+2026-03-18 17:01:53,814 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:53,815 - services.mempool_monitor - ERROR - Error processing new token transaction 25dKtEEoR9WjSqfNeNvsHwhwRhMJCbwWJwQTfctiXrQ756TNU58cUuP6neBQJhuFShELTzsQX88CGqhEZcaH9sFy:
+2026-03-18 17:01:54,089 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: nvJnLkhPU7m95ksFobzoC6a8ad4ZgwwkpJXDkpSMaayt8kAjim9q33pGUECVANDAvUbgBRqFsUdhCi41zYRqAPi
+2026-03-18 17:01:54,175 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:54,176 - services.mempool_monitor - ERROR - Error processing new token transaction nvJnLkhPU7m95ksFobzoC6a8ad4ZgwwkpJXDkpSMaayt8kAjim9q33pGUECVANDAvUbgBRqFsUdhCi41zYRqAPi:
+2026-03-18 17:01:54,500 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5GGE4GhR295VZ9WHQoGoysNATYV2HaSyK4KWPvyu54oj9hAXk25c2RcyediATNrSR6kGec6SR4vqD22c33L4MNVD
+2026-03-18 17:01:54,584 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:54,585 - services.mempool_monitor - ERROR - Error processing new token transaction 5GGE4GhR295VZ9WHQoGoysNATYV2HaSyK4KWPvyu54oj9hAXk25c2RcyediATNrSR6kGec6SR4vqD22c33L4MNVD:
+2026-03-18 17:01:54,968 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2E86gQFf1Pt4QYrAUe5BGBT5FMDC8rm1Mu9BRNuRkeoY9LWGLbwvXdyQhYpQfr2GwN655VrWfoP5rMHNDr1o6mqP
+2026-03-18 17:01:55,054 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:55,055 - services.mempool_monitor - ERROR - Error processing new token transaction 2E86gQFf1Pt4QYrAUe5BGBT5FMDC8rm1Mu9BRNuRkeoY9LWGLbwvXdyQhYpQfr2GwN655VrWfoP5rMHNDr1o6mqP:
+2026-03-18 17:01:55,743 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3RqcE7VPdpaZvdFhMpti49bGPkDdfXNDUrZiAt2FAeiSo5fQpYZ5QXCEECxM2rryp8NE9nVsfMH8UpN3kphAkCTC
+2026-03-18 17:01:55,827 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:55,828 - services.mempool_monitor - ERROR - Error processing new token transaction 3RqcE7VPdpaZvdFhMpti49bGPkDdfXNDUrZiAt2FAeiSo5fQpYZ5QXCEECxM2rryp8NE9nVsfMH8UpN3kphAkCTC:
+2026-03-18 17:01:56,247 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in 3sgzuLtSpE6ncJcdzVdnRgwBzdU3RZ8JrkbFnex3zX88VmTUVsgACGEmuijAVEEsTQwZHYnyjaHXu91TNH9qp9Tj
+2026-03-18 17:01:56,606 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in p8My2AYQKsmnzB9DcrekbkRnrTzobvkRDvimBvzGiKFsCQxZ2CKHkMMzXjHRnM3TyX1UGCkNr7LCjAsg3ULb5cm
+2026-03-18 17:01:56,963 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3VgWYaTaKQZpVm2q8MEw2216gap3s3bCbRbncra2bYXPcZ29je3NKQADjcdMK3ArTE2NasYvZjwJyJRY9N5uaUzi
+2026-03-18 17:01:57,047 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:57,048 - services.mempool_monitor - ERROR - Error processing new token transaction 3VgWYaTaKQZpVm2q8MEw2216gap3s3bCbRbncra2bYXPcZ29je3NKQADjcdMK3ArTE2NasYvZjwJyJRY9N5uaUzi:
+2026-03-18 17:01:57,313 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5naiP9oyBaPw6sTb6J93GUWZnMhokhKJZdyacoStK55bbAqTgpGdLF2DLcRrSJtKFZePmSkfGjVbkrvZeuH9v1N2
+2026-03-18 17:01:57,398 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:57,399 - services.mempool_monitor - ERROR - Error processing new token transaction 5naiP9oyBaPw6sTb6J93GUWZnMhokhKJZdyacoStK55bbAqTgpGdLF2DLcRrSJtKFZePmSkfGjVbkrvZeuH9v1N2:
+2026-03-18 17:01:57,819 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2Qevn2NLHGBk4m61WiX2V78TMo2WSsMSsQBwmqrWaoZNJJmgxvRyQDLLRnsQBn2U6eSJnhV8oDaGBwMjp3tz5Wke
+2026-03-18 17:01:57,905 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:57,906 - services.mempool_monitor - ERROR - Error processing new token transaction 2Qevn2NLHGBk4m61WiX2V78TMo2WSsMSsQBwmqrWaoZNJJmgxvRyQDLLRnsQBn2U6eSJnhV8oDaGBwMjp3tz5Wke:
+2026-03-18 17:01:57,906 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3pXkrQJgZqboMuEGysc9XJCpgrDrYcxvUz2NVrBUufUe9pqDrFVtza8chGWcLC2oYYqT3LXi5o7HviKpmVeHtyPG
+2026-03-18 17:01:57,988 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:57,989 - services.mempool_monitor - ERROR - Error processing new token transaction 3pXkrQJgZqboMuEGysc9XJCpgrDrYcxvUz2NVrBUufUe9pqDrFVtza8chGWcLC2oYYqT3LXi5o7HviKpmVeHtyPG:
+2026-03-18 17:01:57,990 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4V7o1Mo79tS9HhTNr63CyvBtG7krfWjVoEzC8nta8XFHirBezZE5NUGFYThHcHx6WzwN2YCLoSW8YEg2W7LtbCK2
+2026-03-18 17:01:58,072 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:58,073 - services.mempool_monitor - ERROR - Error processing new token transaction 4V7o1Mo79tS9HhTNr63CyvBtG7krfWjVoEzC8nta8XFHirBezZE5NUGFYThHcHx6WzwN2YCLoSW8YEg2W7LtbCK2:
+2026-03-18 17:01:58,073 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2vxCDQwXZQUqhyTQC8RFeBfr9fk2dhvuqqkb4zbfd2ogWJoZ6zbWq7gKLqscMeX82kKdkqpKFNVmEdTkXCwTndSX
+2026-03-18 17:01:58,156 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:58,157 - services.mempool_monitor - ERROR - Error processing new token transaction 2vxCDQwXZQUqhyTQC8RFeBfr9fk2dhvuqqkb4zbfd2ogWJoZ6zbWq7gKLqscMeX82kKdkqpKFNVmEdTkXCwTndSX:
+2026-03-18 17:01:58,157 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 51thY9Rc3MGda466x7LT9QAPVuV1jpX9tYrWJjKcHAbzx3rm4zw6R94ZNiM1LW4gD6Uty7XPd5VdoonsFcJRdpT8
+2026-03-18 17:01:58,249 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:58,251 - services.mempool_monitor - ERROR - Error processing new token transaction 51thY9Rc3MGda466x7LT9QAPVuV1jpX9tYrWJjKcHAbzx3rm4zw6R94ZNiM1LW4gD6Uty7XPd5VdoonsFcJRdpT8:
+2026-03-18 17:01:58,251 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: TGsyNYCAPVNx8WbGRr88Fq73JgNHqQsDyGiBnLBHR5C1vKGqMbLwCoL5co6rdVeybhpYQfHaXcZ5rP1WvdY8S6P
+2026-03-18 17:01:58,335 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:58,336 - services.mempool_monitor - ERROR - Error processing new token transaction TGsyNYCAPVNx8WbGRr88Fq73JgNHqQsDyGiBnLBHR5C1vKGqMbLwCoL5co6rdVeybhpYQfHaXcZ5rP1WvdY8S6P:
+2026-03-18 17:01:58,890 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in h6gvoiU3KKgia27U1UpnCzXtYcAkeof8bdsFydqpPfpoGN3nzQAH1JELYqkaV5fUQTNSt4HWqBp3e16vuAQCNuC
+2026-03-18 17:01:58,892 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4gU2Sb5F1NQRT38JDwAdHp34eBmw93ZyJi6NGaEyb43v1XDLmGCzZQM3TBJshquwjF9rR67NM28ZyxNwVqF8omGQ
+2026-03-18 17:01:58,974 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:58,975 - services.mempool_monitor - ERROR - Error processing new token transaction 4gU2Sb5F1NQRT38JDwAdHp34eBmw93ZyJi6NGaEyb43v1XDLmGCzZQM3TBJshquwjF9rR67NM28ZyxNwVqF8omGQ:
+2026-03-18 17:01:59,319 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: TRztDEPNk1f76K3tj1syiWHJUzUy14X4kEbVwobTEexVKboCX2DHdkmVFrHmJCwzCs1zMNWLZQoWTrs3SRLn6XM
+2026-03-18 17:01:59,402 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:59,403 - services.mempool_monitor - ERROR - Error processing new token transaction TRztDEPNk1f76K3tj1syiWHJUzUy14X4kEbVwobTEexVKboCX2DHdkmVFrHmJCwzCs1zMNWLZQoWTrs3SRLn6XM:
+2026-03-18 17:01:59,671 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5JrpX96TwS33ze9q5JcshLGzQpb5AqZ2Rq4JTxwFghM11t2BJ4qHAMZd55Qw9KrspfeLxY4F6gN8kcDxaHa2EXey
+2026-03-18 17:01:59,755 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:01:59,756 - services.mempool_monitor - ERROR - Error processing new token transaction 5JrpX96TwS33ze9q5JcshLGzQpb5AqZ2Rq4JTxwFghM11t2BJ4qHAMZd55Qw9KrspfeLxY4F6gN8kcDxaHa2EXey:
+2026-03-18 17:02:00,019 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5xvGgDZZ9QqcMtpwbSxeq3EyGKD1cWpdVFEohoXzMueisVEKMPz2dK4ar67N8aptCE2cDEgkn3wM8G83S3nonp2h
+2026-03-18 17:02:00,175 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 200 OK"
+2026-03-18 17:02:00,178 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5mSgcgsXUB2ogDbsjZpMmj5Edu9We2t1hiPEfnjdvDxyf6eDH7mVXT84kEsNisuhsugqkzaAUDfhkyDww15QiKF1
+2026-03-18 17:02:00,225 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 200 OK"
+2026-03-18 17:02:01,103 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3x8do6WyfHMBVBbQVk8GwrAqEXWVeaXVRfGnBwBj6PZm6pCxaC3k2xGTgBGApQncc8wgbQKRkCKqGcLm7iZe6GRX
+2026-03-18 17:02:01,145 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:02:01,146 - services.mempool_monitor - ERROR - Error processing new token transaction 3x8do6WyfHMBVBbQVk8GwrAqEXWVeaXVRfGnBwBj6PZm6pCxaC3k2xGTgBGApQncc8wgbQKRkCKqGcLm7iZe6GRX:
+2026-03-18 17:02:01,461 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2LQDEJuVRJb9pEp7XZTeNxWy2wS8arW4s6wiS5cbWn55ejQhUUw55BbMBeghWvBjjz3Me1SU4RB7DDY89Gd2bzLR
+2026-03-18 17:02:01,595 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:02:01,596 - services.mempool_monitor - ERROR - Error processing new token transaction 2LQDEJuVRJb9pEp7XZTeNxWy2wS8arW4s6wiS5cbWn55ejQhUUw55BbMBeghWvBjjz3Me1SU4RB7DDY89Gd2bzLR:
+2026-03-18 17:02:02,198 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4kpF6zxH8viqeH5BRyWkt56ryfLqS3Buj7XGWtT6dQqDp3DQ4aCj8RJc9oGSvv16znM3jhtpfhi1DgdS33CjMtHY
+2026-03-18 17:02:02,325 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:02:02,326 - services.mempool_monitor - ERROR - Error processing new token transaction 4kpF6zxH8viqeH5BRyWkt56ryfLqS3Buj7XGWtT6dQqDp3DQ4aCj8RJc9oGSvv16znM3jhtpfhi1DgdS33CjMtHY:
+2026-03-18 17:02:02,326 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5p4kW4L96TdkXHfx3K2K2Zg2AhLDR9JpBHLQmeiVozJTRqHtnP8QjbMP8SXGtHPJ5aiAit1fpwuyVTNpT6sZxsDh
+2026-03-18 17:02:02,476 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:02:02,477 - services.mempool_monitor - ERROR - Error processing new token transaction 5p4kW4L96TdkXHfx3K2K2Zg2AhLDR9JpBHLQmeiVozJTRqHtnP8QjbMP8SXGtHPJ5aiAit1fpwuyVTNpT6sZxsDh:
+2026-03-18 17:02:02,929 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3LyGLK3VgjJExeKTQYdY5ipiR5jTzhVqNJagBiQ7QJrQ8pBkgjMxKBzWyfcsNvHDKzRgqMSK7fNwF4PmekVFbnSL
+2026-03-18 17:02:03,067 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:02:03,068 - services.mempool_monitor - ERROR - Error processing new token transaction 3LyGLK3VgjJExeKTQYdY5ipiR5jTzhVqNJagBiQ7QJrQ8pBkgjMxKBzWyfcsNvHDKzRgqMSK7fNwF4PmekVFbnSL:
+2026-03-18 17:02:03,069 - services.mempool_monitor - WARNING - Potential rugpull indicator: Token Burn in UHyDVZeXEpes78uHiSzhdp6Gwu4QfHNzcyihtF1DKHh9rdxCSgpRcV6mir8frDAihgqJ66QTi5NHgWm6M154Qoe
+2026-03-18 17:02:03,876 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2XvqBWyPRd2w6H9MxRpgVdszedAyCSdq3rRBN499kcwiw8nn6253iD3rXya5c8iK3HPCUeEGDRe5TdGoYypVtEW4
+2026-03-18 17:02:04,013 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:02:04,015 - services.mempool_monitor - ERROR - Error processing new token transaction 2XvqBWyPRd2w6H9MxRpgVdszedAyCSdq3rRBN499kcwiw8nn6253iD3rXya5c8iK3HPCUeEGDRe5TdGoYypVtEW4:
+2026-03-18 17:02:04,348 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 53VwU2bsnbTMMft9CPm36T19VJShzjQn4BRJqeGq1iceXH45Mh4VZtNTDvSEa6oLbCr8c5S8Wk17W2RuWxafAsLB
+2026-03-18 17:02:04,477 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:02:04,478 - services.mempool_monitor - ERROR - Error processing new token transaction 53VwU2bsnbTMMft9CPm36T19VJShzjQn4BRJqeGq1iceXH45Mh4VZtNTDvSEa6oLbCr8c5S8Wk17W2RuWxafAsLB:
+2026-03-18 17:02:04,747 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 2UtKZuwQfF4VsKEoafV9jhr1nhopjxxWM1m3dLB4JwE8AfmGLpk4Q9oZ57HmGUyXrFCqbKnXPbvFdWPmULLr7Cni
+2026-03-18 17:02:04,875 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:02:04,876 - services.mempool_monitor - ERROR - Error processing new token transaction 2UtKZuwQfF4VsKEoafV9jhr1nhopjxxWM1m3dLB4JwE8AfmGLpk4Q9oZ57HmGUyXrFCqbKnXPbvFdWPmULLr7Cni:
+2026-03-18 17:02:05,147 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4jmTyJsGMGcw65qzkbxDrD8edt5ydRnasAqbTCuJzgTF2F4tY5XnKgrFXUp6Upttwv7SiiB93hxQ3hquQVQgxqiP
+2026-03-18 17:02:05,275 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:02:05,276 - services.mempool_monitor - ERROR - Error processing new token transaction 4jmTyJsGMGcw65qzkbxDrD8edt5ydRnasAqbTCuJzgTF2F4tY5XnKgrFXUp6Upttwv7SiiB93hxQ3hquQVQgxqiP:
+2026-03-18 17:02:05,511 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 4hzDVGvNd8T727Xodyd1y6jVHJsoEthSsttB1qKy9McfQ6pjz9nq5coK1k6pcCcYcm3Qae5BfXCaV7yZjXrGgFkp
+2026-03-18 17:02:05,643 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:02:05,644 - services.mempool_monitor - ERROR - Error processing new token transaction 4hzDVGvNd8T727Xodyd1y6jVHJsoEthSsttB1qKy9McfQ6pjz9nq5coK1k6pcCcYcm3Qae5BfXCaV7yZjXrGgFkp:
+2026-03-18 17:02:06,219 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 3MDeVkMT1BkQKj3n357hz7dXDs3M162wZbdr3gFKMbuNhDThRtTVCTW23YCbQLbff4UdbuE42ifJGKXCnLxLD2n7
+2026-03-18 17:02:06,343 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:02:06,344 - services.mempool_monitor - ERROR - Error processing new token transaction 3MDeVkMT1BkQKj3n357hz7dXDs3M162wZbdr3gFKMbuNhDThRtTVCTW23YCbQLbff4UdbuE42ifJGKXCnLxLD2n7:
+2026-03-18 17:02:07,113 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 24zakXbfo48h6no8gHS7QGnU4sbVoXEr9raQmLYzczVvkB8yWY9qPFrNBGdrXg9Shyfw273HYt9uVukLpZDNYq1U
+2026-03-18 17:02:07,245 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:02:07,246 - services.mempool_monitor - ERROR - Error processing new token transaction 24zakXbfo48h6no8gHS7QGnU4sbVoXEr9raQmLYzczVvkB8yWY9qPFrNBGdrXg9Shyfw273HYt9uVukLpZDNYq1U:
+2026-03-18 17:02:07,484 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 63Q3UXRzeGNfPqa5sM4SUBs9LGATjasuXKJgPYxaHgdDmjv4ZBQeMzooJVK2PRHdWFGfvpoJ7jLBDMhZFGasMbRx
+2026-03-18 17:02:07,619 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:02:07,620 - services.mempool_monitor - ERROR - Error processing new token transaction 63Q3UXRzeGNfPqa5sM4SUBs9LGATjasuXKJgPYxaHgdDmjv4ZBQeMzooJVK2PRHdWFGfvpoJ7jLBDMhZFGasMbRx:
+2026-03-18 17:02:07,834 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 58QzZBHKMJH4S2Yppfhg7ohAfenLdQA8S5frVBLe1VAfdWwj76EvctmhDokk2mceYFNoxA99YsUDBpCRBZF3fGEq
+2026-03-18 17:02:07,963 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:02:07,964 - services.mempool_monitor - ERROR - Error processing new token transaction 58QzZBHKMJH4S2Yppfhg7ohAfenLdQA8S5frVBLe1VAfdWwj76EvctmhDokk2mceYFNoxA99YsUDBpCRBZF3fGEq:
+2026-03-18 17:02:08,182 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 7v26Mj4aGTqRdWDZQH8YgXaRSxo7zN3ZsrGySs9jgi15oMHn4y5Dcpc3aBX5Dz7cw1Gb4te2qgtepqJuTPwwvLp
+2026-03-18 17:02:08,297 - httpx - INFO - HTTP Request: POST https://api.mainnet-beta.solana.com "HTTP/1.1 429 Too Many Requests"
+2026-03-18 17:02:08,299 - services.mempool_monitor - ERROR - Error processing new token transaction 7v26Mj4aGTqRdWDZQH8YgXaRSxo7zN3ZsrGySs9jgi15oMHn4y5Dcpc3aBX5Dz7cw1Gb4te2qgtepqJuTPwwvLp:
+2026-03-18 17:02:08,626 - services.mempool_monitor - INFO - Potential new token/pool transaction detected: 5abP1r7kQ9edndQQjEBjjWNJmjXKVyXcbkt7ciKzRnhMfh8nz7ukfhNZXCfGLGNZMWw2ZUQUBATC2rXMsVz6nHkE
