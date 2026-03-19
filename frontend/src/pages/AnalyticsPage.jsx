@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { useApi } from '../contexts/ApiContext'
 import { 
   BarChart3, 
   TrendingUp, 
@@ -13,37 +14,37 @@ import {
 } from 'lucide-react'
 
 export default function AnalyticsPage() {
+  const { getPerformanceMetrics, getTransactions } = useApi()
   const [timeRange, setTimeRange] = useState('7d')
   const [selectedMetric, setSelectedMetric] = useState('profit')
+  const [performanceData, setPerformanceData] = useState(null)
+  const [transactions, setTransactions] = useState([])
+  const [loading, setLoading] = useState(true)
 
-  const performanceData = {
-    totalProfit: 2847.32,
-    totalTrades: 156,
-    successRate: 87.2,
-    avgProfit: 18.25,
-    bestTrade: 234.56,
-    worstTrade: -45.23,
-    winStreak: 12,
-    currentStreak: 8
+  useEffect(() => {
+    loadAnalyticsData()
+  }, [timeRange])
+
+  const loadAnalyticsData = async () => {
+    try {
+      setLoading(true)
+      const [perfResult, transResult] = await Promise.all([
+        getPerformanceMetrics(),
+        getTransactions()
+      ])
+
+      if (perfResult.success) {
+        setPerformanceData(perfResult.data)
+      }
+      if (transResult.success) {
+        setTransactions(transResult.data)
+      }
+    } catch (error) {
+      console.error('Error loading analytics data:', error)
+    } finally {
+      setLoading(false)
+    }
   }
-
-  const chartData = [
-    { date: '2024-01-01', profit: 120.45, trades: 8, volume: 2400 },
-    { date: '2024-01-02', profit: 234.67, trades: 12, volume: 3200 },
-    { date: '2024-01-03', profit: -45.23, trades: 6, volume: 1800 },
-    { date: '2024-01-04', profit: 189.34, trades: 15, volume: 4100 },
-    { date: '2024-01-05', profit: 345.78, trades: 18, volume: 5200 },
-    { date: '2024-01-06', profit: 156.89, trades: 10, volume: 2900 },
-    { date: '2024-01-07', profit: 278.45, trades: 14, volume: 3800 }
-  ]
-
-  const topTokens = [
-    { symbol: 'PEPE', profit: 456.78, trades: 23, winRate: 91.3 },
-    { symbol: 'BONK', profit: 234.56, trades: 18, winRate: 88.9 },
-    { symbol: 'WIF', profit: 189.34, trades: 15, winRate: 86.7 },
-    { symbol: 'POPCAT', profit: 167.89, trades: 12, winRate: 83.3 },
-    { symbol: 'MEW', profit: 123.45, trades: 9, winRate: 77.8 }
-  ]
 
   return (
     <div className="p-4 lg:p-6 space-y-6 max-w-7xl mx-auto">
@@ -95,7 +96,7 @@ export default function AnalyticsPage() {
             </div>
             <div className="text-right">
               <p className="text-2xl font-bold text-green-400">
-                ${performanceData.totalProfit.toLocaleString()}
+                ${performanceData?.totalProfit?.toLocaleString() || '0.00'}
               </p>
               <p className="text-sm text-muted-foreground">Total Profit</p>
             </div>
