@@ -1,24 +1,26 @@
 import logging
 import asyncio
 import json
-from typing import Dict, Optional
-from solana.rpc.websocket_api import SolanaWsClient
-from solana.rpc.api import Client
+from typing import Dict, Optional, List
+from solana.rpc.websocket_api import connect
+from solana.rpc.async_api import AsyncClient
 from solana.rpc.commitment import Commitment, Confirmed
 from solana.rpc.core import RPCException
+from solders.rpc.config import RpcTransactionLogsFilterMentions
 from solders.pubkey import Pubkey
 from solders.signature import Signature
-from solders.transaction import Transaction as SoldersTransaction # Renamed to avoid conflict
+from solders.transaction import Transaction as SoldersTransaction
 from solders.instruction import CompiledInstruction
 from solders.message import Message
 from solders.system_program import ID as SYSTEM_PROGRAM_ID
-from solders.token_program import ID as TOKEN_PROGRAM_ID
-from solders.token_program import instruction as token_instruction_parser # For parsing token instructions
+from solders.token import ID as TOKEN_PROGRAM_ID
 
 from config import SOLANA_RPC_URL, SOLANA_WS_URL
-from services.data_fetcher import data_fetcher_service # To fetch token details
 
 logger = logging.getLogger(__name__)
+
+PUMP_FUN_PROGRAM_ID = "6EF8rrecthR5DkZJv9RKzyAXYVqBCTs2Fmb7sK559pwt"
+RAYDIUM_LIQUIDITY_POOL_V4_ID = "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8"
 
 class MempoolMonitorService:
     """
@@ -26,199 +28,179 @@ class MempoolMonitorService:
     Connects to a Solana RPC WebSocket to listen for new transactions.
     """
 
-    def __init__(self, socketio=None):
+    def __init__(self, socketio=None, data_fetcher_service=None):
         self.socketio = socketio
-        self.solana_client = Client(SOLANA_RPC_URL)
-        self.ws_client: Optional[SolanaWsClient] = None
+        self.data_fetcher_service = data_fetcher_service
+        self.solana_client = AsyncClient(SOLANA_RPC_URL)
         self.monitoring_task = None
-
-    async def _connect_websocket(self):
-        """
-        Establishes a WebSocket connection to the Solana RPC.
-        """
-        try:
-            self.ws_client = SolanaWsClient(SOLANA_WS_URL)
-            await self.ws_client.connect()
-            logger.info(f"Connected to Solana WebSocket: {SOLANA_WS_URL}")
-        except Exception as e:
-            logger.error(f"Failed to connect to Solana WebSocket: {e}")
-            self.ws_client = None
-
-    async def _disconnect_websocket(self):
-        """
-        Closes the WebSocket connection.
-        """
-        if self.ws_client:
-            await self.ws_client.close()
-            self.ws_client = None
-            logger.info("Disconnected from Solana WebSocket.")
+        self.is_running = False
 
     async def _monitor_transactions(self):
         """
         Monitors new transactions on the Solana network for new token launches and potential rugpulls.
+        Uses a reconnection loop with exponential backoff.
         """
-        if not self.ws_client:
-            await self._connect_websocket()
-            if not self.ws_client:
-                logger.error("WebSocket client not available for monitoring.")
-                return
+        retry_delay = 1
+        max_retry_delay = 60
 
-        logger.info("Starting transaction monitoring...")
-        try:
-            # Subscribe to all new transactions (very high volume!)
-            # In a real bot, you'd filter by program ID or specific instruction types.
-            subscription_id = await self.ws_client.logs_subscribe(
-                filter_='all', commitment=Commitment('processed')
-            )
-            logger.info(f"Subscribed to logs with ID: {subscription_id}")
+        while self.is_running:
+            try:
+                async with connect(SOLANA_WS_URL) as ws:
+                    logger.info(f"Connected to Solana WebSocket: {SOLANA_WS_URL}")
+                    retry_delay = 1
 
-            async for msg in self.ws_client:
-                if msg and 'params' in msg and 'result' in msg['params']:
-                    result = msg['params']['result']
-                    value = result['value']
-                    signature = value['signature']
-                    logs = value['logs']
+                    # Filter for Pump.fun logs
+                    await ws.logs_subscribe(
+                        filter_=RpcTransactionLogsFilterMentions(Pubkey.from_string(PUMP_FUN_PROGRAM_ID)),
+                        commitment=Commitment('processed')
+                    )
+                    logger.info("Subscribed to Pump.fun logs.")
 
-                    # Check for potential token creation (initializeMint)
-                    if any("initializeMint" in log for log in logs):
-                        logger.info(f"Potential new token transaction detected: {signature}")
-                        await self._process_new_token_transaction(signature)
+                    # Filter for Raydium logs
+                    await ws.logs_subscribe(
+                        filter_=RpcTransactionLogsFilterMentions(Pubkey.from_string(RAYDIUM_LIQUIDITY_POOL_V4_ID)),
+                        commitment=Commitment('processed')
+                    )
+                    logger.info("Subscribed to Raydium logs.")
 
-                    # Check for potential rugpulls (large transfers, LP removal, burn)
-                    await self._process_rugpull_indicators(signature, logs)
+                    async for msg in ws:
+                        if not self.is_running:
+                            break
 
-        except RPCException as e:
-            logger.error(f"RPC error during transaction monitoring: {e}")
-        except Exception as e:
-            logger.error(f"Error during transaction monitoring: {e}")
-        finally:
-            logger.info("Transaction monitoring stopped.")
-            await self._disconnect_websocket()
+                        # Handle message formats
+                        for event in (msg if isinstance(msg, list) else [msg]):
+                            try:
+                                if hasattr(event, 'result') and event.result:
+                                    value = event.result.value
+                                    signature = str(value.signature)
+                                    logs = value.logs
+                                    await self._process_mempool_event(signature, logs)
+                                elif isinstance(event, dict) and 'params' in event:
+                                    result = event['params']['result']['value']
+                                    signature = result['signature']
+                                    logs = result['logs']
+                                    await self._process_mempool_event(signature, logs)
+                            except (AttributeError, KeyError, TypeError) as e:
+                                continue
+
+            except Exception as e:
+                if self.is_running:
+                    logger.error(f"WebSocket connection error: {e}. Retrying in {retry_delay}s...")
+                    await asyncio.sleep(retry_delay)
+                    retry_delay = min(retry_delay * 2, max_retry_delay)
+                else:
+                    break
+
+    async def _process_mempool_event(self, signature: str, logs: list):
+        # Check for potential token creation (initializeMint) or Raydium/Pump.fun specific creators
+        if any("initializeMint" in log for log in logs) or \
+           any("create" in log.lower() for log in logs) or \
+           any("initialize2" in log for log in logs): # Raydium init
+            logger.info(f"Potential new token/pool transaction detected: {signature}")
+            await self._process_new_token_transaction(signature)
+
+        await self._process_rugpull_indicators(signature, logs)
 
     async def _process_new_token_transaction(self, signature: str):
         """
         Fetches and processes transaction details to identify new token mints.
         """
         try:
-            transaction_response = self.solana_client.get_transaction(
-                signature,
+            sig = Signature.from_string(signature)
+            response = await self.solana_client.get_transaction(
+                sig,
                 encoding="jsonParsed",
-                commitment=Confirmed
+                commitment=Confirmed,
+                max_supported_transaction_version=0
             )
             
-            transaction_data = transaction_response.value.transaction
-            if not transaction_data or not transaction_data.meta:
-                logger.warning(f"No transaction data or meta for signature {signature}")
+            if not response or not response.value:
                 return
 
-            for instruction in transaction_data.transaction.message.instructions:
-                if instruction.program_id == TOKEN_PROGRAM_ID:
-                    try:
-                        parsed_instruction = token_instruction_parser.parse_token_instruction(instruction)
-                        if parsed_instruction and parsed_instruction.instruction_type == "initializeMint":
-                            mint_address = parsed_instruction.args.mint
-                            logger.info(f"Confirmed new token mint: {mint_address}")
-                            
-                            token_details = await data_fetcher_service.get_token_by_address(str(mint_address))
-                            
-                            if token_details:
-                                logger.info(f"New token details fetched: {token_details['symbol']} ({token_details['address']})")
-                                if self.socketio:
-                                    self.socketio.emit('new_token', token_details)
-                            else:
-                                logger.warning(f"Could not fetch details for new token mint: {mint_address}")
-                            return # Found the mint instruction, no need to check other instructions
-                    except Exception as parse_e:
-                        logger.warning(f"Error parsing token instruction for new token: {parse_e}")
+            transaction_data = response.value.transaction
+            if not transaction_data or not transaction_data.meta:
+                return
 
-        except RPCException as tx_e:
-            logger.error(f"RPC error fetching transaction {signature} for new token: {tx_e}")
+            # Look for new mints in instructions
+            for instruction in transaction_data.transaction.message.instructions:
+                # Handle both parsed and unparsed instructions
+                program_id = str(instruction.program_id)
+
+                if program_id == str(TOKEN_PROGRAM_ID):
+                    # Check for initializeMint
+                    # If parsed (jsonParsed)
+                    if hasattr(instruction, 'parsed') and isinstance(instruction.parsed, dict):
+                        if instruction.parsed.get('type') in ['initializeMint', 'initializeMint2']:
+                            mint = instruction.parsed['info']['mint']
+                            await self._emit_new_token(mint)
+                            return
+
+                    # If not parsed, manual check (CompiledInstruction)
+                    elif hasattr(instruction, 'data'):
+                        data = instruction.data
+                        # SPL Token initializeMint is 0, initializeMint2 is 20
+                        if data and data[0] in [0, 20]:
+                            # In initializeMint/2, the mint account is typically the first account in the instruction
+                            if hasattr(instruction, 'accounts') and len(instruction.accounts) > 0:
+                                mint = instruction.accounts[0]
+                                # instruction.accounts contains indices into message.account_keys
+                                if isinstance(mint, int):
+                                    mint_pubkey = transaction_data.transaction.message.account_keys[mint]
+                                    await self._emit_new_token(str(mint_pubkey))
+                                else:
+                                    await self._emit_new_token(str(mint))
+                                return
+
+                elif program_id == PUMP_FUN_PROGRAM_ID:
+                    # Pump.fun create instruction usually emits a CreateEvent in logs
+                    # But we can also check the accounts
+                    pass # Handled by log keywords for now to be faster
+
         except Exception as tx_e:
             logger.error(f"Error processing new token transaction {signature}: {tx_e}")
 
+    async def _emit_new_token(self, mint_address: str):
+        logger.info(f"Confirmed new token mint: {mint_address}")
+        if self.data_fetcher_service:
+            token_details = await self.data_fetcher_service.get_token_by_address(mint_address)
+            if token_details:
+                logger.info(f"New token details fetched: {token_details['symbol']} ({token_details['address']})")
+                if self.socketio:
+                    self.socketio.emit('new_token', token_details)
+            else:
+                # Emit basic info if details not yet available on indexers
+                if self.socketio:
+                    self.socketio.emit('new_token', {
+                        'address': mint_address,
+                        'symbol': 'NEW',
+                        'name': 'New Token',
+                        'price': 0,
+                        'liquidity': 0,
+                        'age_hours': 0
+                    })
+
     async def _process_rugpull_indicators(self, signature: str, logs: list):
         """
-        Analyzes transaction logs and instructions for potential rugpull indicators.
+        Analyzes transaction logs for potential rugpull indicators.
         """
-        # Simplified checks for now. Real rugpull detection is complex.
-        # Look for large token transfers, LP removal, or token burns.
-
-        # Check logs for common rugpull phrases (very basic)
         for log in logs:
-            if "withdraw liquidity" in log.lower() or "burn" in log.lower() or "close account" in log.lower():
-                logger.warning(f"Potential rugpull indicator in logs for {signature}: {log}")
+            reason = None
+            if "withdraw liquidity" in log.lower():
+                reason = "Liquidity Withdrawal"
+            elif "burn" in log.lower() and "mint" not in log.lower():
+                reason = "Token Burn"
+            elif "close account" in log.lower():
+                reason = "Account Closed"
+
+            if reason:
+                logger.warning(f"Potential rugpull indicator: {reason} in {signature}")
                 if self.socketio:
                     self.socketio.emit('rugpull_alert', {
                         'signature': signature,
-                        'reason': 'Keyword detected in logs',
+                        'reason': reason,
                         'log_message': log
                     })
-                return # Alert once per transaction
-
-        try:
-            transaction_response = self.solana_client.get_transaction(
-                signature,
-                encoding="jsonParsed",
-                commitment=Confirmed
-            )
-            
-            transaction_data = transaction_response.value.transaction
-            if not transaction_data or not transaction_data.meta:
                 return
-
-            for instruction in transaction_data.transaction.message.instructions:
-                if instruction.program_id == TOKEN_PROGRAM_ID:
-                    try:
-                        parsed_instruction = token_instruction_parser.parse_token_instruction(instruction)
-                        
-                        # Check for large token transfers
-                        if parsed_instruction and parsed_instruction.instruction_type == "transfer":
-                            source_account = parsed_instruction.args.source
-                            destination_account = parsed_instruction.args.destination
-                            amount = parsed_instruction.args.amount
-                            mint = parsed_instruction.args.mint # This is the token mint address
-
-                            # TODO: Get token decimals to convert amount to human-readable
-                            # For now, a heuristic: if amount is very large, it might be suspicious
-                            if amount > 1_000_000_000_000: # Example threshold for large transfer (adjust based on token decimals)
-                                logger.warning(f"Large token transfer detected: {amount} from {source_account} to {destination_account} for mint {mint}")
-                                if self.socketio:
-                                    self.socketio.emit('rugpull_alert', {
-                                        'signature': signature,
-                                        'reason': 'Large token transfer',
-                                        'details': {'amount': amount, 'mint': str(mint), 'from': str(source_account), 'to': str(destination_account)}
-                                    })
-
-                        # Check for token burns
-                        elif parsed_instruction and parsed_instruction.instruction_type == "burn":
-                            mint = parsed_instruction.args.mint
-                            amount = parsed_instruction.args.amount
-                            logger.warning(f"Token burn detected: {amount} of {mint}")
-                            if self.socketio:
-                                self.socketio.emit('rugpull_alert', {
-                                    'signature': signature,
-                                    'reason': 'Token burn',
-                                    'details': {'amount': amount, 'mint': str(mint)}
-                                })
-
-                        # Check for close account (could indicate LP removal if it's an LP token account)
-                        elif parsed_instruction and parsed_instruction.instruction_type == "closeAccount":
-                            account_to_close = parsed_instruction.args.account
-                            logger.warning(f"Token account closed: {account_to_close}")
-                            if self.socketio:
-                                self.socketio.emit('rugpull_alert', {
-                                    'signature': signature,
-                                    'reason': 'Token account closed',
-                                    'details': {'account': str(account_to_close)}
-                                })
-
-                    except Exception as parse_e:
-                        logger.warning(f"Error parsing token instruction for rugpull check: {parse_e}")
-
-        except RPCException as tx_e:
-            logger.error(f"RPC error fetching transaction {signature} for rugpull check: {tx_e}")
-        except Exception as tx_e:
-            logger.error(f"Error processing transaction {signature} for rugpull check: {tx_e}")
 
     async def start_monitoring(self):
         """
@@ -227,6 +209,8 @@ class MempoolMonitorService:
         if self.monitoring_task and not self.monitoring_task.done():
             logger.info("Mempool monitoring already running.")
             return
+
+        self.is_running = True
         logger.info("Starting mempool monitoring task.")
         self.monitoring_task = asyncio.create_task(self._monitor_transactions())
 
@@ -234,24 +218,16 @@ class MempoolMonitorService:
         """
         Stops the background task for mempool monitoring.
         """
+        self.is_running = False
         if self.monitoring_task:
             self.monitoring_task.cancel()
             try:
                 await self.monitoring_task
             except asyncio.CancelledError:
-                logger.info("Mempool monitoring task cancelled.")
+                pass
             finally:
                 self.monitoring_task = None
-        await self._disconnect_websocket()
-
-    async def monitor_new_tokens(self) -> Optional[Dict]:
-        """
-        This method is kept for API compatibility but the actual monitoring
-        is done in the background task. It will return None as it's not
-        designed for a single-shot check anymore.
-        """
-        logger.debug("monitor_new_tokens called. Monitoring runs in background.")
-        return None
+        logger.info("Mempool monitoring stopped.")
 
 # Create a singleton instance
 mempool_monitor_service = MempoolMonitorService()
