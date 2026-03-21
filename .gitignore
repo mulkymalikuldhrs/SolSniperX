@@ -1,2 +1,12 @@
 venv/
 node_modules/
+backend/venv/
+frontend/node_modules/
+frontend/dist/
+__pycache__/
+*.pyc
+.env
+auto_trader_config.json
+backend/src/database/app.db
+backend/src/services/__pycache__/
+backend/tests/__pycache__/
