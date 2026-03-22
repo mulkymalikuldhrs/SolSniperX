@@ -15,18 +15,42 @@ class DataFetcherService:
     def __init__(self, socketio=None):
         self.socketio = socketio
         self.http_client = httpx.AsyncClient()
+        self._cache = {} # {key: (data, timestamp)}
+        self._cache_ttl = 60 # 60 seconds TTL
+
+    def _get_from_cache(self, key: str) -> Optional[Any]:
+        if key in self._cache:
+            data, timestamp = self._cache[key]
+            if datetime.now().timestamp() - timestamp < self._cache_ttl:
+                logger.debug(f"Cache hit for {key}")
+                return data
+            else:
+                del self._cache[key]
+        return None
+
+    def _save_to_cache(self, key: str, data: Any):
+        self._cache[key] = (data, datetime.now().timestamp())
 
     async def _fetch_from_dexscreener(self, pair_address: Optional[str] = None) -> List[Dict]:
         """
         Fetches data from Dexscreener API.
-        If pair_address is provided, fetches data for that specific pair.
-        Otherwise, fetches trending pairs (if supported by API or a workaround is found).
         """
-        logger.info(f"Fetching data from Dexscreener for pair: {pair_address or 'trending'}")
+        logger.info(f"Fetching data from Dexscreener for pair: {pair_address or 'recent'}")
         try:
-            url = f"{DEXSCREENER_BASE_URL}/pairs/solana/{pair_address}" if pair_address else f"{DEXSCREENER_BASE_URL}/pairs/solana/trending" # Assuming trending endpoint exists
+            if pair_address:
+                url = f"{DEXSCREENER_BASE_URL}/pairs/solana/{pair_address}"
+            else:
+                # Dexscreener doesn't have a simple 'trending' endpoint for all of Solana easily.
+                # We can use the latest token boosts or just specific pairs.
+                # For now, we'll try a common one or return empty if not found.
+                url = f"{DEXSCREENER_BASE_URL}/token-boosts/top/v1"
+
             response = await self.http_client.get(url)
-            response.raise_for_status() # Raise an exception for HTTP errors
+            if response.status_code == 404 and not pair_address:
+                logger.warning("Dexscreener trending endpoint not found, returning empty.")
+                return []
+
+            response.raise_for_status()
             data = response.json()
             return self._process_dexscreener_data(data)
         except httpx.RequestError as e:
@@ -173,6 +197,11 @@ class DataFetcherService:
         """
         Fetches real-time token data from Dexscreener and Birdeye.
         """
+        cache_key = "real_time_data"
+        cached_data = self._get_from_cache(cache_key)
+        if cached_data:
+            return cached_data
+
         logger.info("Fetching real-time token data.")
         
         dexscreener_data = await self._fetch_from_dexscreener()
@@ -183,7 +212,9 @@ class DataFetcherService:
         for token in birdeye_data:
             combined_data[token['address']] = {**combined_data.get(token['address'], {}), **token}
         
-        return list(combined_data.values())
+        result = list(combined_data.values())
+        self._save_to_cache(cache_key, result)
+        return result
 
     async def get_all_tokens(self) -> List[Dict]:
         """
@@ -195,30 +226,64 @@ class DataFetcherService:
         """
         Returns details for a specific token by its address, fetching from real-time source.
         """
+        cache_key = f"token_{token_address}"
+        cached_token = self._get_from_cache(cache_key)
+        if cached_token:
+            return cached_token
+
         # Try fetching from Dexscreener first for specific pair
-        dexscreener_token = await self._fetch_from_dexscreener(pair_address=token_address) # Assuming token_address can be used as pair_address
+        dexscreener_token = await self._fetch_from_dexscreener(pair_address=token_address)
         if dexscreener_token:
-            return dexscreener_token[0] # Expecting a list with one token
+            token = dexscreener_token[0]
+            self._save_to_cache(cache_key, token)
+            return token
 
         # If not found on Dexscreener, try Birdeye
         birdeye_token = await self._fetch_from_birdeye(token_address=token_address)
         if birdeye_token:
-            return birdeye_token[0] # Expecting a list with one token
+            token = birdeye_token[0]
+            self._save_to_cache(cache_key, token)
+            return token
 
         return None
 
     async def get_historical_prices(self, token_address: str, interval: str = '1h', limit: int = 24) -> List[Dict]:
         """
-        Fetches historical price data for a given token.
-        TODO: Integrate with a real historical data API (e.g., Birdeye historical data).
-        For now, it will return empty list.
+        Fetches historical price data for a given token from Birdeye.
+        Returns a list of price points with timestamps.
         """
         logger.info(f"Fetching historical prices for {token_address} (interval: {interval}, limit: {limit})")
-        # Birdeye has historical data API, e.g., /history/price
-        # Example: https://public-api.birdeye.so/public/history/price?address=TOKEN_ADDRESS&type=1m&time_from=1678886400&time_to=1678972800
-        # This would require calculating time_from and time_to based on interval and limit.
-        return [] # Returning empty for now until implemented
+
+        if not BIRDEYE_API_KEY or BIRDEYE_API_KEY == "dummy":
+            logger.warning("Birdeye API key missing. Cannot fetch real historical data.")
+            return []
+
+        try:
+            # Calculate time range
+            now = int(datetime.now().timestamp())
+            hours = limit if interval == '1h' else limit * 24
+            time_from = now - (hours * 3600)
+
+            url = f"{BIRDEYE_BASE_URL}/history/price?address={token_address}&address_type=token&type={interval}&time_from={time_from}&time_to={now}"
+            headers = {"X-API-KEY": BIRDEYE_API_KEY}
+
+            response = await self.http_client.get(url, headers=headers)
+            response.raise_for_status()
+            data = response.json()
+
+            history = []
+            if 'data' in data and 'items' in data['data']:
+                for item in data['data']['items']:
+                    history.append({
+                        'timestamp': datetime.fromtimestamp(item['unixTime']).isoformat(),
+                        'price': item['value'],
+                        'volume': 0 # Birdeye price history might not have volume in this endpoint
+                    })
+            return history
+        except Exception as e:
+            logger.error(f"Error fetching historical prices from Birdeye: {e}")
+            return []
 
 # Create a singleton instance for easy import
-# data_fetcher_service = DataFetcherService() # Instantiation will be handled in main.py
+data_fetcher_service = DataFetcherService()
 
