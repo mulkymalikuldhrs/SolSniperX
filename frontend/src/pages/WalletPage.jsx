@@ -8,111 +8,47 @@ import {
   ExternalLink, 
   TrendingUp, 
   TrendingDown,
-  Send,
   Download,
   RefreshCw,
-  Eye,
-  EyeOff,
-  Plus,
-  Settings,
   Shield,
   Clock,
-  DollarSign,
-  Trash2
+  DollarSign
 } from 'lucide-react'
 
 export default function WalletPage() {
-  const [showPrivateKey, setShowPrivateKey] = useState(false)
   const [walletBalance, setWalletBalance] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [transactions, setTransactions] = useState([]) // Initialize as empty, will be populated by WebSocket or API
-  const [tokenBalances, setTokenBalances] = useState([]) // New state for token balances
+  const [transactions, setTransactions] = useState([])
+  const [tokenBalances, setTokenBalances] = useState([])
 
-  const { getWallets, getWalletBalance, addWallet, deleteWallet } = useApi()
-  const { lastMessage, walletUpdates } = useWebSocket() // Import walletUpdates
-
-  const fetchWallets = useCallback(async () => {
-    setLoading(true)
-    try {
-      const result = await getWallets()
-      if (result.success) {
-        setWallets(result.data)
-        // Select the first wallet by default if none is selected
-        if (!selectedWallet && result.data.length > 0) {
-          setSelectedWallet(result.data[0])
-        }
-      }
-    } catch (error) {
-      console.error('Error fetching wallets:', error)
-    } finally {
-      setLoading(false)
-    }
-  }, [getWallets, selectedWallet])
+  const { getWalletBalance, getTransactions } = useApi()
+  const { lastMessage, walletUpdates } = useWebSocket()
 
   const refreshBalance = useCallback(async () => {
-    if (selectedWallet) {
-      setLoading(true)
-      try {
-        const result = await getWalletBalance(selectedWallet.id)
-        if (result.success) {
-          setWalletBalance(result.data)
-          setTokenBalances(result.data.tokens || [])
-        }
-      } catch (error) {
-        console.error('Error refreshing balance:', error)
-      } finally {
-        setLoading(false)
-      }
-    } else {
-      // If no wallet is selected, fetch overall balance
-      setLoading(true)
-      try {
-        const result = await getWalletBalance()
-        if (result.success) {
-          setWalletBalance(result.data)
-          setTokenBalances(result.data.tokens || [])
-        }
-      } catch (error) {
-        console.error('Error fetching overall balance:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-  }, [selectedWallet, getWalletBalance])
-
-  const handleAddWallet = useCallback(async (name, privateKey) => {
     setLoading(true)
     try {
-      const result = await addWallet(name, privateKey)
+      const result = await getWalletBalance()
       if (result.success) {
-        setShowAddWalletModal(false)
-        fetchWallets() // Re-fetch wallets to update the list
+        setWalletBalance(result.data)
+        setTokenBalances(result.data.tokens || [])
       }
     } catch (error) {
-      console.error('Error adding wallet:', error)
+      console.error('Error fetching wallet balance:', error)
     } finally {
       setLoading(false)
     }
-  }, [addWallet, fetchWallets])
+  }, [getWalletBalance])
 
-  const handleDeleteWallet = useCallback(async (walletId) => {
-    setLoading(true)
+  const fetchTransactions = useCallback(async () => {
     try {
-      const result = await deleteWallet(walletId)
+      const result = await getTransactions(20)
       if (result.success) {
-        fetchWallets() // Re-fetch wallets to update the list
-        if (selectedWallet?.id === walletId) {
-          setSelectedWallet(null) // Deselect if the deleted wallet was selected
-          setWalletBalance(null)
-          setTokenBalances([])
-        }
+        setTransactions(result.data)
       }
     } catch (error) {
-      console.error('Error deleting wallet:', error)
-    } finally {
-      setLoading(false)
+      console.error('Error fetching transactions:', error)
     }
-  }, [deleteWallet, fetchWallets, selectedWallet])
+  }, [getTransactions])
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text)
@@ -121,73 +57,30 @@ export default function WalletPage() {
   }
 
   useEffect(() => {
-    fetchWallets()
-  }, [fetchWallets])
-
-  useEffect(() => {
     refreshBalance()
-  }, [refreshBalance])
+    fetchTransactions()
+  }, [refreshBalance, fetchTransactions])
 
   useEffect(() => {
-    if (lastMessage && lastMessage.type === 'trade_executed') {
-      const newTrade = {
-        id: lastMessage.transaction_id,
-        type: lastMessage.type,
-        token: lastMessage.token_address.substring(0, 4) + '...' + lastMessage.token_address.substring(lastMessage.token_address.length - 4),
-        amount: lastMessage.type === 'buy' ? lastMessage.amount_sol : lastMessage.amount_tokens,
-        hash: lastMessage.transaction_id, // Using transaction_id as hash for now
-        time: 'just now',
-        status: lastMessage.status
-      }
-      setTransactions(prevTransactions => [newTrade, ...prevTransactions].slice(0, 10)) // Keep last 10 transactions
-      refreshBalance() // Refresh balance after a trade
+    if (lastMessage && (lastMessage.type === 'trade_executed' || lastMessage.type === 'auto_trade_event')) {
+      refreshBalance()
+      fetchTransactions()
     }
-  }, [lastMessage, refreshBalance])
+  }, [lastMessage, refreshBalance, fetchTransactions])
 
   useEffect(() => {
-    // Update wallets and balances based on WebSocket updates
-    if (walletUpdates) {
-      setWallets(prevWallets => {
-        return prevWallets.map(wallet => {
-          if (walletUpdates[wallet.id]) {
-            return {
-              ...wallet,
-              sol_balance: walletUpdates[wallet.id].sol_balance,
-              usd_value: walletUpdates[wallet.id].usd_value,
-              tokens: walletUpdates[wallet.id].tokens,
-            }
-          }
-          return wallet
-        }).filter(wallet => walletUpdates[wallet.id] !== undefined) // Remove deleted wallets
-      })
-
-      if (selectedWallet && walletUpdates[selectedWallet.id]) {
-        setWalletBalance(prevBalance => ({
-          ...prevBalance,
-          sol_balance: walletUpdates[selectedWallet.id].sol_balance,
-          usd_value: walletUpdates[selectedWallet.id].usd_value,
-          tokens: walletUpdates[selectedWallet.id].tokens,
-          total_value_usd: walletUpdates[selectedWallet.id].total_value_usd || prevBalance?.total_value_usd,
-        }))
-        setTokenBalances(walletUpdates[selectedWallet.id].tokens || [])
-      } else if (!selectedWallet && Object.keys(walletUpdates).length > 0) {
-        // If no wallet is selected, aggregate total from all updated wallets
-        const totalSol = Object.values(walletUpdates).reduce((sum, w) => sum + w.sol_balance, 0)
-        const totalUsd = Object.values(walletUpdates).reduce((sum, w) => sum + w.usd_value, 0)
-        const allTokens = Object.values(walletUpdates).flatMap(w => w.tokens)
-        const totalValueUsd = totalUsd + allTokens.reduce((sum, t) => sum + t.usd_value, 0)
-
-        setWalletBalance({
-          sol_balance: totalSol,
-          usd_value: totalUsd,
-          tokens: allTokens,
-          total_value_usd: totalValueUsd,
-          last_updated: new Date().toISOString()
-        })
-        setTokenBalances(allTokens)
-      }
+    if (walletUpdates && walletUpdates.address === walletBalance?.address) {
+      setWalletBalance(prev => ({
+        ...prev,
+        sol_balance: walletUpdates.sol_balance,
+        usd_value: walletUpdates.usd_value,
+        tokens: walletUpdates.tokens,
+        total_value_usd: walletUpdates.total_value_usd,
+        last_updated: walletUpdates.last_updated
+      }))
+      setTokenBalances(walletUpdates.tokens || [])
     }
-  }, [walletUpdates, selectedWallet])
+  }, [walletUpdates, walletBalance?.address])
 
   return (
     <div className="p-4 lg:p-6 space-y-6 max-w-7xl mx-auto">
@@ -199,10 +92,10 @@ export default function WalletPage() {
       >
         <div>
           <h1 className="text-3xl font-bold text-gradient-primary mb-2">
-            Wallet Management
+            Wallet
           </h1>
           <p className="text-muted-foreground">
-            Manage your Solana wallets and track your portfolio
+            Manage your Solana wallet and track your portfolio
           </p>
         </div>
 
@@ -214,14 +107,6 @@ export default function WalletPage() {
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
             <span>Refresh</span>
-          </button>
-          
-          <button 
-            onClick={() => setShowAddWalletModal(true)}
-            className="btn-gradient flex items-center space-x-2"
-          >
-            <Plus className="w-4 h-4" />
-            <span>Add Wallet</span>
           </button>
         </div>
       </motion.div>
@@ -243,9 +128,11 @@ export default function WalletPage() {
               <p className="text-sm text-muted-foreground">Total Portfolio</p>
             </div>
           </div>
-          <div className="flex items-center space-x-2">
-            <TrendingUp className="w-4 h-4 text-green-400" />
-            <span className="text-sm text-green-400">+0.00 (0.00%)</span>
+          <div className="flex items-center space-x-2 text-xs text-muted-foreground truncate">
+            <span>{walletBalance?.address}</span>
+            <button onClick={() => copyToClipboard(walletBalance?.address)} className="hover:text-primary">
+              <Copy className="w-3 h-3" />
+            </button>
           </div>
         </motion.div>
 
@@ -261,12 +148,12 @@ export default function WalletPage() {
             </div>
             <div className="text-right">
               <p className="text-2xl font-bold">{walletBalance?.sol_balance?.toFixed(4) || '0.0000'} SOL</p>
-              <p className="text-sm text-muted-foreground">Total SOL</p>
+              <p className="text-sm text-muted-foreground">Available SOL</p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
-            <TrendingUp className="w-4 h-4 text-green-400" />
-            <span className="text-sm text-green-400">+0.00 SOL today</span>
+            <Shield className="w-4 h-4 text-green-400" />
+            <span className="text-sm text-green-400">Mainnet Beta</span>
           </div>
         </motion.div>
 
@@ -278,21 +165,19 @@ export default function WalletPage() {
         >
           <div className="flex items-center justify-between mb-4">
             <div className="w-12 h-12 bg-gradient-warning rounded-xl flex items-center justify-center">
-              <Shield className="w-6 h-6 text-white" />
+              <TrendingUp className="w-6 h-6 text-white" />
             </div>
             <div className="text-right">
-              <p className="text-2xl font-bold">1</p>
-              <p className="text-sm text-muted-foreground">Active Wallets</p>
+              <p className="text-2xl font-bold">{tokenBalances.length}</p>
+              <p className="text-sm text-muted-foreground">Tokens Owned</p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
-            <Shield className="w-4 h-4 text-blue-400" />
-            <span className="text-sm text-blue-400">All secured</span>
+            <Clock className="w-4 h-4 text-blue-400" />
+            <span className="text-sm text-blue-400">Last updated {walletBalance?.last_updated ? new Date(walletBalance.last_updated).toLocaleTimeString() : 'N/A'}</span>
           </div>
         </motion.div>
       </div>
-
-      
 
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -305,15 +190,12 @@ export default function WalletPage() {
         >
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold">Token Balances</h2>
-            <button className="text-sm text-primary hover:underline">
-              View All
-            </button>
           </div>
 
-          <div className="space-y-4">
-            {tokenBalances.map((token, index) => (
+          <div className="space-y-4 max-h-96 overflow-y-auto pr-2">
+            {tokenBalances.length > 0 ? tokenBalances.map((token, index) => (
               <motion.div
-                key={token.symbol}
+                key={token.mint_address}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 * index }}
@@ -322,43 +204,27 @@ export default function WalletPage() {
                 <div className="flex items-center space-x-4">
                   <div className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center">
                     <span className="text-sm font-bold text-white">
-                      {token.symbol.slice(0, 2)}
+                      {(token.symbol || '??').slice(0, 2)}
                     </span>
                   </div>
                   <div>
-                    <p className="font-semibold">{token.symbol}</p>
-                    <p className="text-sm text-muted-foreground">{token.name}</p>
+                    <p className="font-semibold">{token.symbol || 'Unknown'}</p>
+                    <p className="text-xs text-muted-foreground truncate w-32">{token.mint_address}</p>
                   </div>
                 </div>
 
                 <div className="text-right">
                   <p className="font-semibold">
-                    {token.symbol === 'SOL' 
-                      ? token.balance.toFixed(4) 
-                      : token.balance.toLocaleString()
-                    } {token.symbol}
+                    {token.balance?.toLocaleString() || '0'}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    ${token.value.toFixed(2)}
+                    ${token.usd_value?.toFixed(2) || '0.00'}
                   </p>
                 </div>
-
-                <div className="text-right">
-                  <div className={`flex items-center space-x-1 ${
-                    token.change > 0 ? 'text-green-400' : 'text-red-400'
-                  }`}>
-                    {token.change > 0 ? (
-                      <TrendingUp className="w-4 h-4" />
-                    ) : (
-                      <TrendingDown className="w-4 h-4" />
-                    )}
-                    <span className="text-sm font-semibold">
-                      {token.change > 0 ? '+' : ''}{token.change.toFixed(2)}%
-                    </span>
-                  </div>
-                </div>
               </motion.div>
-            ))}
+            )) : (
+              <p className="text-center text-muted-foreground py-10">No tokens found.</p>
+            )}
           </div>
         </motion.div>
 
@@ -370,16 +236,13 @@ export default function WalletPage() {
           className="card-modern p-6"
         >
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold">Recent Transactions</h2>
-            <button className="text-sm text-primary hover:underline">
-              View All
-            </button>
+            <h2 className="text-xl font-bold">Recent Trades</h2>
           </div>
 
-          <div className="space-y-4">
-            {transactions.map((tx, index) => (
+          <div className="space-y-4 max-h-96 overflow-y-auto pr-2">
+            {transactions.length > 0 ? transactions.map((tx, index) => (
               <motion.div
-                key={tx.id}
+                key={tx.transaction_id}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 * index }}
@@ -387,29 +250,21 @@ export default function WalletPage() {
               >
                 <div className="flex items-center space-x-3">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                    tx.type === 'receive' ? 'bg-green-500/20 text-green-400' :
-                    tx.type === 'send' ? 'bg-red-500/20 text-red-400' :
-                    'bg-blue-500/20 text-blue-400'
+                    tx.type === 'buy' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
                   }`}>
-                    {tx.type === 'receive' ? (
-                      <Download className="w-4 h-4" />
-                    ) : tx.type === 'send' ? (
-                      <Send className="w-4 h-4" />
-                    ) : (
-                      <RefreshCw className="w-4 h-4" />
-                    )}
+                    {tx.type === 'buy' ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
                   </div>
                   <div>
-                    <p className="font-semibold text-sm capitalize">{tx.type}</p>
+                    <p className="font-semibold text-sm capitalize">{tx.type} {tx.token_symbol || 'Token'}</p>
                     <p className="text-xs text-muted-foreground">
-                      {tx.token} • {typeof tx.amount === 'number' ? tx.amount.toLocaleString() : tx.amount}
+                      {tx.amount_sol ? `${tx.amount_sol.toFixed(3)} SOL` : `${tx.amount_tokens.toLocaleString()} tokens`}
                     </p>
                   </div>
                 </div>
 
                 <div className="text-right">
-                  <div className="flex items-center space-x-2">
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                  <div className="flex items-center space-x-2 justify-end">
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${
                       tx.status === 'confirmed' 
                         ? 'bg-green-500/20 text-green-400' 
                         : 'bg-yellow-500/20 text-yellow-400'
@@ -417,72 +272,24 @@ export default function WalletPage() {
                       {tx.status}
                     </span>
                     <button
-                      onClick={() => window.open(`https://solscan.io/tx/${tx.hash}`, '_blank')}
+                      onClick={() => window.open(`https://solscan.io/tx/${tx.transaction_id}`, '_blank')}
                       className="p-1 hover:bg-accent rounded transition-colors"
                     >
                       <ExternalLink className="w-3 h-3" />
                     </button>
                   </div>
-                  <p className="text-xs text-muted-foreground mt-1 flex items-center">
+                  <p className="text-[10px] text-muted-foreground mt-1 flex items-center justify-end">
                     <Clock className="w-3 h-3 mr-1" />
-                    {tx.time}
+                    {new Date(tx.timestamp).toLocaleString()}
                   </p>
                 </div>
               </motion.div>
-            ))}
+            )) : (
+              <p className="text-center text-muted-foreground py-10">No recent transactions.</p>
+            )}
           </div>
         </motion.div>
       </div>
-
-      {/* Wallet Actions */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7 }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-6"
-      >
-        <div className="card-modern p-6 text-center hover-lift cursor-pointer">
-          <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <Send className="w-8 h-8 text-white" />
-          </div>
-          <h3 className="text-lg font-semibold mb-2">Send Tokens</h3>
-          <p className="text-sm text-muted-foreground mb-4">
-            Transfer SOL or SPL tokens to another wallet
-          </p>
-          <button className="btn-gradient w-full">
-            Send
-          </button>
-        </div>
-
-        <div className="card-modern p-6 text-center hover-lift cursor-pointer">
-          <div className="w-16 h-16 bg-gradient-success rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <Download className="w-8 h-8 text-white" />
-          </div>
-          <h3 className="text-lg font-semibold mb-2">Receive Tokens</h3>
-          <p className="text-sm text-muted-foreground mb-4">
-            Get your wallet address to receive payments
-          </p>
-          <button className="btn-gradient w-full">
-            Receive
-          </button>
-        </div>
-
-        <div className="card-modern p-6 text-center hover-lift cursor-pointer">
-          <div className="w-16 h-16 bg-gradient-warning rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <Settings className="w-8 h-8 text-white" />
-          </div>
-          <h3 className="text-lg font-semibold mb-2">Wallet Settings</h3>
-          <p className="text-sm text-muted-foreground mb-4">
-            Manage security and preferences
-          </p>
-          <button className="btn-gradient w-full">
-            Settings
-          </button>
-        </div>
-      </motion.div>
-
-      
     </div>
   )
 }
-
