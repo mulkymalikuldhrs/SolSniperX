@@ -1,68 +1,62 @@
-# TODO List for SolSniperX Development
+# TODO List for SolSniperX Development (v2.1+)
 
 This document outlines the remaining tasks and future enhancements for SolSniperX, aiming to achieve parity with advanced meme coin sniping tools like BullX Neo, GMGN, Dexscreener, and BirdEye.
 
 ## High Priority (Immediate Next Steps)
 
 ### Frontend Build & Runtime Fixes:
-- **Resolve Frontend Compilation Errors:** Address any lingering JSX or import resolution issues preventing successful frontend build.
+- **Optimization:** Further reduce frontend bundle size and improve load times by optimizing unused Tailwind classes and larger icons.
+- **Mobile Responsive Enhancements:** Finalize layout adjustments for small-screen devices to ensure a seamless mobile experience.
 
 ### Backend:
 - **Refine Mempool Monitoring:**
-  - Further enhance transaction parsing to accurately identify new token creation, liquidity pool additions/removals, and other relevant on-chain events.
-  - Implement more sophisticated filtering to reduce noise from the Solana mempool.
+  - Implement even more sophisticated filtering to reduce noise from the high-volume Solana mempool.
+  - Add support for additional DEXes (e.g., Meteora, Orca) to broaden token coverage.
 - **Automated Trading Logic Refinement:**
-  - Implement more advanced trading strategies within `auto_trader.py` (e.g., dynamic buy/sell amounts based on market conditions, volume-weighted average price (VWAP) analysis).
-  - Integrate with a robust order management system to track active positions, PnL, and manage partial fills.
+  - Implement volume-weighted average price (VWAP) analysis for smarter entry and exit points.
+  - Integrate with a more robust order management system for handling partial fills and complex order types.
 - **Anti-Rugpull Mechanisms Enhancement:**
-  - Integrate with external rug-check APIs or on-chain analysis tools for more comprehensive risk assessment.
-  - Implement dynamic adjustment of stop-loss and take-profit based on real-time market volatility and rug indicators.
+  - Integrate with specialized rug-check APIs (e.g., RugCheck.xyz, SolSniffer) for more comprehensive risk assessment.
+  - Implement dynamic adjustment of stop-loss and take-profit based on real-time market volatility.
 
 ### Frontend:
-- **Real-time UI Updates:**
-  - Ensure all relevant data (token prices, wallet balances, trade history, auto-trader status, alerts) are updated in real-time via WebSocket connections.
-  - Implement toast notifications or other non-intrusive alerts for critical events (new tokens, trades, rugpulls).
-- **Automated Trading Configuration UI:**
-  - Enhance the settings page with more intuitive controls and explanations for automated trading parameters.
-  - Implement validation for user inputs to prevent invalid configurations.
-- **Dashboard Data Integration:**
-  - Replace mock data on the dashboard with real data fetched from the backend (e.g., total profit, success rate, active positions).
+- **Advanced Dashboard Visualization:**
+  - Implement interactive, real-time price charts for owned tokens directly on the dashboard.
+  - Add more granular performance metrics, such as win/loss ratio by token age or liquidity.
+- **Improved Settings Interface:**
+  - Enhance the settings page with more intuitive controls, tooltips, and validation for trading parameters.
+  - Implement configuration profiles for different trading strategies (e.g., "Safe", "Aggressive", "Deegen").
 
 ## Medium Priority (Feature Enhancements)
 
 ### Backend:
-- **Advanced AI Analysis:**
-  - Integrate with a real LLM (e.g., OpenAI, custom fine-tuned model) for more sophisticated token analysis.
-  - Implement more complex algorithms for risk assessment, sentiment analysis, and viral potential prediction.
+- **Real LLM Integration (Multi-Model):**
+  - Add support for multiple LLM backends (OpenAI GPT-4, Anthropic Claude, custom fine-tuned models) for more diverse analysis.
+  - Implement sentiment analysis by scanning social media (X/Twitter, Telegram) for token mentions and community hype.
 - **Advanced Order Types:**
-  - Implement limit orders and trailing stop-loss orders through DEX integration.
-- **Error Handling & Logging:**
-  - Enhance error handling across all services for more informative logging and user feedback.
-  - Implement a centralized logging system.
+  - Implement limit orders and conditional orders via DEX-specific SDKs or aggregators.
+- **Logging & Monitoring:**
+  - Implement a centralized logging and monitoring system (e.g., Sentry, Prometheus) for better debugging and performance tracking.
 
 ### Frontend:
-- **Enhanced UI/UX:**
-  - Implement advanced filtering and sorting options for token lists on `TokenScannerPage.jsx`.
-  - Develop interactive charts for historical price data on `TokenDetailView` (if implemented).
-- **Manual Trading Interface:**
-  - Improve manual buy/sell interface with more options (e.g., token selection from wallet, slippage control).
+- **Manual Trading Enhancements:**
+  - Improve the manual buy/sell interface with quick-buy buttons (e.g., 0.1, 0.5, 1.0 SOL) and real-time slippage estimation.
+- **Notification System:**
+  - Implement a more robust notification system with browser and mobile push alerts for trades and critical market events.
 
 ## Low Priority (Future Considerations)
 
-### Backend:
-- **Performance Optimization:**
-  - Optimize data fetching and processing for high-throughput environments.
-  - Implement caching mechanisms for frequently accessed data.
-- **Scalability:**
-  - Consider microservices architecture for larger scale deployments.
+### Infrastructure:
+- **Dockerization:** Provide a Docker Compose setup for easy, consistent deployment across different environments.
+- **Microservices Architecture:** Consider splitting the backend into smaller services (Monitoring, Trading, AI, API) for better scalability.
 
-### Frontend:
-- **Mobile Responsiveness:**
-  - Ensure full responsiveness across various devices.
-- **Theming:**
-  - Implement more extensive theming options.
+## Completed Tasks (v2.1 Consolidation)
 
-## Completed Tasks (Refer to CHANGELOG.md for details)
-
-- Initial setup and core refactoring.
-- Automated Trading Bot Transformation (Backend & Frontend).
+- **Backend:** Full Asynchronous Solana RPC integration.
+- **Backend:** Real-time Pump.fun and Raydium mempool monitoring.
+- **Backend:** Jupiter V6 Aggregator integration for real trading.
+- **Backend:** Persistent position and trade history with SQLite.
+- **Backend:** Automated trading logic with trailing stop-loss.
+- **Frontend:** Single-wallet model migration.
+- **Frontend:** Real-time data visualization on all pages.
+- **System:** Portable dev launcher and automated validation suite.
