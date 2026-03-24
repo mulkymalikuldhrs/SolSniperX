@@ -1,19 +1,30 @@
 #!/bin/bash
 
+# Determine the absolute path of the directory where the script is located
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 echo "Starting SolSniperX Backend..."
-cd /home/mulky/Desktop/SolSniperX/backend
-source venv/bin/activate
-python src/main.py &
+cd "$SCRIPT_DIR/backend"
+# Use the virtualenv if it exists, otherwise fall back to system python
+if [ -d "venv" ]; then
+    source venv/bin/activate
+    python src/main.py &
+else
+    python3 src/main.py &
+fi
 BACKEND_PID=$!
 echo "Backend started with PID: $BACKEND_PID"
-cd - # Go back to the previous directory
 
 echo "Starting SolSniperX Frontend..."
-cd /home/mulky/Desktop/SolSniperX/frontend
-pnpm run dev --host &
+cd "$SCRIPT_DIR/frontend"
+# Check if pnpm is installed, otherwise try npm
+if command -v pnpm &> /dev/null; then
+    ./node_modules/.bin/vite --host &
+else
+    npm run dev -- --host &
+fi
 FRONTEND_PID=$!
 echo "Frontend started with PID: $FRONTEND_PID"
-cd - # Go back to the previous directory
 
 echo "SolSniperX development servers are starting in the background."
 echo "Backend is likely accessible at http://0.0.0.0:5000"
@@ -21,4 +32,4 @@ echo "Frontend is likely accessible at http://localhost:5173 (check terminal out
 echo ""
 echo "To stop the backend, run: kill $BACKEND_PID"
 echo "To stop the frontend, run: kill $FRONTEND_PID"
-echo "Or to stop both, you might use: pkill -f gunicorn && pkill -f vite"
+echo "Or to stop both, you might use: pkill -f main.py && pkill -f vite"
