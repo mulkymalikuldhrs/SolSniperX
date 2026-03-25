@@ -21,6 +21,9 @@ import {
 } from 'lucide-react'
 
 export default function TradingPage() {
+  const { buyToken, sellToken, startAutoTrader, stopAutoTrader, getDashboardData } = useApi()
+  const { lastMessage, autoTraderStatus } = useWebSocket()
+
   const [autoTrading, setAutoTrading] = useState(false)
   const [tradingSettings, setTradingSettings] = useState({
     buyAmount: 0.05,
@@ -31,15 +34,44 @@ export default function TradingPage() {
   })
   const [manualBuyTokenAddress, setManualBuyTokenAddress] = useState('')
   const [manualBuyAmount, setManualBuyAmount] = useState(0.01)
-  const [recentTrades, setRecentTrades] = useState([
-    { token: 'PEPE', type: 'sell', amount: 0.5, price: 0.00001789, pnl: 45.67, time: '2 min ago', status: 'completed' },
-    { token: 'BONK', type: 'buy', amount: 1.2, price: 0.00000567, pnl: 0, time: '5 min ago', status: 'completed' },
-    { token: 'WIF', type: 'sell', amount: 0.8, price: 0.00002056, pnl: -12.34, time: '8 min ago', status: 'completed' },
-    { token: 'POPCAT', type: 'buy', amount: 2.1, price: 0.00001890, pnl: 0, time: '12 min ago', status: 'pending' }
-  ])
+  const [recentTrades, setRecentTrades] = useState([])
+  const [dashboardStats, setDashboardStats] = useState(null)
+  const [loading, setLoading] = useState(true)
 
-  const { buyToken, sellToken } = useApi()
-  const { lastMessage } = useWebSocket()
+  useEffect(() => {
+    setAutoTrading(autoTraderStatus.enabled)
+  }, [autoTraderStatus])
+
+  useEffect(() => {
+    loadInitialData()
+  }, [])
+
+  const loadInitialData = async () => {
+    try {
+      setLoading(true)
+      const result = await getDashboardData()
+      if (result.success) {
+        setDashboardStats(result.data.stats)
+        setRecentTrades(result.data.recentTrades || [])
+      }
+    } catch (error) {
+      console.error('Error loading trading data:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleToggleAutoTrading = async () => {
+    try {
+      if (autoTrading) {
+        await stopAutoTrader()
+      } else {
+        await startAutoTrader()
+      }
+    } catch (error) {
+      alert(`Error: ${error.message}`)
+    }
+  }
 
   const handleManualBuy = async () => {
     if (!manualBuyTokenAddress || manualBuyAmount <= 0) {
@@ -114,7 +146,7 @@ export default function TradingPage() {
 
         <div className="flex items-center space-x-3">
           <button
-            onClick={() => setAutoTrading(!autoTrading)}
+            onClick={handleToggleAutoTrading}
             className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
               autoTrading 
                 ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
@@ -140,7 +172,9 @@ export default function TradingPage() {
               <DollarSign className="w-6 h-6 text-white" />
             </div>
             <div className="text-right">
-              <p className="text-2xl font-bold text-green-400">$2,847</p>
+              <p className="text-2xl font-bold text-green-400">
+                ${dashboardStats?.totalProfit?.toLocaleString() || '0.00'}
+              </p>
               <p className="text-sm text-muted-foreground">Total Profit</p>
             </div>
           </div>
@@ -161,7 +195,9 @@ export default function TradingPage() {
               <Target className="w-6 h-6 text-white" />
             </div>
             <div className="text-right">
-              <p className="text-2xl font-bold">87.2%</p>
+              <p className="text-2xl font-bold">
+                {dashboardStats?.successRate || '0.0'}%
+              </p>
               <p className="text-sm text-muted-foreground">Success Rate</p>
             </div>
           </div>
