@@ -14,19 +14,49 @@ class DataFetcherService:
 
     def __init__(self, socketio=None):
         self.socketio = socketio
-        self.http_client = httpx.AsyncClient()
+        self._http_client = None
+        self._cache = {} # {key: (data, timestamp)}
+        self._cache_ttl = 60 # 60 seconds TTL
+
+    def _get_from_cache(self, key: str) -> Optional[Any]:
+        if key in self._cache:
+            data, timestamp = self._cache[key]
+            if datetime.now().timestamp() - timestamp < self._cache_ttl:
+                logger.debug(f"Cache hit for {key}")
+                return data
+            else:
+                del self._cache[key]
+        return None
+
+    def _save_to_cache(self, key: str, data: Any):
+        self._cache[key] = (data, datetime.now().timestamp())
+
+    @property
+    def http_client(self):
+        if self._http_client is None:
+            self._http_client = httpx.AsyncClient()
+        return self._http_client
 
     async def _fetch_from_dexscreener(self, pair_address: Optional[str] = None) -> List[Dict]:
         """
         Fetches data from Dexscreener API.
-        If pair_address is provided, fetches data for that specific pair.
-        Otherwise, fetches trending pairs (if supported by API or a workaround is found).
         """
-        logger.info(f"Fetching data from Dexscreener for pair: {pair_address or 'trending'}")
+        logger.info(f"Fetching data from Dexscreener for pair: {pair_address or 'recent'}")
         try:
-            url = f"{DEXSCREENER_BASE_URL}/pairs/solana/{pair_address}" if pair_address else f"{DEXSCREENER_BASE_URL}/pairs/solana/trending" # Assuming trending endpoint exists
+            if pair_address:
+                url = f"{DEXSCREENER_BASE_URL}/pairs/solana/{pair_address}"
+            else:
+                # Dexscreener doesn't have a simple 'trending' endpoint for all of Solana easily.
+                # We can use the latest token boosts or just specific pairs.
+                # For now, we'll try a common one or return empty if not found.
+                url = f"{DEXSCREENER_BASE_URL}/token-boosts/top/v1"
+
             response = await self.http_client.get(url)
-            response.raise_for_status() # Raise an exception for HTTP errors
+            if response.status_code == 404 and not pair_address:
+                logger.warning("Dexscreener trending endpoint not found, returning empty.")
+                return []
+
+            response.raise_for_status()
             data = response.json()
             return self._process_dexscreener_data(data)
         except httpx.RequestError as e:
@@ -78,21 +108,27 @@ class DataFetcherService:
                         created_at_dt = datetime.fromtimestamp(created_at_unix_ms / 1000)
                         age_hours = (datetime.now() - created_at_dt).total_seconds() / 3600
 
+                    txns_24h_data = pair.get('txns', {}).get('h24', {})
+                    buys_24h = txns_24h_data.get('buys', 0)
+                    sells_24h = txns_24h_data.get('sells', 0)
+                    transactions_24h = buys_24h + sells_24h
+                    buy_sell_ratio = buys_24h / sells_24h if sells_24h > 0 else (1.0 if buys_24h > 0 else 0)
+
                     processed_tokens.append({
                         'address': token_address,
                         'name': token_name,
                         'symbol': token_symbol,
                         'price': price_usd,
-                        'market_cap': 0, # Dexscreener might not provide directly
+                        'market_cap': float(pair.get('fdv', 0) or 0),
                         'volume_24h': volume_24h,
                         'price_change_24h': price_change_24h,
                         'liquidity': liquidity_usd,
-                        'holder_count': 0, # Not directly from Dexscreener
-                        'age_hours': age_hours,
-                        'transactions_24h': 0, # Not directly from Dexscreener
-                        'buy_sell_ratio': 0, # Not directly from Dexscreener
-                        'top_holder_percentage': 0, # Not directly from Dexscreener
-                        'dev_wallet_active': False # Not directly from Dexscreener
+                        'holder_count': 0, # Dexscreener doesn't provide holder count
+                        'age_hours': round(age_hours, 2),
+                        'transactions_24h': transactions_24h,
+                        'buy_sell_ratio': round(buy_sell_ratio, 2),
+                        'top_holder_percentage': 0,
+                        'dev_wallet_active': False
                     })
                 except Exception as e:
                     logger.warning(f"Error processing Dexscreener pair: {e} - {pair}")
@@ -116,8 +152,18 @@ class DataFetcherService:
                 holder_count = int(token_info.get('holders', 0) or 0)
                 market_cap = float(token_info.get('mc', 0) or 0)
                 
-                # Birdeye might provide age, dev wallet info, etc. - need to check API docs
-                # For now, placeholders
+                # Real data from Birdeye overview
+                transactions_24h = int(token_info.get('trade24h', 0) or 0)
+                v24h_buy = float(token_info.get('v24hBuy', 0) or 0)
+                v24h_sell = float(token_info.get('v24hSell', 0) or 0)
+                buy_sell_ratio = v24h_buy / v24h_sell if v24h_sell > 0 else (1.0 if v24h_buy > 0 else 0)
+
+                # Age calculation if listTime is available
+                list_time = token_info.get('lastTradeUnixTime') # Fallback to last trade if listTime not present
+                age_hours = 0
+                if list_time:
+                    age_hours = (datetime.now().timestamp() - list_time) / 3600
+
                 processed_tokens.append({
                     'address': token_address,
                     'name': token_name,
@@ -128,11 +174,11 @@ class DataFetcherService:
                     'price_change_24h': price_change_24h,
                     'liquidity': liquidity_usd,
                     'holder_count': holder_count,
-                    'age_hours': 0, # Placeholder - check Birdeye API for creation time
-                    'transactions_24h': 0, # Placeholder
-                    'buy_sell_ratio': 0, # Placeholder
-                    'top_holder_percentage': 0, # Placeholder
-                    'dev_wallet_active': False # Placeholder
+                    'age_hours': round(age_hours, 2),
+                    'transactions_24h': transactions_24h,
+                    'buy_sell_ratio': round(buy_sell_ratio, 2),
+                    'top_holder_percentage': 0, # Still needs security API for precise value
+                    'dev_wallet_active': False
                 })
             except Exception as e:
                 logger.warning(f"Error processing Birdeye token data: {e} - {token_info}")
@@ -149,6 +195,10 @@ class DataFetcherService:
                     holder_count = int(token_info.get('holders', 0) or 0)
                     market_cap = float(token_info.get('mc', 0) or 0)
 
+                    v24h_buy = float(token_info.get('vBuy24h', 0) or 0)
+                    v24h_sell = float(token_info.get('vSell24h', 0) or 0)
+                    buy_sell_ratio = v24h_buy / v24h_sell if v24h_sell > 0 else (1.0 if v24h_buy > 0 else 0)
+
                     processed_tokens.append({
                         'address': token_address,
                         'name': token_name,
@@ -159,9 +209,9 @@ class DataFetcherService:
                         'price_change_24h': price_change_24h,
                         'liquidity': liquidity_usd,
                         'holder_count': holder_count,
-                        'age_hours': 0, 
-                        'transactions_24h': 0, 
-                        'buy_sell_ratio': 0, 
+                        'age_hours': 0, # list endpoint doesn't usually provide age
+                        'transactions_24h': int(token_info.get('trade24h', 0) or 0),
+                        'buy_sell_ratio': round(buy_sell_ratio, 2),
                         'top_holder_percentage': 0, 
                         'dev_wallet_active': False 
                     })
@@ -173,6 +223,11 @@ class DataFetcherService:
         """
         Fetches real-time token data from Dexscreener and Birdeye.
         """
+        cache_key = "real_time_data"
+        cached_data = self._get_from_cache(cache_key)
+        if cached_data:
+            return cached_data
+
         logger.info("Fetching real-time token data.")
         
         dexscreener_data = await self._fetch_from_dexscreener()
@@ -183,7 +238,9 @@ class DataFetcherService:
         for token in birdeye_data:
             combined_data[token['address']] = {**combined_data.get(token['address'], {}), **token}
         
-        return list(combined_data.values())
+        result = list(combined_data.values())
+        self._save_to_cache(cache_key, result)
+        return result
 
     async def get_all_tokens(self) -> List[Dict]:
         """
@@ -194,31 +251,113 @@ class DataFetcherService:
     async def get_token_by_address(self, token_address: str) -> Optional[Dict]:
         """
         Returns details for a specific token by its address, fetching from real-time source.
+        Includes security data from Birdeye.
         """
-        # Try fetching from Dexscreener first for specific pair
-        dexscreener_token = await self._fetch_from_dexscreener(pair_address=token_address) # Assuming token_address can be used as pair_address
-        if dexscreener_token:
-            return dexscreener_token[0] # Expecting a list with one token
+        cache_key = f"token_{token_address}"
+        cached_token = self._get_from_cache(cache_key)
+        if cached_token:
+            return cached_token
 
-        # If not found on Dexscreener, try Birdeye
-        birdeye_token = await self._fetch_from_birdeye(token_address=token_address)
-        if birdeye_token:
-            return birdeye_token[0] # Expecting a list with one token
+        # Fetch basic info from Birdeye overview
+        birdeye_token_list = await self._fetch_from_birdeye(token_address=token_address)
+        token = birdeye_token_list[0] if birdeye_token_list else None
 
+        if not token:
+            # Fallback to Dexscreener
+            dexscreener_token = await self._fetch_from_dexscreener(pair_address=token_address)
+            if dexscreener_token:
+                token = dexscreener_token[0]
+
+        if token:
+            # Enrich with security data if possible
+            security_data = await self._fetch_token_security(token['address'])
+            if security_data:
+                token['top_holder_percentage'] = security_data.get('top10HolderPercent', 0)
+                token['dev_wallet_active'] = security_data.get('creatorHasFullControl', False) or (not security_data.get('ownerRenounced', True))
+
+            self._save_to_cache(cache_key, token)
+            return token
+
+        return None
+
+    async def _fetch_token_security(self, token_address: str) -> Optional[Dict]:
+        """
+        Fetches security information for a token from Birdeye.
+        """
+        if not BIRDEYE_API_KEY or BIRDEYE_API_KEY == "dummy":
+            return None
+
+        try:
+            headers = {"X-API-KEY": BIRDEYE_API_KEY, "x-chain": "solana"}
+            url = f"{BIRDEYE_BASE_URL}/token_security?address={token_address}"
+            response = await self.http_client.get(url, headers=headers)
+            response.raise_for_status()
+            data = response.json()
+            if data.get('success'):
+                return data.get('data')
+        except Exception as e:
+            logger.error(f"Error fetching token security from Birdeye: {e}")
         return None
 
     async def get_historical_prices(self, token_address: str, interval: str = '1h', limit: int = 24) -> List[Dict]:
         """
-        Fetches historical price data for a given token.
-        TODO: Integrate with a real historical data API (e.g., Birdeye historical data).
-        For now, it will return empty list.
+        Fetches historical OHLCV data for a given token from Birdeye.
+        Returns a list of price points with timestamps and volume.
         """
-        logger.info(f"Fetching historical prices for {token_address} (interval: {interval}, limit: {limit})")
-        # Birdeye has historical data API, e.g., /history/price
-        # Example: https://public-api.birdeye.so/public/history/price?address=TOKEN_ADDRESS&type=1m&time_from=1678886400&time_to=1678972800
-        # This would require calculating time_from and time_to based on interval and limit.
-        return [] # Returning empty for now until implemented
+        logger.info(f"Fetching historical data for {token_address} (interval: {interval}, limit: {limit})")
+
+        if not BIRDEYE_API_KEY or BIRDEYE_API_KEY == "dummy":
+            logger.warning("Birdeye API key missing. Cannot fetch real historical data.")
+            return []
+
+        try:
+            # Calculate time range
+            now = int(datetime.now().timestamp())
+            # Convert interval to seconds for calculation if needed, but Birdeye takes strings like '1m', '1h', '1d'
+            lookback_seconds = limit * 3600 if interval.endswith('h') else limit * 86400 if interval.endswith('d') else limit * 60
+            time_from = now - lookback_seconds
+
+            # Using OHLCV endpoint for volume data
+            url = f"{BIRDEYE_BASE_URL}/history/ohlcv?address={token_address}&type={interval}&time_from={time_from}&time_to={now}"
+            headers = {"X-API-KEY": BIRDEYE_API_KEY, "x-chain": "solana"}
+
+            response = await self.http_client.get(url, headers=headers)
+            response.raise_for_status()
+            data = response.json()
+
+            history = []
+            if data.get('success') and 'data' in data and 'items' in data['data']:
+                for item in data['data']['items']:
+                    history.append({
+                        'timestamp': datetime.fromtimestamp(item['unixTime']).isoformat(),
+                        'price': item['c'], # Closing price
+                        'volume': item['v'], # Volume
+                        'open': item['o'],
+                        'high': item['h'],
+                        'low': item['l']
+                    })
+            return history
+        except Exception as e:
+            logger.error(f"Error fetching historical OHLCV from Birdeye: {e}")
+            # Fallback to simple price history if OHLCV fails
+            try:
+                url = f"{BIRDEYE_BASE_URL}/history/price?address={token_address}&address_type=token&type={interval}&time_from={time_from}&time_to={now}"
+                response = await self.http_client.get(url, headers=headers)
+                response.raise_for_status()
+                data = response.json()
+                history = []
+                if 'data' in data and 'items' in data['data']:
+                    for item in data['data']['items']:
+                        history.append({
+                            'timestamp': datetime.fromtimestamp(item['unixTime']).isoformat(),
+                            'price': item['value'],
+                            'volume': 0
+                        })
+                return history
+            except Exception as e2:
+                logger.error(f"Error fetching fallback historical prices: {e2}")
+                return []
 
 # Create a singleton instance for easy import
-# data_fetcher_service = DataFetcherService() # Instantiation will be handled in main.py
+data_fetcher_service = DataFetcherService()
 
