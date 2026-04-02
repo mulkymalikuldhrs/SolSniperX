@@ -25,10 +25,10 @@ function App() {
   const [showRegisterModal, setShowRegisterModal] = useState(false)
 
   useEffect(() => {
-    // Simulate app initialization
+    // Initialize application state
     const timer = setTimeout(() => {
       setIsLoading(false)
-    }, 2000)
+    }, 1000)
 
     return () => clearTimeout(timer)
   }, [])
