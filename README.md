@@ -1,81 +1,76 @@
 ## SolSniperX - AI-Powered Solana Memecoin Sniper Bot
 
-SolSniperX is an advanced, AI-powered bot designed to automatically detect, analyze, and execute trades on new memecoins on the Solana blockchain. It provides real-time insights, anti-rug protection, and automated trading capabilities, all accessible through a modern and intuitive web interface.
+SolSniperX is a high-performance, autonomous AI trading system for Solana memecoins. It integrates real-time mempool monitoring, LLM-driven market analysis, and Jupiter V6 execution to provide a production-ready sniping and position management solution.
 
 ### Key Features:
 
-1.  **Real-time Token Detection:** Monitors Pump.fun, Birdeye, Dexscreener, and Solana Mempool for new token listings and early launches.
-2.  **AI-Powered Analysis:** Utilizes AI (LLM7 Pi) to assess token potential, including liquidity, market cap, holder distribution, dev wallet activity, and contract red flags (honeypot, max txn, blacklist). The LLM informs automated buy/sell decisions and anti-rugpull strategies.
-3.  **Automated Trading Execution:** Executes buy orders automatically based on predefined parameters (e.g., amount, slippage) and can auto-sell at target profits (2x, 3x, trailing stop).
-4.  **Anti-Rug Protection:** Implements automatic cut-loss mechanisms if dev sells, LP is pulled, or significant price dumps occur.
-5.  **Secure Wallet Management (Private Key Based):** Connects directly to a Solana wallet using a private key provided via environment variable. No traditional login or registration is required.
-6.  **Intuitive Web Dashboard:** Provides a sleek, responsive, and interactive user interface with features like:
-    *   Live Watchlist
-    *   Token Detail View
-    *   Wallet Performance & PnL
-    *   Manual Snipe Mode
-    *   AI Analysis Panel
-    *   Trading Signals Panel
-    *   Settings for customization
-7.  **Notifications:** Telegram alerts for critical events and trading actions.
-8.  **Advanced Analytics:** Tracks trading performance, win rates, and PnL.
-9.  **User-Friendly Design:** Modern UI/UX inspired by leading platforms like GMGN, Burd AI, and Binance, with dark mode and smooth animations.
+1.  **High-Speed Mempool Monitoring:** Direct WebSocket integration with Solana RPC to filter Pump.fun 'Create' and Raydium 'Initialize2' instructions in real-time.
+2.  **LLM-Powered Token Analysis:** Deep-dives into token metadata, security (ownership, honeypot, top holders), and sentiment using LLM7 to generate actionable trading signals.
+3.  **Full-Cycle Autonomous Trading:** Automated buy execution gated by AI confidence scores and real-time sell management (Profit Target, Stop-Loss, and Dynamic Trailing Stop-Loss).
+4.  **Integrated Anti-Rug Protection:** Immediate emergency exit on liquidity withdrawal, account closure, or token burn detection.
+5.  **Advanced Data Integration:** Real-time and historical data enrichment from Birdeye and Dexscreener for accurate PnL tracking and performance analytics.
+6.  **Persistent Position Management:** SQLite-backed state management allows the bot to resume monitoring and managing active trades across restarts.
+7.  **Production Architecture:** Flask-SocketIO backend with a dedicated asynchronous service thread (`asyncio`) ensures non-blocking UI and high-concurrency event handling.
 
 ### Project Structure:
 
--   **`backend/`**: Flask API for token data, AI analysis, trading logic, and Solana blockchain interaction.
-    -   `src/main.py`: Main Flask application.
-    -   `src/services/ai_analysis.py`: AI integration with LLM7.
-    -   `src/services/wallet_service.py`: Manages the single, private-key-derived Solana wallet.
-    -   `src/services/data_fetcher.py`: Fetches real-time data from Dexscreener and Birdeye.
-    -   `src/services/mempool_monitor.py`: Monitors Solana mempool for new token launches and rugpull indicators.
-    -   `src/services/trading_service.py`: Executes real Solana blockchain transactions for trading via Jupiter Aggregator.
-    -   `src/services/auto_trader.py`: Contains the automated trading strategy and logic.
--   **`frontend/`**: React application for the user interface.
-    -   `src/App.jsx`: Main application component and routing.
-    -   `src/pages/`: Individual pages (Dashboard, TokenScanner, Trading, Wallet, Settings, etc.).
-    -   `src/components/`: Reusable UI components (e.g., Navbar, Sidebar, AIAnalysisPanel).
-    -   `src/contexts/`: React Contexts for theme, API, and WebSocket.
-    -   `src/utils/localStorage.js`: Utilities for local data storage and encryption.
+-   **`backend/`**: Flask-SocketIO API and asynchronous service layer.
+    -   `src/main.py`: Entry point with background asyncio loop.
+    -   `src/services/ai_analysis.py`: LLM7 integration for token analysis.
+    -   `src/services/wallet_service.py`: Real-time wallet and balance management.
+    -   `src/services/mempool_monitor.py`: High-speed mempool monitoring for new tokens and rugpulls.
+    -   `src/services/trading_service.py`: Jupiter V6 integration for swaps.
+    -   `src/services/auto_trader.py`: Autonomous position management and strategy.
+    -   `src/utils/db.py`: SQLite-based persistent storage for trades and performance analytics.
+-   **`frontend/`**: React application (Vite, Tailwind, Shadcn UI).
 
-### Installation & Setup (Development):
+### Installation & Setup:
 
 #### Prerequisites:
 - Python 3.11+
-- Node.js (for pnpm)
-- pnpm
+- Node.js & pnpm
 
-#### Environment Variables:
-Create a `.env` file in the `backend` directory (or set them directly in your shell):
+#### Backend Setup:
+1. Create a `.env` file in `backend/`:
 ```
-DEXSCREENER_API_KEY="YOUR_DEXSCREENER_API_KEY"
-BIRDEYE_API_KEY="YOUR_BIRDEYE_API_KEY"
-LLM7_API_KEY="YOUR_LLM7_API_KEY"
-SOLANA_PRIVATE_KEY="YOUR_SOLANA_WALLET_PRIVATE_KEY_BASE58_ENCODED"
+DEXSCREENER_API_KEY="YOUR_API_KEY"
+BIRDEYE_API_KEY="YOUR_API_KEY"
+LLM7_API_KEY="YOUR_API_KEY"
+LLM7_BASE_URL="https://api.llm7.pi/v1"
+SOLANA_PRIVATE_KEY="YOUR_BASE58_PRIVATE_KEY"
 SOLANA_RPC_URL="https://api.mainnet-beta.solana.com"
 SOLANA_WS_URL="wss://api.mainnet-beta.solana.com/"
 ```
-**WARNING:** Never commit your private key or API keys to version control. Use environment variables or a secure secrets management system.
-
-#### Backend:
-
+2. Install and run:
 ```bash
 cd backend
-python3.11 -m venv venv
+python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 python src/main.py
 ```
 
-#### Frontend:
-
+#### Frontend Setup:
 ```bash
 cd frontend
 pnpm install
 pnpm run dev
 ```
 
-### Creator:
+### Running in Production (Autonomous Mode):
 
+1.  **Configure `.env`**: Ensure all API keys and `SOLANA_PRIVATE_KEY` are correctly set.
+2.  **Start Services**: Use `start_dev.sh` or run backend and frontend manually.
+3.  **Enable Auto-Trader**:
+    *   Navigate to the **Settings** page in the web dashboard.
+    *   Configure your trading parameters (min liquidity, buy amount, stop-loss, etc.).
+    *   Toggle **Autonomous Trading** to ON.
+    *   The bot will now automatically monitor the mempool, analyze new tokens using AI, and execute trades based on your criteria.
+4.  **Monitor**: Keep the dashboard open or check Telegram notifications (if configured) to track performance and active positions.
+
+### Creator:
 **Mulky Malikul Dhaher**
 Contact: mulkymalikuldhr@mail.com
+
+### Deployment & Production:
+SolSniperX is built for high availability. Ensure you use a high-performance Solana RPC provider (e.g., Helius, QuickNode) and a valid LLM7/Birdeye API key for full functionality.
