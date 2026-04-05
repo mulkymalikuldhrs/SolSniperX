@@ -21,6 +21,9 @@ import {
 } from 'lucide-react'
 
 export default function TradingPage() {
+  const { buyToken, sellToken, startAutoTrader, stopAutoTrader, getDashboardData } = useApi()
+  const { lastMessage, autoTraderStatus } = useWebSocket()
+
   const [autoTrading, setAutoTrading] = useState(false)
   const [tradingSettings, setTradingSettings] = useState({
     buyAmount: 0.05,
@@ -31,15 +34,46 @@ export default function TradingPage() {
   })
   const [manualBuyTokenAddress, setManualBuyTokenAddress] = useState('')
   const [manualBuyAmount, setManualBuyAmount] = useState(0.01)
-  const [recentTrades, setRecentTrades] = useState([
-    { token: 'PEPE', type: 'sell', amount: 0.5, price: 0.00001789, pnl: 45.67, time: '2 min ago', status: 'completed' },
-    { token: 'BONK', type: 'buy', amount: 1.2, price: 0.00000567, pnl: 0, time: '5 min ago', status: 'completed' },
-    { token: 'WIF', type: 'sell', amount: 0.8, price: 0.00002056, pnl: -12.34, time: '8 min ago', status: 'completed' },
-    { token: 'POPCAT', type: 'buy', amount: 2.1, price: 0.00001890, pnl: 0, time: '12 min ago', status: 'pending' }
-  ])
+  const [recentTrades, setRecentTrades] = useState([])
+  const [activePositions, setActivePositions] = useState([])
+  const [dashboardStats, setDashboardStats] = useState(null)
+  const [loading, setLoading] = useState(true)
 
-  const { buyToken, sellToken } = useApi()
-  const { lastMessage } = useWebSocket()
+  useEffect(() => {
+    setAutoTrading(autoTraderStatus.enabled)
+  }, [autoTraderStatus])
+
+  useEffect(() => {
+    loadInitialData()
+  }, [])
+
+  const loadInitialData = async () => {
+    try {
+      setLoading(true)
+      const result = await getDashboardData()
+      if (result.success) {
+        setDashboardStats(result.data.stats)
+        setRecentTrades(result.data.recentTrades || [])
+        setActivePositions(result.data.activePositions || [])
+      }
+    } catch (error) {
+      console.error('Error loading trading data:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleToggleAutoTrading = async () => {
+    try {
+      if (autoTrading) {
+        await stopAutoTrader()
+      } else {
+        await startAutoTrader()
+      }
+    } catch (error) {
+      alert(`Error: ${error.message}`)
+    }
+  }
 
   const handleManualBuy = async () => {
     if (!manualBuyTokenAddress || manualBuyAmount <= 0) {
@@ -114,7 +148,7 @@ export default function TradingPage() {
 
         <div className="flex items-center space-x-3">
           <button
-            onClick={() => setAutoTrading(!autoTrading)}
+            onClick={handleToggleAutoTrading}
             className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
               autoTrading 
                 ? 'bg-green-500/20 text-green-400 border border-green-500/30' 
@@ -140,7 +174,9 @@ export default function TradingPage() {
               <DollarSign className="w-6 h-6 text-white" />
             </div>
             <div className="text-right">
-              <p className="text-2xl font-bold text-green-400">$2,847</p>
+              <p className="text-2xl font-bold text-green-400">
+                ${dashboardStats?.totalProfit?.toLocaleString() || '0.00'}
+              </p>
               <p className="text-sm text-muted-foreground">Total Profit</p>
             </div>
           </div>
@@ -161,7 +197,9 @@ export default function TradingPage() {
               <Target className="w-6 h-6 text-white" />
             </div>
             <div className="text-right">
-              <p className="text-2xl font-bold">87.2%</p>
+              <p className="text-2xl font-bold">
+                {dashboardStats?.successRate || '0.0'}%
+              </p>
               <p className="text-sm text-muted-foreground">Success Rate</p>
             </div>
           </div>
@@ -372,63 +410,57 @@ export default function TradingPage() {
           </div>
 
           <div className="space-y-4">
-            {/* Position Item */}
-            {[
-              { token: 'PEPE', amount: 0.5, entry: 0.00001234, current: 0.00001789, pnl: 45.67, status: 'profit' },
-              { token: 'BONK', amount: 1.2, entry: 0.00000567, current: 0.00000699, pnl: 23.45, status: 'profit' },
-              { token: 'WIF', amount: 0.8, entry: 0.00002345, current: 0.00002056, pnl: -12.34, status: 'loss' }
-            ].map((position, index) => (
-              <motion.div
-                key={position.token}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 * index }}
-                className="flex items-center justify-between p-4 bg-accent rounded-lg"
-              >
-                <div className="flex items-center space-x-4">
-                  <div className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center">
-                    <span className="text-sm font-bold text-white">
-                      {position.token.slice(0, 2)}
-                    </span>
+            {activePositions.length > 0 ? (
+              activePositions.map((position, index) => (
+                <motion.div
+                  key={position.token_address}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1 * index }}
+                  className="flex items-center justify-between p-4 bg-accent rounded-lg"
+                >
+                  <div className="flex items-center space-x-4">
+                    <div className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center">
+                      <span className="text-sm font-bold text-white">
+                        {(position.token_symbol || '??').slice(0, 2)}
+                      </span>
+                    </div>
+                    <div>
+                      <p className="font-semibold">{position.token_symbol || position.token_address.slice(0, 8)}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {position.buy_amount_sol?.toFixed(3)} SOL
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-semibold">{position.token}</p>
-                    <p className="text-sm text-muted-foreground">
-                      {position.amount} SOL
+
+                  <div className="text-center">
+                    <p className="text-sm text-muted-foreground">Buy Price</p>
+                    <p className="font-mono text-sm">${position.buy_price.toFixed(8)}</p>
+                  </div>
+
+                  <div className="text-center">
+                    <p className="text-sm text-muted-foreground">Highest</p>
+                    <p className="font-mono text-sm text-green-400">${position.highest_price?.toFixed(8)}</p>
+                  </div>
+
+                  <div className="text-right">
+                    <p className="text-xs text-muted-foreground mb-1">
+                      {position.amount_tokens?.toLocaleString()} tokens
                     </p>
+                    <div className="flex items-center space-x-2">
+                      <button
+                        onClick={() => handleManualSell(position.token_address, position.amount_tokens)}
+                        className="px-3 py-1 bg-red-600 text-white rounded text-xs hover:bg-red-700 transition-colors"
+                      >
+                        Sell
+                      </button>
+                    </div>
                   </div>
-                </div>
-
-                <div className="text-center">
-                  <p className="text-sm text-muted-foreground">Entry</p>
-                  <p className="font-mono text-sm">${position.entry.toFixed(8)}</p>
-                </div>
-
-                <div className="text-center">
-                  <p className="text-sm text-muted-foreground">Current</p>
-                  <p className="font-mono text-sm">${position.current.toFixed(8)}</p>
-                </div>
-
-                <div className="text-right">
-                  <p className={`font-semibold ${
-                    position.status === 'profit' ? 'text-green-400' : 'text-red-400'
-                  }`}>
-                    {position.pnl > 0 ? '+' : ''}{position.pnl.toFixed(2)}%
-                  </p>
-                  <div className="flex items-center space-x-2 mt-1">
-                    <button 
-                      onClick={() => handleManualSell(position.token, position.amount)}
-                      className="px-2 py-1 bg-red-500/20 text-red-400 rounded text-xs hover:bg-red-500/30 transition-colors"
-                    >
-                      Sell
-                    </button>
-                    <button className="px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-xs hover:bg-blue-500/30 transition-colors">
-                      Edit
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              ))
+            ) : (
+              <p className="text-center text-muted-foreground py-10">No active positions.</p>
+            )}
           </div>
         </motion.div>
       </div>

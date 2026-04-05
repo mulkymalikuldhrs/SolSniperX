@@ -1,0 +1,10 @@
+
+> frontend@0.0.0 dev /app/frontend
+> vite --host
+
+
+  VITE v6.3.5  ready in 689 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://192.168.0.2:5173/
+5:08:17 PM [vite] (client) hmr update /src/pages/TradingPage.jsx, /src/App.css
