@@ -5,18 +5,17 @@ from typing import Dict, Any, Optional
 import httpx
 import base64
 
-from solana.rpc.api import Client
+from solana.rpc.async_api import AsyncClient
 from solana.rpc.commitment import Confirmed
-# from solana.publickey import PublicKey # Use solders types directly
 from solders.keypair import Keypair as SoldersKeypair
 from solders.pubkey import Pubkey
 from solders.transaction import VersionedTransaction
+from solders.signature import Signature
 from solders.message import Message
-from spl.token.constants import TOKEN_PROGRAM_ID
-from spl.token.state import Mint
 
 from config import SOLANA_RPC_URL
-from services.wallet_service import wallet_service # Import the wallet_service singleton
+from services.wallet_service import wallet_service
+from utils.db import record_trade
 
 logger = logging.getLogger(__name__)
 
@@ -27,10 +26,23 @@ class TradingService:
     Service to handle actual trading operations on the Solana blockchain using Jupiter Aggregator.
     """
 
-    def __init__(self, socketio=None):
+    def __init__(self, socketio=None, data_fetcher_service=None):
         self.socketio = socketio
-        self.solana_client = Client(SOLANA_RPC_URL)
-        self.http_client = httpx.AsyncClient()
+        self.data_fetcher_service = data_fetcher_service
+        self._solana_client = None
+        self._http_client = None
+
+    @property
+    def solana_client(self):
+        if self._solana_client is None:
+            self._solana_client = AsyncClient(SOLANA_RPC_URL)
+        return self._solana_client
+
+    @property
+    def http_client(self):
+        if self._http_client is None:
+            self._http_client = httpx.AsyncClient()
+        return self._http_client
 
     async def _get_token_decimals(self, token_mint_address: str) -> Optional[int]:
         """
@@ -38,14 +50,16 @@ class TradingService:
         """
         try:
             mint_pubkey = Pubkey.from_string(token_mint_address)
-            account_info = self.solana_client.get_account_info(mint_pubkey)
-            if account_info.value is None:
+            response = await self.solana_client.get_account_info(mint_pubkey)
+            if response.value is None:
                 logger.warning(f"Mint account not found for {token_mint_address}")
                 return None
             
-            # Decode the mint account data
-            mint_data = Mint.decode(account_info.value.data)
-            return mint_data.decimals
+            # Decode the mint account data (decimals at offset 44)
+            data = response.value.data
+            if len(data) >= 45:
+                return data[44]
+            return None
         except Exception as e:
             logger.error(f"Error fetching decimals for {token_mint_address}: {e}")
             return None
@@ -67,7 +81,7 @@ class TradingService:
             "slippageBps": slippage_bps,
             "swapMode": "ExactIn",
             "userPublicKey": str(wallet_service.wallet_address),
-            "wrapUnwrapSOL": True # Automatically wrap/unwrap SOL
+            "wrapUnwrapSOL": True
         }
 
         try:
@@ -76,8 +90,8 @@ class TradingService:
             response.raise_for_status()
             quote_data = response.json()
 
-            if not quote_data or "swapInstruction" not in quote_data:
-                logger.error(f"No swap instruction found in Jupiter quote: {quote_data}")
+            if not quote_data:
+                logger.error(f"No swap quote found from Jupiter: {quote_data}")
                 return None
 
             # Fetch the serialized transaction
@@ -85,7 +99,7 @@ class TradingService:
             swap_payload = {
                 "quoteResponse": quote_data,
                 "userPublicKey": str(wallet_service.wallet_address),
-                "wrapAndUnwrapSol": True, # Ensure SOL is wrapped/unwrapped as needed
+                "wrapAndUnwrapSol": True,
                 "prioritizationFeeLamports": "auto"
             }
             response = await self.http_client.post(f"{JUPITER_API_BASE_URL}/swap", json=swap_payload)
@@ -115,13 +129,18 @@ class TradingService:
         logger.info(f"Executing BUY order for {token_address}: {amount_sol} SOL with {slippage}% slippage.")
 
         try:
-            # Convert SOL amount to lamports
-            amount_lamports = int(amount_sol * 10**9)
-            slippage_bps = int(slippage * 100) # Convert percentage to basis points
+            # Fetch current price for recording
+            current_price = 0.0
+            if self.data_fetcher_service:
+                token_data = await self.data_fetcher_service.get_token_by_address(token_address)
+                if token_data:
+                    current_price = token_data.get('price', 0.0)
 
-            # Get swap instructions from Jupiter (SOL to Token)
+            amount_lamports = int(amount_sol * 10**9)
+            slippage_bps = int(slippage * 100)
+
             swap_data = await self._get_swap_instructions(
-                input_mint="So11111111111111111111111111111111111111112", # SOL mint address
+                input_mint="So11111111111111111111111111111111111111112",
                 output_mint=token_address,
                 amount=amount_lamports,
                 slippage_bps=slippage_bps
@@ -130,36 +149,37 @@ class TradingService:
             if not swap_data:
                 return {"success": False, "message": "Failed to get swap instructions from Jupiter."}
 
-            # Deserialize the transaction
-            # Jupiter returns a base64 encoded VersionedTransaction
             serialized_transaction = base64.b64decode(swap_data["swapTransaction"])
             transaction = VersionedTransaction.from_bytes(serialized_transaction)
-
-            # Sign the transaction
             signed_transaction = transaction.sign([wallet_service.wallet_keypair])
 
-            # Send transaction
-            tx_signature = self.solana_client.send_raw_transaction(bytes(signed_transaction)).value
+            response = await self.solana_client.send_raw_transaction(bytes(signed_transaction))
+            tx_signature = response.value
             logger.info(f"Transaction sent: {tx_signature}")
 
             # Confirm transaction
-            confirmation = self.solana_client.confirm_transaction(tx_signature, Confirmed)
-            if confirmation.value.err:
-                raise Exception(f"Transaction failed: {confirmation.value.err}")
+            confirmed = await self._confirm_transaction(tx_signature)
+            if not confirmed:
+                logger.warning(f"Transaction not confirmed after timeout: {tx_signature}")
 
             transaction_id = str(tx_signature)
             trade_data = {
                 "type": "buy",
                 "token_address": token_address,
                 "amount_sol": amount_sol,
+                "price_usd": current_price,
                 "slippage": slippage,
                 "transaction_id": transaction_id,
-                "status": "confirmed",
+                "status": "confirmed" if confirmed else "pending",
                 "timestamp": datetime.now().isoformat()
             }
             if self.socketio:
                 self.socketio.emit('trade_executed', trade_data)
-            return {"success": True, "message": f"Successfully bought {amount_sol} SOL worth of {token_address}", "transaction_id": transaction_id, "token_address": token_address, "amount_sol": amount_sol, "slippage": slippage, "status": "confirmed"}
+
+            # Record trade in DB
+            record_trade(trade_data)
+
+            return {"success": True, "message": f"Successfully bought {amount_sol} SOL worth of {token_address}", "transaction_id": transaction_id, "token_address": token_address, "amount_sol": amount_sol, "slippage": slippage, "status": "confirmed" if confirmed else "pending", "price_usd": current_price}
 
         except Exception as e:
             logger.error(f"Error executing buy order: {str(e)}")
@@ -175,17 +195,23 @@ class TradingService:
         logger.info(f"Executing SELL order for {token_address}: {amount_tokens} tokens with {slippage}% slippage.")
 
         try:
+            # Fetch current price for recording
+            current_price = 0.0
+            if self.data_fetcher_service:
+                token_data = await self.data_fetcher_service.get_token_by_address(token_address)
+                if token_data:
+                    current_price = token_data.get('price', 0.0)
+
             token_decimals = await self._get_token_decimals(token_address)
             if token_decimals is None:
-                return {"success": False, "message": f"Could not determine decimals for token {token_address}. Cannot execute sell order."}
+                return {"success": False, "message": f"Could not determine decimals for token {token_address}."}
 
             amount_smallest_unit = int(amount_tokens * (10**token_decimals))
-            slippage_bps = int(slippage * 100) # Convert percentage to basis points
+            slippage_bps = int(slippage * 100)
 
-            # Get swap instructions from Jupiter (Token to SOL)
             swap_data = await self._get_swap_instructions(
                 input_mint=token_address,
-                output_mint="So11111111111111111111111111111111111111112", # SOL mint address
+                output_mint="So11111111111111111111111111111111111111112",
                 amount=amount_smallest_unit,
                 slippage_bps=slippage_bps
             )
@@ -193,39 +219,54 @@ class TradingService:
             if not swap_data:
                 return {"success": False, "message": "Failed to get swap instructions from Jupiter."}
 
-            # Deserialize the transaction
             serialized_transaction = base64.b64decode(swap_data["swapTransaction"])
             transaction = VersionedTransaction.from_bytes(serialized_transaction)
-
-            # Sign the transaction
             signed_transaction = transaction.sign([wallet_service.wallet_keypair])
 
-            # Send transaction
-            tx_signature = self.solana_client.send_raw_transaction(bytes(signed_transaction)).value
+            response = await self.solana_client.send_raw_transaction(bytes(signed_transaction))
+            tx_signature = response.value
             logger.info(f"Transaction sent: {tx_signature}")
 
-            # Confirm transaction
-            confirmation = self.solana_client.confirm_transaction(tx_signature, Confirmed)
-            if confirmation.value.err:
-                raise Exception(f"Transaction failed: {confirmation.value.err}")
+            confirmed = await self._confirm_transaction(tx_signature)
+            if not confirmed:
+                logger.warning(f"Transaction not confirmed after timeout: {tx_signature}")
 
             transaction_id = str(tx_signature)
             trade_data = {
                 "type": "sell",
                 "token_address": token_address,
                 "amount_tokens": amount_tokens,
+                "price_usd": current_price,
                 "slippage": slippage,
                 "transaction_id": transaction_id,
-                "status": "confirmed",
+                "status": "confirmed" if confirmed else "pending",
                 "timestamp": datetime.now().isoformat()
             }
             if self.socketio:
                 self.socketio.emit('trade_executed', trade_data)
-            return {"success": True, "message": f"Successfully sold {amount_tokens} {token_address} tokens", "transaction_id": transaction_id, "token_address": token_address, "amount_tokens": amount_tokens, "slippage": slippage, "status": "confirmed"}
+
+            # Record trade in DB
+            record_trade(trade_data)
+
+            return {"success": True, "message": f"Successfully sold {amount_tokens} tokens", "transaction_id": transaction_id, "token_address": token_address, "amount_tokens": amount_tokens, "slippage": slippage, "status": "confirmed" if confirmed else "pending", "price_usd": current_price}
 
         except Exception as e:
             logger.error(f"Error executing sell order: {str(e)}")
             return {"success": False, "message": f"Failed to execute sell order: {str(e)}", "token_address": token_address, "amount_tokens": amount_tokens, "slippage": slippage, "status": "failed"}
 
-# Create a singleton instance
-# trading_service = TradingService() # Instantiation will be handled in main.py
+    async def _confirm_transaction(self, signature: Signature, timeout: int = 60, interval: int = 2) -> bool:
+        """
+        Polls for transaction confirmation.
+        """
+        start_time = datetime.now().timestamp()
+        while (datetime.now().timestamp() - start_time) < timeout:
+            try:
+                response = await self.solana_client.get_signature_statuses([signature])
+                if response.value and response.value[0]:
+                    status = response.value[0]
+                    if status.confirmations is not None or status.err is None:
+                        return True
+            except Exception as e:
+                logger.debug(f"Error polling signature status: {e}")
+            await asyncio.sleep(interval)
+        return False

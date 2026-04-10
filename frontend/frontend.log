@@ -1,0 +1,10 @@
+
+> frontend@0.0.0 dev /app/frontend
+> vite
+
+
+  VITE v6.3.5  ready in 1008 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+12:21:44 PM [vite] (client) hmr update /src/pages/AnalyticsPage.jsx, /src/App.css
