@@ -1,0 +1,13 @@
+{
+    "min_liquidity": 5000,
+    "max_liquidity": 50000,
+    "max_age_hours": 12,
+    "min_volume_24h": 10000,
+    "min_ai_probability_score": 75,
+    "buy_amount_sol": 0.05,
+    "slippage": 1.5,
+    "profit_target_x": 1.5,
+    "stop_loss_percentage": 0.15,
+    "trailing_stop_loss_percentage": 0.10,
+    "max_risk_score": 40
+}
