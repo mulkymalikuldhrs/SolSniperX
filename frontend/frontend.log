@@ -1,0 +1,7 @@
+
+> frontend@0.0.0 dev /app/frontend
+> vite --host
+
+sh: 1: vite: not found
+ ELIFECYCLE  Command failed.
+ WARN   Local package.json exists, but node_modules missing, did you mean to install?
