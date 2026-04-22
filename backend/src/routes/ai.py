@@ -4,16 +4,17 @@ import logging
 from datetime import datetime
 from flask import Blueprint, current_app
 from utils.responses import success_response, error_response
+from utils.async_runner import run_async
 
 logger = logging.getLogger(__name__)
 ai_bp = Blueprint('ai_bp', __name__, url_prefix='/api/ai')
 
 @ai_bp.route('/analyze/<token_address>', methods=['POST'])
-async def analyze_token_ai(token_address):
+def analyze_token_ai(token_address):
     """AI analysis for a specific token"""
     ai_analysis_service = current_app.services['ai_analysis']
     try:
-        analysis = await ai_analysis_service.analyze_token(token_address)
+        analysis = run_async(ai_analysis_service.analyze_token(token_address))
         
         if not analysis:
             return error_response('Token not found or analysis failed', 404)
@@ -25,11 +26,11 @@ async def analyze_token_ai(token_address):
         return error_response('AI analysis failed', details=e)
 
 @ai_bp.route('/trading-signals/<token_address>', methods=['POST'])
-async def get_ai_trading_signals(token_address):
+def get_ai_trading_signals(token_address):
     """Get AI-powered trading signals"""
     ai_analysis_service = current_app.services['ai_analysis']
     try:
-        signals = await ai_analysis_service.get_trading_signals(token_address)
+        signals = run_async(ai_analysis_service.get_trading_signals(token_address))
         
         if not signals:
             return error_response('Token not found or signal generation failed', 404)
