@@ -21,14 +21,9 @@ export function ApiProvider({ children }) {
     setError(null)
 
     try {
-      const token = localStorage.getItem('solsniperx_token')
       const headers = {
         'Content-Type': 'application/json',
         ...options.headers,
-      }
-
-      if (token) {
-        headers.Authorization = `Bearer ${token}`
       }
 
       const response = await fetch(`${baseURL}${endpoint}`, {
@@ -60,8 +55,25 @@ export function ApiProvider({ children }) {
   }, [makeRequest])
 
   // Token analysis
-  const analyzeToken = useCallback(async (tokenId) => {
-    return makeRequest(`/api/ai/analyze/${tokenId}`, {
+  const analyzeToken = useCallback(async (tokenAddress) => {
+    return makeRequest(`/api/ai/analyze/${tokenAddress}`, {
+      method: 'POST',
+    })
+  }, [makeRequest])
+
+  const getAutoTraderConfig = useCallback(async () => {
+    return makeRequest('/api/auto-trader/config')
+  }, [makeRequest])
+
+  const updateAutoTraderConfig = useCallback(async (config) => {
+    return makeRequest('/api/auto-trader/config', {
+      method: 'POST',
+      body: JSON.stringify(config),
+    })
+  }, [makeRequest])
+
+  const getTradingSignals = useCallback(async (tokenAddress) => {
+    return makeRequest(`/api/ai/trading-signals/${tokenAddress}`, {
       method: 'POST',
     })
   }, [makeRequest])
@@ -86,6 +98,32 @@ export function ApiProvider({ children }) {
     })
   }, [makeRequest])
 
+  const placeLimitOrder = useCallback(async (tokenAddress, targetPrice, amountSol, side = 'buy', tokenSymbol = null) => {
+    return makeRequest('/api/trading/limit-order', {
+      method: 'POST',
+      body: JSON.stringify({
+        token_address: tokenAddress,
+        target_price: targetPrice,
+        amount_sol: amountSol,
+        side,
+        token_symbol: tokenSymbol
+      }),
+    })
+  }, [makeRequest])
+
+  // Auto Trader
+  const startAutoTrader = useCallback(async () => {
+    return makeRequest('/api/auto-trader/start', {
+      method: 'POST',
+    })
+  }, [makeRequest])
+
+  const stopAutoTrader = useCallback(async () => {
+    return makeRequest('/api/auto-trader/stop', {
+      method: 'POST',
+    })
+  }, [makeRequest])
+
   // Analytics
   const getDashboardData = useCallback(async () => {
     return makeRequest('/api/analytics/dashboard')
@@ -93,6 +131,10 @@ export function ApiProvider({ children }) {
 
   const getTransactions = useCallback(async (limit = 50) => {
     return makeRequest(`/api/analytics/transactions?limit=${limit}`)
+  }, [makeRequest])
+
+  const getPerformanceMetrics = useCallback(async () => {
+    return makeRequest('/api/analytics/performance')
   }, [makeRequest])
 
   // Token History
@@ -105,50 +147,26 @@ export function ApiProvider({ children }) {
     return makeRequest('/api/wallet/balance')
   }, [makeRequest])
 
-  const getWallets = useCallback(async () => {
-    return makeRequest('/api/wallets')
-  }, [makeRequest])
-
-  const addWallet = useCallback(async (name, privateKey) => {
-    return makeRequest('/api/wallets', {
-      method: 'POST',
-      body: JSON.stringify({ name, private_key: privateKey }),
-    })
-  }, [makeRequest])
-
-  const updateWallet = useCallback(async (walletId, updates) => {
-    return makeRequest(`/api/wallets/${walletId}`, {
-      method: 'PUT',
-      body: JSON.stringify(updates),
-    })
-  }, [makeRequest])
-
-  const deleteWallet = useCallback(async (walletId) => {
-    return makeRequest(`/api/wallets/${walletId}`, {
-      method: 'DELETE',
-    })
-  }, [makeRequest])
-
   const value = {
     loading,
     error,
     makeRequest,
     scanTokens,
     analyzeToken,
+    getTradingSignals,
     monitorMempool,
     buyToken,
     sellToken,
-    getDashboardData,
-    getTransactions,
-    getTokenHistory, // Add new function
-    getWalletBalance,
-    getTradingSignals,
     startAutoTrader,
     stopAutoTrader,
-    getWallets,
-    addWallet,
-    updateWallet,
-    deleteWallet,
+    getAutoTraderConfig,
+    updateAutoTraderConfig,
+    getDashboardData,
+    getTransactions,
+    getPerformanceMetrics,
+    getTokenHistory,
+    getWalletBalance,
+    placeLimitOrder,
   }
 
   return (
@@ -157,4 +175,3 @@ export function ApiProvider({ children }) {
     </ApiContext.Provider>
   )
 }
-
