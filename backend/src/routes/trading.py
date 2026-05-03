@@ -46,3 +46,25 @@ async def sell_token():
     except Exception as e:
         logger.error(f"Error executing sell order: {str(e)}")
         return error_response('Failed to execute sell order', details=e)
+
+@trading_bp.route('/limit-order', methods=['POST'])
+async def place_limit_order():
+    """Place a limit order"""
+    trading_service = current_app.services['trading']
+    try:
+        data = request.get_json()
+        token_address = data.get('token_address')
+        target_price = data.get('target_price')
+        amount_sol = data.get('amount_sol')
+        side = data.get('side', 'buy')
+        token_symbol = data.get('token_symbol')
+
+        if not token_address or target_price is None or amount_sol is None:
+            return error_response('Missing required fields for limit order', 400)
+
+        result = await trading_service.place_limit_order(token_address, target_price, amount_sol, side, token_symbol)
+        return jsonify(result)
+
+    except Exception as e:
+        logger.error(f"Error placing limit order: {str(e)}")
+        return error_response('Failed to place limit order', details=e)
