@@ -234,7 +234,7 @@ export default function Sidebar({ onClose }) {
             Mulky Malikul Dhaher
           </p>
           <p className="text-xs text-muted-foreground mt-1">
-            v2.0.0
+            v2.2.3
           </p>
         </div>
       </div>
