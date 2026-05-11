@@ -14,6 +14,7 @@ SOLANA_PRIVATE_KEY = os.getenv("SOLANA_PRIVATE_KEY")
 DEXSCREENER_BASE_URL = "https://api.dexscreener.com/latest/dex"
 BIRDEYE_BASE_URL = "https://public-api.birdeye.so/public"
 LLM7_BASE_URL = "https://api.llm7.io/v1"
+JUPITER_API_BASE_URL = "https://quote-api.jup.ag/v6"
 
 # Solana RPC URL
 SOLANA_RPC_URL = os.getenv("SOLANA_RPC_URL", "https://api.mainnet-beta.solana.com")
