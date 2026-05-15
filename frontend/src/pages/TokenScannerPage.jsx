@@ -46,7 +46,7 @@ export default function TokenScannerPage() {
   const [tokenHistory, setTokenHistory] = useState([])
 
   const { scanTokens: apiScanTokens, getTokenHistory } = useApi()
-  const { lastMessage, priceUpdates } = useWebSocket()
+  const { lastMessage, priceUpdates, newTokens, rugpullAlerts } = useWebSocket()
 
   const fetchTokens = async () => {
     setIsLoading(true)
