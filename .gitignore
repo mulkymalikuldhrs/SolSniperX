@@ -1,2 +1,25 @@
+# Python
 venv/
+backend/venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node
 node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# Database
+*.db
+backend/src/database/*.db
+
+# Logs & Media
+*.log
+frontend/*.log
+video/
+*.png
+*.webm
+
+# Environment
+.env
