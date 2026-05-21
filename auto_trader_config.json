@@ -1,0 +1,19 @@
+{
+    "min_liquidity": 5000,
+    "max_liquidity": 50000,
+    "max_age_hours": 12,
+    "min_volume_24h": 10000,
+    "min_ai_probability_score": 75,
+    "buy_amount_sol": 0.15,
+    "slippage": 2.5,
+    "take_profit_tiers": [
+        {"target_x": 1.5, "sell_percentage": 0.5},
+        {"target_x": 2.0, "sell_percentage": 1.0}
+    ],
+    "stop_loss_percentage": 0.2,
+    "trailing_stop_loss_percentage": 0.1,
+    "max_risk_score": 30,
+    "use_vwap_filter": true,
+    "mempool_min_sol_threshold": 0.1,
+    "mempool_min_liquidity": 1000
+}
