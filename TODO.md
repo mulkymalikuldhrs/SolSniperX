@@ -66,3 +66,8 @@ This document outlines the remaining tasks and future enhancements for SolSniper
 
 - Initial setup and core refactoring.
 - Automated Trading Bot Transformation (Backend & Frontend).
+---
+
+> **Contact:** Mulky Malikul Dhaher — [mulkymalikuldhaher@email.com](mailto:mulkymalikuldhaher@email.com)
+>
+> **Disclaimer:** This project is for Education Purpose only. Risiko apapun tidak kita tanggung. (We are not responsible for any risks or damages.)

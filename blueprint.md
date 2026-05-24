@@ -94,3 +94,9 @@ Refer to `README.md` for the most up-to-date installation and setup instructions
 ## 6. Future Enhancements
 
 Refer to `TODO.md` for a detailed list of high, medium, and low priority future enhancements.
+
+---
+
+> **Contact:** Mulky Malikul Dhaher — [mulkymalikuldhaher@email.com](mailto:mulkymalikuldhaher@email.com)
+>
+> **Disclaimer:** This project is for Education Purpose only. Risiko apapun tidak kita tanggung. (We are not responsible for any risks or damages.)

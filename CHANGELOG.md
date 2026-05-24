@@ -89,3 +89,9 @@
   - Updated `frontend/src/pages/TradingPage.jsx` to display real-time trade executions.
 - **Settings Page Updated:**
   - Updated `frontend/src/pages/SettingsPage.jsx` to include automated trading configuration UI, allowing users to adjust parameters for the `AutoTraderService`.
+
+---
+
+> **Contact:** Mulky Malikul Dhaher — [mulkymalikuldhaher@email.com](mailto:mulkymalikuldhaher@email.com)
+>
+> **Disclaimer:** This project is for Education Purpose only. Risiko apapun tidak kita tanggung. (We are not responsible for any risks or damages.)
