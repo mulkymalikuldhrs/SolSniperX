@@ -156,3 +156,7 @@ All notable changes to this project will be documented in this file.
 - Initial public release of SolSniperX.
 - Basic mempool monitoring and automated trading.
 - React-based dashboard with simulated data.
+
+---
+> **Contact:** Mulky Malikul Dhaher — [mulkymalikuldhaher@email.com](mailto:mulkymalikuldhaher@email.com)
+> **Disclaimer:** This project is for Education Purpose only. Risiko apapun tidak kita tanggung. (We are not responsible for any risks or damages.)

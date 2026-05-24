@@ -38,3 +38,7 @@ This document outlines the remaining tasks and future enhancements for SolSniper
 - v2.7.0: Dynamic JITO Tip estimation and final production-ready system consolidation.
 - v2.8.0: Snipe-Only mode for whitelisted deployers and enhanced contract risk analysis.
 - v2.9.0: Ultimate consolidation of all production branches and unified baseline established on `main`.
+
+---
+> **Contact:** Mulky Malikul Dhaher — [mulkymalikuldhaher@email.com](mailto:mulkymalikuldhaher@email.com)
+> **Disclaimer:** This project is for Education Purpose only. Risiko apapun tidak kita tanggung. (We are not responsible for any risks or damages.)

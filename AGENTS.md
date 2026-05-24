@@ -28,3 +28,7 @@ When making changes, always perform the following:
 - `backend/src/utils/`: Database and response helpers.
 - `frontend/src/`: React frontend with Tailwind CSS and Radix UI.
 - `verify_consolidated.py`: Playwright-based E2E verification script.
+
+---
+> **Contact:** Mulky Malikul Dhaher — [mulkymalikuldhaher@email.com](mailto:mulkymalikuldhaher@email.com)
+> **Disclaimer:** This project is for Education Purpose only. Risiko apapun tidak kita tanggung. (We are not responsible for any risks or damages.)
