@@ -376,3 +376,7 @@ If you discover a security vulnerability, especially related to private key hand
 - Maintainer: Mulky Malikul Dhaher (mulkymalikuldhaher@email.com)
 
 Thank you for helping to make SolSniperX better. Your contributions, no matter how small, are valued and appreciated.
+
+---
+
+**⚠️ For Education Purpose Only** — This project is provided strictly for educational and research purposes. The authors and contributors assume **no responsibility or liability** for any damages, losses, or risks arising from the use of this software. **We do not bear any responsibility or risk** for how this software is used.
