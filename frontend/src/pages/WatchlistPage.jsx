@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { useApi } from '../contexts/ApiContext'
 import { 
   Star, 
   Plus, 
   Search, 
-  Filter, 
   TrendingUp, 
   TrendingDown,
   Eye,
@@ -14,46 +14,37 @@ import {
   Target,
   AlertTriangle,
   Shield,
-  Zap
+  Zap,
+  Loader2
 } from 'lucide-react'
 
-export default function WatchlistPage() {
-  const [watchlist, setWatchlist] = useState([
-    {
-      id: 1,
-      symbol: 'PEPE',
-      name: 'Pepe Token',
-      address: 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v',
-      price: 0.00001234,
-      priceChange24h: 45.67,
-      volume24h: 2340000,
-      marketCap: 12450000,
-      alertPrice: 0.00001500,
-      alertEnabled: true,
-      addedAt: '2024-01-15',
-      riskScore: 25,
-      isVerified: true
-    },
-    {
-      id: 2,
-      symbol: 'BONK',
-      name: 'Bonk Inu',
-      address: 'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263',
-      price: 0.00000567,
-      priceChange24h: 23.45,
-      volume24h: 1890000,
-      marketCap: 8920000,
-      alertPrice: 0.00000800,
-      alertEnabled: false,
-      addedAt: '2024-01-14',
-      riskScore: 15,
-      isVerified: true
-    }
-  ])
+const WATCHLIST_STORAGE_KEY = 'solsniperx_watchlist'
 
+function loadWatchlist() {
+  try {
+    const stored = localStorage.getItem(WATCHLIST_STORAGE_KEY)
+    return stored ? JSON.parse(stored) : []
+  } catch {
+    return []
+  }
+}
+
+function saveWatchlist(list) {
+  localStorage.setItem(WATCHLIST_STORAGE_KEY, JSON.stringify(list))
+}
+
+export default function WatchlistPage() {
+  const { scanTokens } = useApi()
+  const [watchlist, setWatchlist] = useState(loadWatchlist)
   const [searchTerm, setSearchTerm] = useState('')
   const [showAddModal, setShowAddModal] = useState(false)
   const [newTokenAddress, setNewTokenAddress] = useState('')
+  const [addingToken, setAddingToken] = useState(false)
+  const [addError, setAddError] = useState(null)
+
+  useEffect(() => {
+    saveWatchlist(watchlist)
+  }, [watchlist])
 
   const removeFromWatchlist = (id) => {
     setWatchlist(watchlist.filter(token => token.id !== id))
@@ -67,10 +58,76 @@ export default function WatchlistPage() {
     ))
   }
 
+  const handleAddToken = async () => {
+    if (!newTokenAddress.trim()) return
+    setAddingToken(true)
+    setAddError(null)
+    try {
+      const result = await scanTokens({ minLiquidity: 0, maxAge: 999999, minVolume: 0 })
+      // Try to find the token in scan results, or create a minimal entry
+      const found = result?.data?.tokens?.find(t => 
+        t.address?.toLowerCase() === newTokenAddress.trim().toLowerCase()
+      )
+      
+      const newToken = found || {
+        address: newTokenAddress.trim(),
+        symbol: newTokenAddress.trim().slice(0, 6),
+        name: 'Unknown Token',
+        price: 0,
+        price_change_24h: 0,
+        volume_24h: 0,
+        market_cap: 0,
+        liquidity: 0,
+        age_hours: 0
+      }
+
+      const watchlistEntry = {
+        id: Date.now(),
+        symbol: newToken.symbol,
+        name: newToken.name,
+        address: newToken.address,
+        price: newToken.price || 0,
+        priceChange24h: newToken.price_change_24h || 0,
+        volume24h: newToken.volume_24h || 0,
+        marketCap: newToken.market_cap || 0,
+        alertPrice: (newToken.price || 0) * 1.5,
+        alertEnabled: true,
+        addedAt: new Date().toISOString().split('T')[0],
+        riskScore: newToken.top_holder_percentage > 50 ? 70 : newToken.top_holder_percentage > 30 ? 40 : 15,
+        isVerified: false
+      }
+
+      setWatchlist(prev => [watchlistEntry, ...prev])
+      setShowAddModal(false)
+      setNewTokenAddress('')
+    } catch (error) {
+      console.error('Error adding token:', error)
+      setAddError('Failed to add token. Please check the address.')
+    } finally {
+      setAddingToken(false)
+    }
+  }
+
   const filteredWatchlist = watchlist.filter(token =>
     token.symbol.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    token.name.toLowerCase().includes(searchTerm.toLowerCase())
+    token.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    token.address.toLowerCase().includes(searchTerm.toLowerCase())
   )
+
+  const formatPrice = (price) => {
+    if (!price || price === 0) return '$0.00000000'
+    if (price < 0.000001) return `$${price.toExponential(2)}`
+    if (price < 0.01) return `$${price.toFixed(8)}`
+    return `$${price.toFixed(4)}`
+  }
+
+  const formatLargeNumber = (num) => {
+    if (!num || num === 0) return '$0'
+    if (num >= 1e9) return `$${(num / 1e9).toFixed(2)}B`
+    if (num >= 1e6) return `$${(num / 1e6).toFixed(2)}M`
+    if (num >= 1e3) return `$${(num / 1e3).toFixed(2)}K`
+    return `$${num.toFixed(2)}`
+  }
 
   return (
     <div className="p-4 lg:p-6 space-y-6 max-w-7xl mx-auto">
@@ -254,7 +311,7 @@ export default function WatchlistPage() {
                       </div>
                     </td>
                     <td className="p-4">
-                      <p className="font-mono">${token.price.toFixed(8)}</p>
+                      <p className="font-mono">{formatPrice(token.price)}</p>
                     </td>
                     <td className="p-4">
                       <div className={`flex items-center space-x-1 ${
@@ -271,14 +328,14 @@ export default function WatchlistPage() {
                       </div>
                     </td>
                     <td className="p-4">
-                      <p>${(token.volume24h / 1000000).toFixed(2)}M</p>
+                      <p>{formatLargeNumber(token.volume24h)}</p>
                     </td>
                     <td className="p-4">
-                      <p>${(token.marketCap / 1000000).toFixed(2)}M</p>
+                      <p>{formatLargeNumber(token.marketCap)}</p>
                     </td>
                     <td className="p-4">
                       <div className="flex items-center space-x-2">
-                        <p className="font-mono text-sm">${token.alertPrice.toFixed(8)}</p>
+                        <p className="font-mono text-sm">{formatPrice(token.alertPrice)}</p>
                         {token.price >= token.alertPrice && token.alertEnabled && (
                           <Target className="w-4 h-4 text-green-400" />
                         )}
@@ -350,26 +407,35 @@ export default function WatchlistPage() {
                   className="w-full px-4 py-2 bg-accent border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
                 />
               </div>
+
+              {addError && (
+                <p className="text-red-400 text-sm">{addError}</p>
+              )}
               
               <div className="flex space-x-3">
                 <button
                   onClick={() => {
                     setShowAddModal(false)
                     setNewTokenAddress('')
+                    setAddError(null)
                   }}
                   className="flex-1 px-4 py-2 bg-accent border border-border rounded-lg hover:bg-accent/80 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
-                  onClick={() => {
-                    // Add token logic here
-                    setShowAddModal(false)
-                    setNewTokenAddress('')
-                  }}
-                  className="flex-1 btn-gradient"
+                  onClick={handleAddToken}
+                  disabled={addingToken}
+                  className="flex-1 btn-gradient flex items-center justify-center space-x-2"
                 >
-                  Add Token
+                  {addingToken ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Adding...</span>
+                    </>
+                  ) : (
+                    <span>Add Token</span>
+                  )}
                 </button>
               </div>
             </div>
@@ -379,4 +445,3 @@ export default function WatchlistPage() {
     </div>
   )
 }
-

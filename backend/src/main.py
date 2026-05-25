@@ -59,7 +59,7 @@ def health_check():
     return jsonify({
         'status': 'healthy',
         'timestamp': datetime.now().isoformat(),
-        'service': 'SolSniperX Backend v2.9.0 (Ultimate Consolidated Upgrade)',
+        'service': 'SolSniperX Backend v3.0.0 (Production Ready)',
         'features': ['Token Scanner', 'AI Analysis', 'Trading Signals', 'Local Storage', 'RugCheck API', 'JITO Support', 'Dynamic JITO Tip', 'Consolidated Production Ready']
     })
 

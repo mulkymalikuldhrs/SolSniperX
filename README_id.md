@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://img.shields.io/badge/SolSniperX-Solana-9945FF?style=for-the-badge&logo=solana&logoColor=white" alt="SolSniperX">
-  <img src="https://img.shields.io/badge/Versi-2.0-14F195?style=for-the-badge" alt="Versi">
+  <img src="https://img.shields.io/badge/Versi-3.0.0-14F195?style=for-the-badge" alt="Versi">
   <img src="https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
   <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React">
   <img src="https://img.shields.io/badge/Lisensi-MIT-green?style=for-the-badge" alt="Lisensi">

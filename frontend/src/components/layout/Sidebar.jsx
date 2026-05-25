@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { 
@@ -75,13 +75,35 @@ const features = [
   {
     icon: Target,
     title: 'Precision',
-    description: '97% success rate'
+    description: 'AI-powered signals'
   }
 ]
 
 export default function Sidebar({ onClose }) {
   const location = useLocation()
   const [hoveredItem, setHoveredItem] = useState(null)
+  const [stats, setStats] = useState({ totalTrades: 0, successRate: 0, totalProfit: 0 })
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const res = await fetch('/api/analytics/performance?XTransformPort=5000')
+        const data = await res.json()
+        if (data.success && data.data) {
+          setStats({
+            totalTrades: data.data.totalTrades || 0,
+            successRate: data.data.successRate || 0,
+            totalProfit: data.data.totalProfit || 0
+          })
+        }
+      } catch {
+        // Stats will show defaults
+      }
+    }
+    fetchStats()
+    const interval = setInterval(fetchStats, 60000)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <div className="h-full bg-card border-r border-border flex flex-col">
@@ -202,22 +224,22 @@ export default function Sidebar({ onClose }) {
         {/* Stats Section */}
         <div className="mt-8 px-4">
           <div className="bg-gradient-card rounded-lg p-4 border border-border">
-            <h3 className="text-sm font-semibold mb-3">Today's Performance</h3>
+            <h3 className="text-sm font-semibold mb-3">Performance</h3>
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs text-muted-foreground">Tokens Scanned</span>
-                <span className="text-sm font-medium">1,247</span>
+                <span className="text-xs text-muted-foreground">Total Trades</span>
+                <span className="text-sm font-medium">{stats.totalTrades}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-xs text-muted-foreground">Successful Trades</span>
-                <span className="text-sm font-medium text-green-400">23</span>
+                <span className="text-xs text-muted-foreground">Success Rate</span>
+                <span className="text-sm font-medium text-green-400">{stats.successRate}%</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-xs text-muted-foreground">Profit</span>
-                <span className="text-sm font-medium text-green-400">+$1,234</span>
+                <span className="text-xs text-muted-foreground">Profit (SOL)</span>
+                <span className={`text-sm font-medium ${stats.totalProfit >= 0 ? 'text-green-400' : 'text-red-400'}`}>{stats.totalProfit >= 0 ? '+' : ''}{stats.totalProfit.toFixed(4)}</span>
               </div>
               <div className="w-full bg-accent rounded-full h-2">
-                <div className="bg-gradient-success h-2 rounded-full w-3/4" />
+                <div className="bg-gradient-success h-2 rounded-full" style={{ width: `${Math.min(100, stats.successRate)}%` }} />
               </div>
             </div>
           </div>
@@ -234,7 +256,7 @@ export default function Sidebar({ onClose }) {
             Mulky Malikul Dhaher
           </p>
           <p className="text-xs text-muted-foreground mt-1">
-            v2.9.0
+            v3.0.0
           </p>
         </div>
       </div>

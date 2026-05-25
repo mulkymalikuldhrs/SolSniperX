@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { 
   Menu, 
@@ -6,28 +6,60 @@ import {
   Search, 
   Bell, 
   Settings, 
-  User,
-  LogIn,
-  UserPlus,
   Moon,
   Sun,
   Zap
 } from 'lucide-react'
 import { useTheme } from '../../contexts/ThemeContext'
+import { useWebSocket } from '../../contexts/WebSocketContext'
 
 export default function Navbar({ 
   sidebarOpen, 
   setSidebarOpen
 }) {
   const { theme, toggleTheme } = useTheme()
+  const { lastMessage } = useWebSocket()
   const [searchQuery, setSearchQuery] = useState('')
   const [showNotifications, setShowNotifications] = useState(false)
+  const [notifications, setNotifications] = useState([])
 
-  const notifications = [
-    { id: 1, type: 'success', message: 'PEPE token detected - High potential!', time: '2m ago' },
-    { id: 2, type: 'warning', message: 'BONK price alert triggered', time: '5m ago' },
-    { id: 3, type: 'info', message: 'New token added to watchlist', time: '10m ago' }
-  ]
+  useEffect(() => {
+    if (lastMessage) {
+      let newNotification = null
+      if (lastMessage.type === 'new_token') {
+        newNotification = {
+          id: Date.now(),
+          type: 'info',
+          message: `New token detected: ${lastMessage.data?.symbol || 'Unknown'}`,
+          time: new Date().toLocaleTimeString()
+        }
+      } else if (lastMessage.type === 'rugpull_alert') {
+        newNotification = {
+          id: Date.now(),
+          type: 'warning',
+          message: `Rugpull alert: ${lastMessage.data?.reason || 'Suspicious activity'}`,
+          time: new Date().toLocaleTimeString()
+        }
+      } else if (lastMessage.type === 'trade_executed') {
+        newNotification = {
+          id: Date.now(),
+          type: 'success',
+          message: `Trade executed: ${lastMessage.type === 'buy' ? 'Buy' : 'Sell'} order`,
+          time: new Date().toLocaleTimeString()
+        }
+      } else if (lastMessage.type === 'auto_trade_event') {
+        newNotification = {
+          id: Date.now(),
+          type: lastMessage.type === 'sell' ? 'warning' : 'success',
+          message: `Auto-trader: ${lastMessage.type} ${lastMessage.token || ''}`,
+          time: new Date().toLocaleTimeString()
+        }
+      }
+      if (newNotification) {
+        setNotifications(prev => [newNotification, ...prev].slice(0, 20))
+      }
+    }
+  }, [lastMessage])
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-900/95 backdrop-blur-sm border-b border-gray-800">
@@ -114,7 +146,10 @@ export default function Navbar({
                     <h3 className="text-sm font-semibold text-white">Notifications</h3>
                   </div>
                   <div className="max-h-64 overflow-y-auto">
-                    {notifications.map((notification) => (
+                    {notifications.length === 0 ? (
+                      <div className="p-4 text-center text-gray-400 text-sm">No notifications yet</div>
+                    ) : (
+                    notifications.map((notification) => (
                       <div key={notification.id} className="p-4 border-b border-gray-700 hover:bg-gray-700 transition-colors">
                         <div className="flex items-start space-x-3">
                           <div className={`w-2 h-2 rounded-full mt-2 ${
@@ -128,7 +163,8 @@ export default function Navbar({
                           </div>
                         </div>
                       </div>
-                    ))}
+                    ))
+                    )}
                   </div>
                 </motion.div>
               )}
@@ -150,7 +186,7 @@ export default function Navbar({
             type="text"
             placeholder="Search tokens, addresses..."
             value={searchQuery}
-            onChange={(e) => setSearchSearchQuery(e.target.value)}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-gray-400"
           />
         </div>
