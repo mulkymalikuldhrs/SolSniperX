@@ -1,123 +1,73 @@
-# SolSniperX v3.0.0 — Production-Ready AI-Powered Solana Memecoin Sniper Bot
+# SolSniperX v3.3.0 — Ultimate Intelligence Upgrade
 
 [![Production Ready](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)]()
-[![Version](https://img.shields.io/badge/Version-3.0.0-blue)]()
+[![Version](https://img.shields.io/badge/Version-3.3.0-blue)]()
 [![License](https://img.shields.io/badge/License-MIT-yellow)]()
 
-SolSniperX is an advanced, AI-powered bot designed to automatically detect, analyze, and execute trades on new memecoins on the Solana blockchain. It provides real-time insights, anti-rug protection, and automated trading capabilities, all accessible through a modern and intuitive web interface.
+SolSniperX is a state-of-the-art, fully autonomous AI-powered Solana memecoin sniper bot. Designed for production-grade reliability, it integrates real-time mempool monitoring, multi-factor AI analysis, and high-speed execution to capture opportunities while maximizing security.
 
 ## 🚀 Key Features
 
-1.  **Real-time Token Detection:** Monitors Pump.fun, Birdeye, Dexscreener, and Solana Mempool for new token listings and early launches using optimized WebSocket connections.
-2.  **AI-Powered Analysis:** Utilizes AI (LLM7) to assess token potential, including liquidity, market cap, holder distribution, dev wallet activity, and contract red flags. The LLM informs automated buy/sell decisions and anti-rugpull strategies.
-3.  **Automated Trading Execution:** Executes buy orders automatically based on predefined parameters and auto-sells at target profits (take-profit, stop-loss, trailing stop-loss).
-4.  **Anti-Rug Protection:** Implements automatic cut-loss mechanisms if dev sells, LP is pulled, or significant price dumps occur, detected in real-time from the mempool.
-5.  **Secure Wallet Management (Private Key Based):** Connects directly to a Solana wallet using a private key provided via environment variable. No traditional login or registration is required.
-6.  **Intuitive Web Dashboard:** Provides a sleek, responsive, and interactive user interface with live watchlist, token detail view, wallet performance, and manual snipe mode.
-7.  **Advanced Analytics:** Tracks trading performance, win rates, and PnL using a persistent SQLite database.
-8.  **Real-Time Price Data:** Uses Jupiter Price API v2 for real-time SOL and token price lookups — no hardcoded or mock values.
-9.  **Socket.IO Integration:** Full real-time communication between backend and frontend for live trade events, token detection, and rugpull alerts.
-10. **Limit Orders:** Place buy/sell limit orders that execute automatically when price targets are reached.
+1.  **Ultimate Intelligence Upgrade (v3.3.0):** Enhanced AI analysis using social metadata extraction (websites, X, Telegram) and improved LLM7 reasoning for deeper sentiment and risk assessment.
+2.  **Autonomous Resilience:** Advanced "Service Watchdog" that automatically monitors and restarts critical background tasks (mempool monitor, auto-trader) ensuring 24/7 uptime.
+3.  **Real-time Token Detection:** Monitors Pump.fun, Birdeye, Dexscreener, and Solana Mempool for new token listings using optimized WebSocket connections.
+4.  **AI-Powered Analysis:** Utilizes LLM7 to assess token potential, liquidity, holder distribution, and contract red flags with structured JSON parsing.
+5.  **Automated Trading Execution:** Executes trades via Jupiter V6 with support for take-profit tiers, trailing stop-loss, and fixed stop-loss.
+6.  **Dynamic JITO Support:** Real-time JITO tip estimation (50th percentile) ensures your transactions land even during high network congestion.
+7.  **Anti-Rug Protection:** Real-time mempool-based rugpull detection with emergency cut-loss execution.
+8.  **Modern Web Dashboard:** Sleek, responsive React interface with live charts, watchlist (localStorage persisted), and wallet performance tracking.
+9.  **Advanced Mempool Filtering:** Configurable SOL and liquidity thresholds to filter out noise and focus on high-quality launches.
 
 ## 📁 Project Structure
 
--   **`backend/`**: Flask API for token data, AI analysis, trading logic, and Solana blockchain interaction.
-    -   `src/main.py`: Main Flask application with eventlet and background asyncio loop.
-    -   `src/services/ai_analysis.py`: AI integration with LLM7 (JSON-enforced parsing).
-    -   `src/services/wallet_service.py`: Manages the Solana wallet and fetches real balances/prices via Jupiter.
-    -   `src/services/data_fetcher.py`: Fetches real-time data from Dexscreener and Birdeye APIs.
-    -   `src/services/mempool_monitor.py`: Monitors Solana mempool for new token launches and rugpull indicators.
-    -   `src/services/trading_service.py`: Executes real Solana transactions via Jupiter V6 Aggregator.
-    -   `src/services/auto_trader.py`: Fully autonomous trading strategy with position management.
--   **`frontend/`**: React application for the user interface.
-    -   `src/App.jsx`: Main application component and routing.
-    -   `src/pages/`: Individual pages (Dashboard, TokenScanner, Trading, Wallet, Settings, Analytics).
-    -   `src/contexts/`: React Contexts for theme, API, and WebSocket.
+-   **`backend/`**: Flask-SocketIO API with an integrated `asyncio` background service loop.
+    -   `src/main.py`: Entry point with service watchdog and asyncio lifecycle management.
+    -   `src/services/`: Core logic (AI Analysis, AutoTrader, DataFetcher, MempoolMonitor, TradingService, WalletService).
+    -   `src/routes/`: Modular Flask blueprints for the API.
+    -   `src/utils/`: Database helpers and response utilities.
+-   **`frontend/`**: Modern React SPA powered by Vite and Tailwind CSS.
+    -   `src/components/`: Modular UI components and layout.
+    -   `src/pages/`: Feature-rich pages (Dashboard, Scanner, Trading, etc.).
+    -   `src/contexts/`: Global state management via React Context.
 
-## 🔧 Installation & Setup (Development)
+## 🔧 Installation & Setup
 
 ### Prerequisites:
 - Python 3.11+
-- Node.js (for pnpm)
-- pnpm
+- Node.js & pnpm
 
-### Environment Variables:
-Create a `.env` file in the `backend` directory:
-```
-DEXSCREENER_API_KEY="YOUR_DEXSCREENER_API_KEY"
-BIRDEYE_API_KEY="YOUR_BIRDEYE_API_KEY"
-LLM7_API_KEY="YOUR_LLM7_API_KEY"
-SOLANA_PRIVATE_KEY="YOUR_SOLANA_WALLET_PRIVATE_KEY_BASE58_ENCODED"
-SOLANA_RPC_URL="https://api.mainnet-beta.solana.com"
-SOLANA_WS_URL="wss://api.mainnet-beta.solana.com/"
-```
-**WARNING:** Never commit your private key or API keys to version control.
-
-### Backend:
-
-```bash
-cd backend
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-python src/main.py
-```
-
-### Frontend:
-
-```bash
-cd frontend
-pnpm install
-pnpm run dev
-```
-
-### Quick Start (Both):
-
+### Quick Start:
 ```bash
 chmod +x start_dev.sh
 ./start_dev.sh
 ```
 
-## 🛡️ What's New in v3.0.0
+### Environment Variables (.env):
+Create `backend/.env`:
+```
+DEXSCREENER_API_KEY="..."
+BIRDEYE_API_KEY="..."
+LLM7_API_KEY="..."
+SOLANA_PRIVATE_KEY="..."
+SOLANA_RPC_URL="..."
+SOLANA_WS_URL="..."
+```
 
-- **All 12 critical bugs fixed** — No more crashes from undefined variables, broken imports, or Flask async incompatibility
-- **All 16 mock/dummy data instances removed** — Dashboard, Trading, Analytics, Watchlist, Sidebar all use real API data
-- **Real SOL price via Jupiter API** — Wallet page shows real USD values, not hardcoded 0
-- **Socket.IO integration** — Replaced raw WebSocket with socket.io-client for reliable real-time updates
-- **Real notifications** — Navbar notifications driven by WebSocket events instead of hardcoded
-- **Watchlist with localStorage** — Persisted watchlist with real token lookup, no dummy PEPE/BONK data
-- **Sidebar with live stats** — Performance stats fetched from API instead of hardcoded numbers
-- **95 stale branches cleaned** — Only master branch remains
-- **eventlet monkey_patch** — Proper Flask async compatibility
-- **python-dotenv** — Environment variables loaded properly
+## 🛡️ Evolution to v3.3.0
+
+- **v3.3.0 (Ultimate Intelligence Upgrade):** Added social metadata extraction and enhanced AI logic.
+- **v3.2.0 (Ultimate Autonomous Upgrade):** Introduced the Service Watchdog and autonomous resilience.
+- **v3.1.0 (Advanced Filtering Upgrade):** Implemented dynamic mempool filtering and threshold configuration.
+- **v3.0.0 (Grand Consolidation):** Finalized the production baseline, removed all mocks, and established 100% real-API integration.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+Contributions are welcome! Please follow the `CONTRIBUTING.md` guidelines.
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ---
-
-## Creator
-
-**Mulky Malikul Dhaher**  
-📧 Contact: [mulkymalikuldhaher@email.com](mailto:mulkymalikuldhaher@email.com)
-
----
-
-## ⚠️ Disclaimer
-
-**English:** This project is for Education Purpose only. Use at your own risk. We are not responsible for any financial losses, damages, or risks arising from the use of this software. Cryptocurrency trading involves significant risk and may result in the loss of your capital.
-
-**Bahasa Indonesia:** Proyek ini hanya untuk tujuan Pendidikan. Gunakan dengan risiko Anda sendiri. Kami tidak bertanggung jawab atas kerugian keuangan, kerusakan, atau risiko yang timbul dari penggunaan perangkat lunak ini. Perdagangan cryptocurrency melibatkan risiko signifikan dan dapat mengakibatkan hilangnya modal Anda.
-
-**中文:** 本项目仅供教育目的。使用风险自负。我们不对因使用本软件而产生的任何财务损失、损害或风险承担责任。加密货币交易涉及重大风险，可能导致您的资本损失。
+**Creator:** Mulky Malikul Dhaher
+**Disclaimer:** This project is for Educational Purposes only. Use at your own risk.
