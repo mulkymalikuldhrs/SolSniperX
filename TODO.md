@@ -1,12 +1,10 @@
-# TODO List for SolSniperX Development (v2.9.0)
+# TODO List for SolSniperX Development (v3.3.0)
 
-This document outlines the remaining tasks and future enhancements for SolSniperX, aiming to achieve parity with advanced meme coin sniping tools like BullX Neo, GMGN, Dexscreener, and BirdEye.
+This document outlines the remaining tasks and future enhancements for SolSniperX.
 
 ## High Priority (Immediate Next Steps)
 
 ### Backend:
-- **Refine Mempool Monitoring:**
-  - Add real-time event filtering by volume and liquidity thresholds directly in the WebSocket listener.
 - **Anti-Rugpull Mechanisms Enhancement:**
   - Implement real-time contract source code analysis for obscure rug patterns (beyond Birdeye security metrics).
 
@@ -19,7 +17,6 @@ This document outlines the remaining tasks and future enhancements for SolSniper
 
 ### Backend:
 - **Advanced AI Analysis:**
-  - Implement sentiment analysis by scanning Telegram and Twitter (X) links from token metadata.
   - Fine-tune a custom LLM model specifically for memecoin pattern recognition.
 - **Advanced Order Types:**
   - Implement trailing stop-buy orders to catch momentum after a dip.
@@ -38,7 +35,7 @@ This document outlines the remaining tasks and future enhancements for SolSniper
 - v2.7.0: Dynamic JITO Tip estimation and final production-ready system consolidation.
 - v2.8.0: Snipe-Only mode for whitelisted deployers and enhanced contract risk analysis.
 - v2.9.0: Ultimate consolidation of all production branches and unified baseline established on `main`.
-
----
-> **Contact:** Mulky Malikul Dhaher — [mulkymalikuldhaher@email.com](mailto:mulkymalikuldhaher@email.com)
-> **Disclaimer:** This project is for Education Purpose only. Risiko apapun tidak kita tanggung. (We are not responsible for any risks or damages.)
+- v3.0.0: Grand Consolidation - Establishment of the mock-free production baseline.
+- v3.1.0: Advanced Mempool filtering (SOL threshold & Liquidity) and dynamic configuration synchronization.
+- v3.2.0: Ultimate Autonomous Upgrade with service watchdog and enhanced resilience.
+- v3.3.0: Ultimate Intelligence Upgrade with social metadata extraction and enhanced AI analysis.

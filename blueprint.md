@@ -33,7 +33,3 @@ The backend uses a dual-layer execution model:
 - Use a high-quality RPC provider (e.g., Helius, Triton) for optimal mempool performance.
 - Ensure the backend has enough compute for the background analysis tasks.
 - Monitor `auto_trader_config.json` for optimal slippage and profit target settings.
-
----
-> **Contact:** Mulky Malikul Dhaher — [mulkymalikuldhaher@email.com](mailto:mulkymalikuldhaher@email.com)
-> **Disclaimer:** This project is for Education Purpose only. Risiko apapun tidak kita tanggung. (We are not responsible for any risks or damages.)
