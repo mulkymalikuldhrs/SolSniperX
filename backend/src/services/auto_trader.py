@@ -39,12 +39,26 @@ class AutoTraderService:
     def set_loop(self, loop):
         self.background_loop = loop
 
-    def post_init(self):
+    async def post_init(self):
         """Called after all dependencies are injected."""
         # Load active positions from database
-        db_positions = get_active_positions()
+        db_positions = await asyncio.to_thread(get_active_positions)
         self.owned_tokens = {p['token_address']: p for p in db_positions}
         logger.info(f"Loaded {len(self.owned_tokens)} active positions from DB.")
+
+        # Sync mempool filters from config
+        self._sync_mempool_filters()
+
+    def _sync_mempool_filters(self):
+        """Syncs config filters to MempoolMonitorService."""
+        try:
+            from services.mempool_monitor import mempool_monitor_service
+            mempool_monitor_service.set_filters(
+                min_sol_threshold=self.config.get("mempool_min_sol_threshold", 0.1),
+                min_liquidity=self.config.get("mempool_min_liquidity", 1000)
+            )
+        except Exception as e:
+            logger.error(f"Error syncing mempool filters: {e}")
 
     def _load_config(self) -> Dict:
         if os.path.exists(CONFIG_FILE):
@@ -73,7 +87,9 @@ class AutoTraderService:
             "use_vwap_filter": True,
             "jito_tip_sol": 0.001,
             "snipe_only_mode": False,
-            "whitelisted_deployers": []
+            "whitelisted_deployers": [],
+            "mempool_min_sol_threshold": 0.1,
+            "mempool_min_liquidity": 1000
         }
 
     def _save_config(self):
@@ -86,12 +102,16 @@ class AutoTraderService:
     def update_config(self, new_config: Dict):
         self.config.update(new_config)
         self._save_config()
+        self._sync_mempool_filters()
 
     def get_config(self) -> Dict:
         return self.config
 
     def start_trading(self):
-        if not self.trading_enabled:
+        # Check if already running and task is active
+        is_task_active = self.trade_loop_task and not self.trade_loop_task.done()
+
+        if not self.trading_enabled or not is_task_active:
             self.trading_enabled = True
 
             if self.background_loop and self.background_loop.is_running():
@@ -99,6 +119,7 @@ class AutoTraderService:
             else:
                 self.trade_loop_task = asyncio.create_task(self._trade_loop())
 
+            logger.info("AutoTrader: Trading started/restarted.")
             if self.socketio:
                 self.socketio.emit('trading_status', {'enabled': True, 'message': 'Automated trading started.'})
 
@@ -301,23 +322,31 @@ class AutoTraderService:
         if token_address in self.owned_tokens:
             return
 
-        # RugCheck.xyz Full API Integration
-        try:
-            logger.info(f"AutoTrader: Performing RugCheck for {token_address}...")
-            response = await self.http_client.get(f"https://api.rugcheck.xyz/v1/tokens/{token_address}/report")
-            if response.status_code == 200:
-                rug_report = response.json()
-                score = rug_report.get('score', 0)
-                max_allowed_score = self.config.get("rugcheck_max_score", 5000)
+        # RugCheck.xyz Full API Integration with retry logic
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                logger.info(f"AutoTrader: Performing RugCheck for {token_address} (Attempt {attempt+1})...")
+                response = await self.http_client.get(f"https://api.rugcheck.xyz/v1/tokens/{token_address}/report", timeout=10.0)
+                if response.status_code == 200:
+                    rug_report = response.json()
+                    score = rug_report.get('score', 0)
+                    max_allowed_score = self.config.get("rugcheck_max_score", 5000)
 
-                if score > max_allowed_score:
-                    logger.warning(f"AutoTrader: Skipping {token.get('symbol', token_address)} - RugCheck score ({score}) exceeds max allowed ({max_allowed_score}).")
-                    return
-                logger.info(f"AutoTrader: RugCheck passed for {token_address} with score: {score}")
-            else:
-                logger.warning(f"AutoTrader: RugCheck API returned status {response.status_code}. Proceeding with caution.")
-        except Exception as e:
-            logger.error(f"AutoTrader: RugCheck failed for {token_address}: {e}")
+                    if score > max_allowed_score:
+                        logger.warning(f"AutoTrader: Skipping {token.get('symbol', token_address)} - RugCheck score ({score}) exceeds max allowed ({max_allowed_score}).")
+                        return
+                    logger.info(f"AutoTrader: RugCheck passed for {token_address} with score: {score}")
+                    break # Success
+                else:
+                    logger.warning(f"AutoTrader: RugCheck API returned status {response.status_code}. Proceeding with caution.")
+                    break # Don't retry on non-200 if it's not a timeout/connection error
+            except Exception as e:
+                logger.error(f"AutoTrader: RugCheck attempt {attempt+1} failed for {token_address}: {e}")
+                if attempt < max_retries - 1:
+                    await asyncio.sleep(2)
+                else:
+                    logger.error(f"AutoTrader: All RugCheck retries failed for {token_address}. Proceeding with caution.")
 
         # Additional Contract Risk Analysis
         if not await self._check_contract_risk(token_address):
