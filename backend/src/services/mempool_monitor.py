@@ -41,6 +41,14 @@ class MempoolMonitorService:
         self.new_token_callbacks = []
         self._token_buffer = []
         self._buffer_lock = asyncio.Lock()
+        self.min_sol_threshold = 0.1
+        self.min_liquidity = 1000
+
+    def set_filters(self, min_sol_threshold: float, min_liquidity: float):
+        """Updates the filtering criteria for mempool events."""
+        self.min_sol_threshold = min_sol_threshold
+        self.min_liquidity = min_liquidity
+        logger.info(f"Mempool filters updated: min_sol={min_sol_threshold}, min_liq={min_liquidity}")
 
     def on_rugpull(self, callback):
         self.rugpull_callbacks.append(callback)
@@ -165,8 +173,8 @@ class MempoolMonitorService:
             )
             if tx_resp and tx_resp.value:
                 sol_amount = await self._get_sol_transfer_amount(tx_resp.value.transaction)
-                if sol_amount < 0.1:
-                    logger.debug(f"Ignoring transaction {signature} with small SOL transfer: {sol_amount} SOL")
+                if sol_amount < self.min_sol_threshold:
+                    logger.debug(f"Ignoring transaction {signature} with small SOL transfer: {sol_amount} SOL (threshold: {self.min_sol_threshold})")
                     return
         except Exception as e:
             logger.warning(f"Could not fetch transaction for pre-filtering: {e}")
@@ -275,6 +283,13 @@ class MempoolMonitorService:
         token_details = None
         if self.data_fetcher_service:
             token_details = await self.data_fetcher_service.get_token_by_address(mint_address)
+
+            # Liquidity Filtering
+            if token_details:
+                liquidity = token_details.get('liquidity', 0)
+                if liquidity < self.min_liquidity:
+                    logger.info(f"Ignoring new token {mint_address} due to low liquidity: {liquidity} (threshold: {self.min_liquidity})")
+                    return
 
         if not token_details:
             token_details = {
