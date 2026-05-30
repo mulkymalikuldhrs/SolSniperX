@@ -317,12 +317,16 @@ class TradingService:
                 if response.value and response.value[0]:
                     status = response.value[0]
                     if status.err:
-                        logger.error(f"Transaction failed: {status.err}")
+                        logger.error(f"Transaction failed for {signature}: {status.err}")
+                        # If it's a specific RPC error, log it for debugging
+                        if hasattr(status.err, '__dict__'):
+                            logger.error(f"Detailed RPC error: {status.err.__dict__}")
                         return False
                     if status.confirmation_status in ['confirmed', 'finalized']:
+                        logger.info(f"Transaction confirmed: {signature} ({status.confirmation_status})")
                         return True
             except Exception as e:
-                logger.debug(f"Error polling signature status: {e}")
+                logger.debug(f"Error polling signature status for {signature}: {e}")
 
             await asyncio.sleep(retry_interval)
             retry_interval = min(retry_interval * 1.2, 10.0) # Adaptive polling
