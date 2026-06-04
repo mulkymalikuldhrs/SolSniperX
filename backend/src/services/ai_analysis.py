@@ -91,6 +91,9 @@ class AIAnalysisService:
         """
         Creates a detailed prompt for the LLM based on token data.
         """
+        websites = token_data.get('websites', [])
+        socials = token_data.get('socials', [])
+
         prompt = f"""Analyze the following Solana memecoin data and provide a comprehensive report in JSON format.
         Focus on identifying high-probability trading opportunities and potential rugpull risks. 
 
@@ -108,6 +111,8 @@ class AIAnalysisService:
         - Buy/Sell Ratio: {token_data.get('buy_sell_ratio', 0):.2f}
         - Top Holder Percentage: {token_data.get('top_holder_percentage', 0):.2f}%
         - Dev Wallet Active: {token_data.get('dev_wallet_active', False)}
+        - Websites: {", ".join(websites) if websites else "None"}
+        - Socials: {", ".join(socials) if socials else "None"}
 
         You MUST respond with a JSON object exactly like this:
         {{
