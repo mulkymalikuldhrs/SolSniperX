@@ -40,11 +40,7 @@ async def get_token_history(token_address):
     data_fetcher_service = current_app.services['data_fetcher']
     try:
         interval = request.args.get('interval', '1h')
-        # Validate interval to prevent injection
-        if interval not in ('1m', '5m', '15m', '30m', '1h', '4h', '1d', '1w'):
-            interval = '1h'
         limit = int(request.args.get('limit', 24))
-        limit = max(1, min(limit, 200))  # Clamp to prevent abuse
         
         history = await data_fetcher_service.get_historical_prices(token_address, interval, limit)
         
