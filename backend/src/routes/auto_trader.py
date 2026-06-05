@@ -7,15 +7,6 @@ from utils.responses import success_response, error_response
 logger = logging.getLogger(__name__)
 auto_trader_bp = Blueprint('auto_trader_bp', __name__, url_prefix='/api/auto-trader')
 
-# Allowed config keys that can be updated via API
-ALLOWED_CONFIG_KEYS = {
-    'min_liquidity', 'max_liquidity', 'max_age_hours', 'min_volume_24h',
-    'min_ai_probability_score', 'buy_amount_sol', 'slippage',
-    'take_profit_tiers', 'stop_loss_percentage', 'trailing_stop_loss_percentage',
-    'max_risk_score', 'rugcheck_max_score', 'use_vwap_filter',
-    'jito_tip_sol', 'snipe_only_mode', 'whitelisted_deployers'
-}
-
 @auto_trader_bp.route('/start', methods=['POST'])
 async def start_auto_trader():
     """Starts the automated trading bot."""
@@ -51,20 +42,11 @@ def get_auto_trader_config():
 
 @auto_trader_bp.route('/config', methods=['POST'])
 def update_auto_trader_config():
-    """Updates the auto trader configuration. Only whitelisted keys are accepted."""
+    """Updates the auto trader configuration."""
     auto_trader_service = current_app.services['auto_trader']
     try:
         new_config = request.get_json()
-        if not new_config:
-            return error_response('Request body is required', 400)
-        
-        # Filter to only allowed keys (prevents setting arbitrary attributes)
-        filtered_config = {k: v for k, v in new_config.items() if k in ALLOWED_CONFIG_KEYS}
-        
-        if not filtered_config:
-            return error_response('No valid configuration keys provided', 400)
-        
-        auto_trader_service.update_config(filtered_config)
+        auto_trader_service.update_config(new_config)
         return success_response(message='Auto trader configuration updated successfully.')
     except Exception as e:
         logger.error(f"Error updating auto trader config: {str(e)}")
