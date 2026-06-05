@@ -23,3 +23,14 @@ video/
 
 # Environment
 .env
+.env.local
+.env.production
+.env.*.local
+
+# Build artifacts
+dist/
+.next/
+.vercel/
+
+# Replit
+.replit

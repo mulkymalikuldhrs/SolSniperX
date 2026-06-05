@@ -1,5 +1,6 @@
 import eventlet
 eventlet.monkey_patch()
+import os
 from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
@@ -37,8 +38,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(level
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-CORS(app, origins="*")
-socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
+CORS(app, origins=os.getenv('CORS_ORIGIN', 'http://localhost:5173'))
+socketio = SocketIO(app, cors_allowed_origins=os.getenv('CORS_ORIGIN', 'http://localhost:5173'), async_mode='eventlet')
 
 # Service definitions will be updated in __main__
 app.services = {}
