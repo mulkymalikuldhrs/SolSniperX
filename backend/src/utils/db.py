@@ -11,6 +11,7 @@ DATABASE_PATH = os.path.join(os.path.dirname(__file__), '..', 'database', 'app.d
 def get_db_connection():
     conn = sqlite3.connect(DATABASE_PATH, timeout=20)
     conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA journal_mode=WAL")  # Better concurrency support
     return conn
 
 def init_db():
@@ -102,7 +103,7 @@ def record_trade(trade_data):
         ))
         conn.commit()
     except sqlite3.IntegrityError:
-        pass # Already exists
+        logger.debug(f"Trade already recorded: {trade_data.get('transaction_id')}")
     except Exception as e:
         logger.error(f"Error recording trade: {e}")
     finally:

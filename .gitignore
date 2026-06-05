@@ -4,6 +4,8 @@ backend/venv/
 __pycache__/
 *.pyc
 .pytest_cache/
+.mypy_cache/
+*.egg-info/
 
 # Node
 node_modules/
@@ -34,3 +36,16 @@ dist/
 
 # Replit
 .replit
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Auto-trader config (contains user-specific trading parameters)
+auto_trader_config.json

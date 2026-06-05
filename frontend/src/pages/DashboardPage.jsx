@@ -146,7 +146,7 @@ export default function DashboardPage() {
             </div>
             <div className="text-right">
               <p className="text-2xl font-bold text-green-400">
-                {dashboardData?.stats.totalProfit.toFixed(4)}
+                {dashboardData?.stats?.totalProfit?.toFixed(4) ?? '0.0000'}
               </p>
               <p className="text-sm text-muted-foreground">Total Profit (SOL)</p>
             </div>
@@ -168,7 +168,7 @@ export default function DashboardPage() {
               <Target className="w-6 h-6 text-white" />
             </div>
             <div className="text-right">
-              <p className="text-2xl font-bold">{dashboardData?.stats.successRate}%</p>
+              <p className="text-2xl font-bold">{dashboardData?.stats?.successRate ?? '0.0'}%</p>
               <p className="text-sm text-muted-foreground">Win Rate</p>
             </div>
           </div>
@@ -189,7 +189,7 @@ export default function DashboardPage() {
               <Activity className="w-6 h-6 text-white" />
             </div>
             <div className="text-right">
-              <p className="text-2xl font-bold">{dashboardData?.stats.totalTrades}</p>
+              <p className="text-2xl font-bold">{dashboardData?.stats?.totalTrades ?? 0}</p>
               <p className="text-sm text-muted-foreground">Total Trades</p>
             </div>
           </div>
@@ -210,7 +210,7 @@ export default function DashboardPage() {
               <Wallet className="w-6 h-6 text-white" />
             </div>
             <div className="text-right">
-              <p className="text-2xl font-bold">{dashboardData?.stats.solBalance.toFixed(3)}</p>
+              <p className="text-2xl font-bold">{dashboardData?.stats?.solBalance?.toFixed(3) ?? '0.000'}</p>
               <p className="text-sm text-muted-foreground">SOL Balance</p>
             </div>
           </div>
@@ -367,8 +367,8 @@ export default function DashboardPage() {
             Active Positions
           </h2>
           <div className="text-sm font-semibold">
-            PnL (SOL): <span className={dashboardData?.stats.currentActivePnL >= 0 ? 'text-green-400' : 'text-red-400'}>
-              {dashboardData?.stats.currentActivePnL >= 0 ? '+' : ''}{dashboardData?.stats.currentActivePnL.toFixed(4)}
+            PnL (SOL): <span className={dashboardData?.stats?.currentActivePnL >= 0 ? 'text-green-400' : 'text-red-400'}>
+              {dashboardData?.stats?.currentActivePnL >= 0 ? '+' : ''}{dashboardData?.stats?.currentActivePnL?.toFixed(4) ?? '0.0000'}
             </span>
           </div>
         </div>

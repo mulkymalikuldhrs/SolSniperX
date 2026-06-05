@@ -17,6 +17,7 @@ class DataFetcherService:
         self._http_client = None
         self._cache = {} # {key: (data, timestamp)}
         self._cache_ttl = 60 # 60 seconds TTL
+        self._cache_max_size = 500 # Maximum cache entries to prevent memory leak
 
     def _get_from_cache(self, key: str) -> Optional[Any]:
         if key in self._cache:
@@ -29,6 +30,17 @@ class DataFetcherService:
         return None
 
     def _save_to_cache(self, key: str, data: Any):
+        # Evict expired entries if cache is getting too large
+        if len(self._cache) >= self._cache_max_size:
+            now = datetime.now().timestamp()
+            expired_keys = [k for k, (_, ts) in self._cache.items() if now - ts >= self._cache_ttl]
+            for k in expired_keys:
+                del self._cache[k]
+            # If still too large after eviction, remove oldest entries
+            if len(self._cache) >= self._cache_max_size:
+                sorted_keys = sorted(self._cache.keys(), key=lambda k: self._cache[k][1])
+                for k in sorted_keys[:len(self._cache) - self._cache_max_size + 50]:
+                    del self._cache[k]
         self._cache[key] = (data, datetime.now().timestamp())
 
     @property

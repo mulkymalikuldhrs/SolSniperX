@@ -180,13 +180,14 @@ class WalletService:
         wallet_info = await self.get_wallet_info()
         if wallet_info:
             return {
+                'address': wallet_info['address'],
                 'sol_balance': wallet_info['sol_balance'],
                 'usd_value': wallet_info['usd_value'],
                 'tokens': wallet_info['tokens'],
                 'total_value_usd': wallet_info['total_value_usd'],
                 'last_updated': wallet_info['last_updated']
             }
-        return {'sol_balance': 0, 'usd_value': 0, 'tokens': [], 'total_value_usd': 0, 'last_updated': datetime.now().isoformat()}
+        return {'address': str(self.wallet_address) if self.wallet_address else None, 'sol_balance': 0, 'usd_value': 0, 'tokens': [], 'total_value_usd': 0, 'last_updated': datetime.now().isoformat()}
 
     async def get_token_balance(self, mint_address: str) -> float:
         """

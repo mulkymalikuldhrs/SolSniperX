@@ -14,9 +14,14 @@ async def scan_tokens():
     data_fetcher_service = current_app.services['data_fetcher']
     try:
         data = request.get_json() or {}
-        min_liquidity = data.get('minLiquidity', 10000)
-        max_age_hours = data.get('maxAge', 24)
-        min_volume = data.get('minVolume', 50000)
+        
+        # Validate and clamp scan parameters to prevent abuse
+        try:
+            min_liquidity = max(0, min(float(data.get('minLiquidity', 10000)), 1e9))
+            max_age_hours = max(0, min(float(data.get('maxAge', 24)), 8760))  # Max 1 year
+            min_volume = max(0, min(float(data.get('minVolume', 50000)), 1e9))
+        except (TypeError, ValueError):
+            return error_response('Invalid scan parameters - must be numbers', 400)
         
         all_tokens = await data_fetcher_service.get_all_tokens()
         filtered_tokens = []

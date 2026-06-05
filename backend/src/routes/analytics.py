@@ -71,6 +71,8 @@ async def get_transactions():
     """Get recent transactions/trades"""
     try:
         limit = int(request.args.get('limit', 50))
+        # Clamp limit to prevent abuse
+        limit = max(1, min(limit, 200))
         trades = get_recent_trades(limit=limit)
         return success_response(data=trades, count=len(trades))
     except Exception as e:

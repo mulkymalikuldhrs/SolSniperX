@@ -218,6 +218,14 @@ class TradingService:
                 "status": "confirmed" if confirmed else "pending",
                 "timestamp": datetime.now().isoformat()
             }
+            # Enrich with token symbol from data fetcher if available
+            if self.data_fetcher_service:
+                try:
+                    token_info = await self.data_fetcher_service.get_token_by_address(token_address)
+                    if token_info:
+                        trade_data["token_symbol"] = token_info.get('symbol', 'UNKNOWN')
+                except Exception:
+                    pass
             if self.socketio:
                 self.socketio.emit('trade_executed', trade_data)
 
@@ -293,6 +301,14 @@ class TradingService:
                 "status": "confirmed" if confirmed else "pending",
                 "timestamp": datetime.now().isoformat()
             }
+            # Enrich with token symbol from data fetcher if available
+            if self.data_fetcher_service:
+                try:
+                    token_info = await self.data_fetcher_service.get_token_by_address(token_address)
+                    if token_info:
+                        trade_data["token_symbol"] = token_info.get('symbol', 'UNKNOWN')
+                except Exception:
+                    pass
             if self.socketio:
                 self.socketio.emit('trade_executed', trade_data)
 

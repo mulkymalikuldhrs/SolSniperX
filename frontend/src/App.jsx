@@ -21,8 +21,6 @@ import './App.css'
 function App() {
   const [isLoading, setIsLoading] = useState(true)
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [showLoginModal, setShowLoginModal] = useState(false)
-  const [showRegisterModal, setShowRegisterModal] = useState(false)
 
   useEffect(() => {
     // App initialization
