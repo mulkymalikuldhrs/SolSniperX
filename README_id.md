@@ -180,7 +180,7 @@ Proyek ini dilisensikan di bawah Lisensi MIT. Lihat [LICENSE](./LICENSE) untuk d
 
 **Mulky Malikul Dhaher**
 
-- Email: mulkymalikuldhaher@email.com
+- Email: mulkymalikudhr@mail.com
 - GitHub: [@mulkymalikuldhrs](https://github.com/mulkymalikuldhrs)
 
 ## Penyanggahan

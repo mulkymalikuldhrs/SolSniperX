@@ -1,10 +1,12 @@
-# SolSniperX v3.0.0 — Production-Ready AI-Powered Solana Memecoin Sniper Bot
+# SolSniperX — AI-Powered Solana Memecoin Sniper Bot
 
-[![Production Ready](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)]()
-[![Version](https://img.shields.io/badge/Version-3.0.0-blue)]()
+[![Status](https://img.shields.io/badge/Status-Alpha-orange)]()
+[![Version](https://img.shields.io/badge/Version-0.3.0--alpha-blue)]()
 [![License](https://img.shields.io/badge/License-MIT-yellow)]()
 
-SolSniperX is an advanced, AI-powered bot designed to automatically detect, analyze, and execute trades on new memecoins on the Solana blockchain. It provides real-time insights, anti-rug protection, and automated trading capabilities, all accessible through a modern and intuitive web interface.
+SolSniperX is an AI-assisted bot designed to detect, analyze, and execute trades on new memecoins on the Solana blockchain. It provides real-time insights, anti-rug protection, and automated trading capabilities, all accessible through a modern web interface.
+
+> **Status**: This project is in **Alpha** stage. Use at your own risk. Not recommended for production trading with real funds.
 
 ## 🚀 Key Features
 
@@ -78,18 +80,16 @@ chmod +x start_dev.sh
 ./start_dev.sh
 ```
 
-## 🛡️ What's New in v3.0.0
+## 🛡️ Recent Changes
 
-- **All 12 critical bugs fixed** — No more crashes from undefined variables, broken imports, or Flask async incompatibility
-- **All 16 mock/dummy data instances removed** — Dashboard, Trading, Analytics, Watchlist, Sidebar all use real API data
-- **Real SOL price via Jupiter API** — Wallet page shows real USD values, not hardcoded 0
-- **Socket.IO integration** — Replaced raw WebSocket with socket.io-client for reliable real-time updates
-- **Real notifications** — Navbar notifications driven by WebSocket events instead of hardcoded
-- **Watchlist with localStorage** — Persisted watchlist with real token lookup, no dummy PEPE/BONK data
-- **Sidebar with live stats** — Performance stats fetched from API instead of hardcoded numbers
-- **95 stale branches cleaned** — Only master branch remains
-- **eventlet monkey_patch** — Proper Flask async compatibility
-- **python-dotenv** — Environment variables loaded properly
+- Fixed critical crashes from undefined variables and broken imports
+- Removed mock/dummy data — components use real API data
+- Real SOL price via Jupiter API
+- Socket.IO integration for real-time updates
+- Watchlist with localStorage persistence
+- Sidebar with live stats from API
+- eventlet monkey_patch for Flask async compatibility
+- python-dotenv for environment variable loading
 
 ## 🤝 Contributing
 
@@ -107,10 +107,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## Creator
+## Author
 
 **Mulky Malikul Dhaher**  
-📧 Contact: [mulkymalikuldhaher@email.com](mailto:mulkymalikuldhaher@email.com)
+📧 Email: [mulkymalikudhr@mail.com](mailto:mulkymalikudhr@mail.com)  
+🔗 GitHub: [mulkymalikuldhrs](https://github.com/mulkymalikuldhrs)
 
 ---
 

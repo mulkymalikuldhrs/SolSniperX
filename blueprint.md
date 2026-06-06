@@ -35,5 +35,5 @@ The backend uses a dual-layer execution model:
 - Monitor `auto_trader_config.json` for optimal slippage and profit target settings.
 
 ---
-> **Contact:** Mulky Malikul Dhaher — [mulkymalikuldhaher@email.com](mailto:mulkymalikuldhaher@email.com)
+> **Contact:** Mulky Malikul Dhaher — [mulkymalikudhr@mail.com](mailto:mulkymalikudhr@mail.com)
 > **Disclaimer:** This project is for Education Purpose only. Risiko apapun tidak kita tanggung. (We are not responsible for any risks or damages.)

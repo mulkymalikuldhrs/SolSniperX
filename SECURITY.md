@@ -17,7 +17,7 @@ We take the security of SolSniperX seriously. If you discover a security vulnera
 
 If you discover a security vulnerability within SolSniperX, please report it by:
 
-1. **Email:** Send a detailed report to **mulkymalikuldhaher@email.com**
+1. **Email:** Send a detailed report to **mulkymalikudhr@mail.com**
 2. **Do NOT** create a public GitHub issue for security vulnerabilities
 3. Include the following in your report:
    - Type of vulnerability
@@ -40,4 +40,4 @@ We will acknowledge your report within 48 hours and provide a detailed response 
 
 This software is for educational and research purposes only. Trading cryptocurrencies, especially memecoins, involves significant risk and can result in substantial financial losses. The authors are not responsible for any financial decisions made using this tool. Always do your own research and never invest more than you can afford to lose.
 
-**Contact:** Mulky Malikul Dhaher | mulkymalikuldhaher@email.com
+**Contact:** Mulky Malikul Dhaher | mulkymalikudhr@mail.com

@@ -509,5 +509,5 @@ For production deployment, consider the following:
 
 **Mulky Malikul Dhaher**
 
-- Email: mulkymalikuldhaher@email.com
+- Email: mulkymalikudhr@mail.com
 - GitHub: [@mulkymalikuldhrs](https://github.com/mulkymalikuldhrs)
