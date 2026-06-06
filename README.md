@@ -91,6 +91,15 @@ chmod +x start_dev.sh
 - eventlet monkey_patch for Flask async compatibility
 - python-dotenv for environment variable loading
 
+## 🔒 Security Notice
+
+- **Never commit your `.env` file or private keys to version control.**
+- **SOLANA_PRIVATE_KEY** grants full access to your wallet funds. Store it securely.
+- This project is in **Alpha** — use only with test wallets and small amounts.
+- Report security vulnerabilities to [mulkymalikudhr@mail.com](mailto:mulkymalikudhr@mail.com).
+
+---
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
@@ -107,11 +116,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## Author
+## 👤 Author
 
-**Mulky Malikul Dhaher**  
-📧 Email: [mulkymalikudhr@mail.com](mailto:mulkymalikudhr@mail.com)  
-🔗 GitHub: [mulkymalikuldhrs](https://github.com/mulkymalikuldhrs)
+**Mulky Malikul Dhaher**
+- Email: [mulkymalikudhr@mail.com](mailto:mulkymalikudhr@mail.com)
+- GitHub: [mulkymalikuldhrs](https://github.com/mulkymalikuldhrs)
 
 ---
 
