@@ -76,15 +76,11 @@ export default function TradingPage() {
       const configResult = await getAutoTraderConfig()
       if (configResult.success) {
         const cfg = configResult.data
-        // Derive take profit from the first take_profit_tier if available
-        const firstTier = (cfg.take_profit_tiers && cfg.take_profit_tiers.length > 0)
-          ? cfg.take_profit_tiers[0].target_x
-          : 2.0
         setTradingSettings({
           buyAmount: cfg.buy_amount_sol || 0.05,
           slippage: cfg.slippage || 1.0,
-          takeProfit: (firstTier - 1) * 100 || 200,
-          stopLoss: (cfg.stop_loss_percentage || 0.15) * 100,
+          takeProfit: (cfg.profit_target_x - 1) * 100 || 200,
+          stopLoss: cfg.stop_loss_percentage * 100 || 20,
           maxRisk: cfg.max_risk_score || 30
         })
       }
@@ -100,10 +96,7 @@ export default function TradingPage() {
       const configToSave = {
         buy_amount_sol: tradingSettings.buyAmount,
         slippage: tradingSettings.slippage,
-        take_profit_tiers: [
-          { target_x: 1 + (tradingSettings.takeProfit / 100), sell_percentage: 0.5 },
-          { target_x: 1 + (tradingSettings.takeProfit / 100) * 1.5, sell_percentage: 1.0 }
-        ],
+        profit_target_x: 1 + (tradingSettings.takeProfit / 100),
         stop_loss_percentage: tradingSettings.stopLoss / 100,
         max_risk_score: tradingSettings.maxRisk
       }
