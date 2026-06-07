@@ -180,7 +180,7 @@ pnpm run dev
 
 **Mulky Malikul Dhaher**
 
-- 电子邮件：mulkymalikudhr@mail.com
+- 电子邮件：mulkymalikuldhaher@email.com
 - GitHub：[@mulkymalikuldhrs](https://github.com/mulkymalikuldhrs)
 
 ## 免责声明
