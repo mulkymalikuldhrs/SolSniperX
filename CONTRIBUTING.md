@@ -50,7 +50,7 @@ Be respectful and constructive. We're all here to learn and build together.
 
 ## 📬 Contact
 
-**Mulky Malikul Dhaher** — [mulkymalikudhr@mail.com](mailto:mulkymalikudhr@mail.com)
+**Mulky Malikul Dhaher** — [mulkymalikuldhaher@email.com](mailto:mulkymalikuldhaher@email.com)
 
 GitHub: [https://github.com/mulkymalikuldhrs](https://github.com/mulkymalikuldhrs)
 
