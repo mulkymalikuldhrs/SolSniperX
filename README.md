@@ -1,133 +1,193 @@
-# SolSniperX — AI-Powered Solana Memecoin Sniper Bot
+<!-- BANNER -->
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:1a0033,50:2d0066,100:400099&fontColor=a78bfa&descColor=fbbf24&height=220&section=header&text=SolSniperX&fontSize=70&desc=Solana%20Memecoin%20Sniper%20Bot&animation=fadeIn" />
 
-[![Status](https://img.shields.io/badge/Status-Alpha-orange)]()
-[![Version](https://img.shields.io/badge/Version-0.3.0--alpha-blue)]()
-[![License](https://img.shields.io/badge/License-MIT-yellow)]()
+<!-- TYPING SVG -->
+<div align="center">
+  <a href="https://git.io/typing-svg">
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=3000&pause=1000&color=A78BFA&center=true&vCenter=true&width=600&lines=Lightning-Fast+Solana+Execution;Anti-Rug+Protection+System;Automated+Token+Sniping;High+Risk+%7C+Research+%26+Education+Only" alt="Typing SVG" />
+  </a>
+</div>
 
-SolSniperX is an AI-assisted bot designed to detect, analyze, and execute trades on new memecoins on the Solana blockchain. It provides real-time insights, anti-rug protection, and automated trading capabilities, all accessible through a modern web interface.
+<br/>
 
-> **Status**: This project is in **Alpha** stage. Use at your own risk. Not recommended for production trading with real funds.
+<!-- BADGES -->
+<div align="center">
 
-## 🚀 Key Features
+[![Solana](https://img.shields.io/badge/Solana-Web3.js-9945FF?style=for-the-badge&logo=solana&logoColor=white)](https://solana.com/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES2022-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Node.js](https://img.shields.io/badge/Node.js-20+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](./LICENSE)
 
-1.  **Real-time Token Detection:** Monitors Pump.fun, Birdeye, Dexscreener, and Solana Mempool for new token listings and early launches using optimized WebSocket connections.
-2.  **AI-Powered Analysis:** Utilizes AI (LLM7) to assess token potential, including liquidity, market cap, holder distribution, dev wallet activity, and contract red flags. The LLM informs automated buy/sell decisions and anti-rugpull strategies.
-3.  **Automated Trading Execution:** Executes buy orders automatically based on predefined parameters and auto-sells at target profits (take-profit, stop-loss, trailing stop-loss).
-4.  **Anti-Rug Protection:** Implements automatic cut-loss mechanisms if dev sells, LP is pulled, or significant price dumps occur, detected in real-time from the mempool.
-5.  **Secure Wallet Management (Private Key Based):** Connects directly to a Solana wallet using a private key provided via environment variable. No traditional login or registration is required.
-6.  **Intuitive Web Dashboard:** Provides a sleek, responsive, and interactive user interface with live watchlist, token detail view, wallet performance, and manual snipe mode.
-7.  **Advanced Analytics:** Tracks trading performance, win rates, and PnL using a persistent SQLite database.
-8.  **Real-Time Price Data:** Uses Jupiter Price API v2 for real-time SOL and token price lookups — no hardcoded or mock values.
-9.  **Socket.IO Integration:** Full real-time communication between backend and frontend for live trade events, token detection, and rugpull alerts.
-10. **Limit Orders:** Place buy/sell limit orders that execute automatically when price targets are reached.
-
-## 📁 Project Structure
-
--   **`backend/`**: Flask API for token data, AI analysis, trading logic, and Solana blockchain interaction.
-    -   `src/main.py`: Main Flask application with eventlet and background asyncio loop.
-    -   `src/services/ai_analysis.py`: AI integration with LLM7 (JSON-enforced parsing).
-    -   `src/services/wallet_service.py`: Manages the Solana wallet and fetches real balances/prices via Jupiter.
-    -   `src/services/data_fetcher.py`: Fetches real-time data from Dexscreener and Birdeye APIs.
-    -   `src/services/mempool_monitor.py`: Monitors Solana mempool for new token launches and rugpull indicators.
-    -   `src/services/trading_service.py`: Executes real Solana transactions via Jupiter V6 Aggregator.
-    -   `src/services/auto_trader.py`: Fully autonomous trading strategy with position management.
--   **`frontend/`**: React application for the user interface.
-    -   `src/App.jsx`: Main application component and routing.
-    -   `src/pages/`: Individual pages (Dashboard, TokenScanner, Trading, Wallet, Settings, Analytics).
-    -   `src/contexts/`: React Contexts for theme, API, and WebSocket.
-
-## 🔧 Installation & Setup (Development)
-
-### Prerequisites:
-- Python 3.11+
-- Node.js (for pnpm)
-- pnpm
-
-### Environment Variables:
-Create a `.env` file in the `backend` directory:
-```
-DEXSCREENER_API_KEY="YOUR_DEXSCREENER_API_KEY"
-BIRDEYE_API_KEY="YOUR_BIRDEYE_API_KEY"
-LLM7_API_KEY="YOUR_LLM7_API_KEY"
-SOLANA_PRIVATE_KEY="YOUR_SOLANA_WALLET_PRIVATE_KEY_BASE58_ENCODED"
-SOLANA_RPC_URL="https://api.mainnet-beta.solana.com"
-SOLANA_WS_URL="wss://api.mainnet-beta.solana.com/"
-```
-**WARNING:** Never commit your private key or API keys to version control.
-
-### Backend:
-
-```bash
-cd backend
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-python src/main.py
-```
-
-### Frontend:
-
-```bash
-cd frontend
-pnpm install
-pnpm run dev
-```
-
-### Quick Start (Both):
-
-```bash
-chmod +x start_dev.sh
-./start_dev.sh
-```
-
-## 🛡️ Recent Changes
-
-- Fixed critical crashes from undefined variables and broken imports
-- Removed mock/dummy data — components use real API data
-- Real SOL price via Jupiter API
-- Socket.IO integration for real-time updates
-- Watchlist with localStorage persistence
-- Sidebar with live stats from API
-- eventlet monkey_patch for Flask async compatibility
-- python-dotenv for environment variable loading
-
-## 🔒 Security Notice
-
-- **Never commit your `.env` file or private keys to version control.**
-- **SOLANA_PRIVATE_KEY** grants full access to your wallet funds. Store it securely.
-- This project is in **Alpha** — use only with test wallets and small amounts.
-- Report security vulnerabilities to [mulkymalikudhr@mail.com](mailto:mulkymalikudhr@mail.com).
+</div>
 
 ---
 
-## 🤝 Contributing
+## Overview
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+**SolSniperX** is a Solana memecoin sniper bot built with JavaScript and the Solana Web3.js SDK. Engineered for speed on the Solana blockchain, it monitors new token launches, evaluates them against configurable criteria, and executes trades in milliseconds. The bot includes anti-rug pull detection mechanisms and customizable sniping strategies for the fast-paced world of Solana memecoins.
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+> **⚠️ Extreme Risk Warning:** Memecoin trading involves extraordinary financial risk. This tool is built for educational and research purposes. You can lose your entire investment.
+
+## Features
+
+### Token Sniping Engine
+- Real-time monitoring of new Solana token launches via Raydium, Pump.fun, and other DEXs
+- Sub-second trade execution on the Solana blockchain
+- Configurable buy/sell parameters (amount, slippage, gas priority)
+- Multi-token concurrent sniping support
+
+### Anti-Rug Pull Protection
+- Liquidity lock verification
+- Mint authority renunciation checks
+- Holder distribution analysis (whale detection)
+- Contract source code scanning for suspicious patterns
+- Dev wallet tracking and abnormal activity alerts
+
+### Smart Filtering
+- Customizable token filters (name, symbol, metadata patterns)
+- Social signal integration (Twitter mentions, Telegram activity)
+- Liquidity pool minimum thresholds
+- Age-based filtering to avoid stale tokens
+
+### Trade Management
+- Automatic take-profit and stop-loss execution
+- Trailing stop functionality
+- DCA (Dollar Cost Averaging) strategies
+- Portfolio tracking with P&L calculations
+- Real-time transaction logging
+
+### Dashboard & Monitoring
+- Live wallet balance and position tracking
+- Transaction history with detailed analytics
+- Performance metrics and win/loss ratios
+- Alert system for notable events
+
+## Honest Notes
+
+> **Please read carefully before using this software:**
+
+- **Extreme Financial Risk** — Memecoin trading can result in the loss of your entire investment. This is not a guaranteed profit system. Most memecoins go to zero.
+- **Anti-Rug ≠ Rug-Proof** — The anti-rug pull detection significantly reduces risk but **cannot eliminate it**. Sophisticated rug pulls may bypass detection. Always assume risk.
+- **Educational/Research Only** — This bot is developed as an educational tool to study Solana DeFi mechanics, MEV strategies, and automated trading systems. It is not financial advice.
+- **Network Dependency** — Performance depends on Solana network conditions, RPC node speed, and regional latency. Results vary significantly based on infrastructure.
+- **Smart Contract Risk** — Interacting with unaudited smart contracts (which memecoins are) always carries risk of exploits and bugs.
+- **No Refunds, No Guarantees** — This is open-source software provided as-is. The authors are not responsible for any financial losses.
+
+## Quick Start
+
+### Prerequisites
+- Node.js 20+
+- A Solana wallet with SOL for trading
+- A dedicated RPC endpoint (Helius, QuickNode, or Triton recommended)
+- Basic understanding of Solana DeFi and memecoin markets
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/mulkymalikuldhrs/SolSniperX.git
+cd SolSniperX
+
+# Install dependencies
+npm install
+
+# Copy and configure environment
+cp .env.example .env
+```
+
+### Configuration
+
+Edit `.env` with your settings:
+```env
+# Wallet
+PRIVATE_KEY=your_base58_private_key
+
+# RPC
+SOLANA_RPC_URL=https://api.mainnet-beta.solana.com
+WS_URL=wss://api.mainnet-beta.solana.com
+
+# Trading
+BUY_AMOUNT_SOL=0.01
+SLIPPAGE_BPS=500
+PRIORITY_FEE_LAMPORTS=100000
+
+# Anti-Rug
+MIN_LIQUIDITY_SOL=5
+CHECK_MINT_RENOUNCED=true
+MAX_HOLDER_PERCENT=10
+
+# Strategy
+TAKE_PROFIT_PERCENT=100
+STOP_LOSS_PERCENT=30
+```
+
+### Running
+
+```bash
+# Start the sniper bot
+npm run start
+
+# Start with dashboard
+npm run start:dashboard
+
+# Dry-run mode (no real trades)
+npm run start:dry
+```
+
+## Project Structure
+
+```
+SolSniperX/
+├── src/
+│   ├── sniper/          # Core sniping engine
+│   │   ├── monitor.js   # New token detection
+│   │   ├── executor.js  # Trade execution
+│   │   └── filters.js   # Token filtering logic
+│   ├── protection/      # Anti-rug pull system
+│   │   ├── rugCheck.js  # Rug pull detection
+│   │   ├── holders.js   # Holder analysis
+│   │   └── liquidity.js # Liquidity verification
+│   ├── strategies/      # Trading strategies
+│   │   ├── takeProfit.js
+│   │   ├── stopLoss.js
+│   │   └── trailing.js
+│   ├── dashboard/       # Monitoring dashboard
+│   └── utils/           # Helpers & configurations
+├── config/              # Strategy configuration files
+├── logs/                # Transaction logs
+└── tests/               # Test suites
+```
+
+## Contributing
+
+1. **Fork** the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+5. Open a **Pull Request**
 
-## 📄 License
+> **Note:** PRs that add features for market manipulation, front-running retail users, or exploit-specific vulnerability targeting will not be accepted.
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Disclaimer
 
----
+**THIS SOFTWARE IS PROVIDED FOR EDUCATIONAL AND RESEARCH PURPOSES ONLY.** It is not financial advice, investment advice, or trading advice. Cryptocurrency trading, particularly memecoin trading, carries extreme risk including total loss of capital. The authors and contributors assume **no liability** for any financial losses, damages, or legal consequences arising from the use of this software. Use at your own risk. Always comply with your local laws and regulations regarding cryptocurrency trading.
 
-## 👤 Author
+## License
+
+This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
+
+## Author
+
+<div align="center">
 
 **Mulky Malikul Dhaher**
-- Email: [mulkymalikudhr@mail.com](mailto:mulkymalikudhr@mail.com)
-- GitHub: [mulkymalikuldhrs](https://github.com/mulkymalikuldhrs)
+
+[![GitHub](https://img.shields.io/badge/GitHub-mulkymalikuldhrs-181717?style=flat-square&logo=github)](https://github.com/mulkymalikuldhrs)
+[![Email](https://img.shields.io/badge/Email-mulkymalikudhr@mail.com-EA4335?style=flat-square&logo=gmail&logoColor=white)](mailto:mulkymalikudhr@mail.com)
+
+</div>
 
 ---
 
-## ⚠️ Disclaimer
-
-**English:** This project is for Education Purpose only. Use at your own risk. We are not responsible for any financial losses, damages, or risks arising from the use of this software. Cryptocurrency trading involves significant risk and may result in the loss of your capital.
-
-**Bahasa Indonesia:** Proyek ini hanya untuk tujuan Pendidikan. Gunakan dengan risiko Anda sendiri. Kami tidak bertanggung jawab atas kerugian keuangan, kerusakan, atau risiko yang timbul dari penggunaan perangkat lunak ini. Perdagangan cryptocurrency melibatkan risiko signifikan dan dapat mengakibatkan hilangnya modal Anda.
-
-**中文:** 本项目仅供教育目的。使用风险自负。我们不对因使用本软件而产生的任何财务损失、损害或风险承担责任。加密货币交易涉及重大风险，可能导致您的资本损失。
+<!-- FOOTER BANNER -->
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:1a0033,50:2d0066,100:400099&fontColor=a78bfa&descColor=fbbf24&height=120&section=footer&text=&fontSize=0" />
