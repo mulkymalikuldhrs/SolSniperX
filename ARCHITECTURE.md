@@ -1,6 +1,6 @@
-# Architecture Guide - SolSniperX
+# Architecture Guide - SolSniperX v3.3.0
 
-> A detailed breakdown of the SolSniperX system architecture, component interactions, data flow, and design decisions for the AI-powered Solana memecoin sniper bot.
+> A detailed breakdown of the SolSniperX v3.3.0 (Ultimate Intelligence Upgrade) system architecture, component interactions, data flow, and design decisions for the AI-powered Solana memecoin sniper bot.
 
 ## Table of Contents
 
@@ -25,7 +25,7 @@
 
 SolSniperX is an AI-powered Solana memecoin sniper bot that combines real-time on-chain monitoring with LLM-driven analysis to identify, evaluate, and automatically execute trades on newly launched tokens. The system operates on a client-server architecture with a Python Flask backend for blockchain interaction, data aggregation, and AI analysis, and a React frontend for visualization and user control.
 
-The platform is designed around four core pillars: **Speed** (mempool-level token detection), **Intelligence** (LLM-powered risk assessment and trading signals), **Safety** (anti-rug mechanisms and emergency sell capabilities), and **Autonomy** (fully automated trading with configurable parameters). These pillars ensure that SolSniperX can operate effectively in the fast-moving memecoin market while protecting user capital.
+The platform is designed around four core pillars: **Speed** (mempool-level token detection), **Intelligence** (LLM-powered risk assessment and social metadata analysis), **Safety** (anti-rug mechanisms and service watchdog), and **Autonomy** (fully automated trading with persistent position management). These pillars ensure that SolSniperX can operate effectively in the fast-moving memecoin market while protecting user capital.
 
 This project is part of the [HermesQuantOS](https://github.com/mulkymalikuldhrs/HermesQuantOS) ecosystem, extending sovereign-grade AI intelligence into decentralized markets.
 
@@ -105,18 +105,13 @@ The backend is built on Flask with Flask-SocketIO for real-time communication an
 
 The main entry point performs the following initialization steps:
 
-1. Creates the Flask application with CORS enabled for all origins
-2. Initializes Flask-SocketIO with eventlet async mode
-3. Instantiates all services in the correct dependency order:
-   - `WalletService` (no dependencies)
-   - `TradingService` (depends on socketio)
-   - `MempoolMonitorService` (depends on socketio)
-   - `DataFetcherService` (depends on socketio)
-   - `AIAnalysisService` (depends on socketio)
-   - `AutoTraderService` (depends on all other services)
-4. Registers all route blueprints
-5. Starts the mempool monitor as a background task
-6. Starts the SocketIO server on port 5000
+1. Creates the Flask application with CORS enabled for all origins.
+2. Initializes Flask-SocketIO with eventlet async mode.
+3. Instantiates all services in the correct dependency order.
+4. Registers all route blueprints.
+5. **Service Watchdog (v3.2+):** Starts a background monitoring loop to automatically restart crashed or hung mempool and auto-trader services.
+6. **Async Lifecycle Management:** Manages a dedicated `asyncio` loop in a background thread for non-blocking blockchain operations.
+7. Starts the SocketIO server on port 5000.
 
 ### Configuration (`backend/src/config.py`)
 
@@ -150,51 +145,35 @@ API endpoints are organized into modular blueprints:
 
 Responsible for aggregating token data from multiple external APIs:
 
-- **Dexscreener Integration**: Fetches real-time token prices, liquidity information, 24-hour volume, and market cap data via Dexscreener's REST API using `aiohttp` for async HTTP requests.
-- **Birdeye Integration**: Provides supplementary market data including holder distribution, transaction history, and additional price feeds.
-- **Data Normalization**: Normalizes data from different sources into a consistent internal format, handling differences in field names, data types, and response structures.
-
-The service emits `price_update` WebSocket events when significant price changes are detected for tracked tokens.
+- **Dexscreener Integration**: Fetches real-time token prices, liquidity, volume, and market cap.
+- **Social Metadata Extraction (v3.3):** Automatically extracts website URLs, X (Twitter) handles, and Telegram links from Dexscreener API to enrich AI analysis.
+- **Birdeye Integration**: Provides supplementary security metrics (holder count, top-10 concentration) and historical OHLCV data for VWAP calculation.
+- **LRU Caching:** Implements a 500-entry LRU cache to minimize API calls and improve performance.
 
 ### MempoolMonitorService (`services/mempool_monitor.py`)
 
 Connects to the Solana blockchain via WebSocket to monitor real-time transactions:
 
-- **New Token Detection**: Parses transaction instructions to identify `initializeMint` operations, which indicate new token creation. This provides the earliest possible detection of new tokens before they appear on aggregators.
-- **Rugpull Detection**: Analyzes transaction logs and token program instructions for suspicious activity:
-  - Large token transfers from dev wallets
-  - Liquidity pool removal transactions
-  - Token burns by the creator
-  - Account closure instructions
-- **Event Emission**: Emits `new_token` events for newly detected tokens and `rugpull_alert` events when suspicious activity is identified.
-
-The monitor runs as a background task started via `socketio.start_background_task()` and operates continuously while the server is running.
+- **New Token Detection**: Identifies `initializeMint` and `create` (Pump.fun) instructions for early detection.
+- **Advanced Filtering (v3.1):** Implements configurable SOL transfer and liquidity thresholds to reduce noise from micro-transactions.
+- **Rugpull Detection**: Analyzes logs for liquidity withdrawal, burns, and account closures.
+- **Autonomous Recovery:** Compatible with the Service Watchdog for automatic restarts upon connection loss.
 
 ### AIAnalysisService (`services/ai_analysis.py`)
 
-Integrates with the LLM7 Pi API for intelligent token analysis:
+Integrates with the LLM7 API for intelligent token analysis:
 
-- **Token Analysis**: Sends token data (price, liquidity, volume, holder count, contract details) to the LLM for comprehensive evaluation.
-- **Risk Assessment**: The LLM evaluates contract-level risks including honeypot potential, max transaction limits, blacklist functionality, and mint authority.
-- **Trading Signals**: Generates structured recommendations with probability scores (0-100) and risk levels (Low/Medium/High).
-- **Decision Support**: The analysis output directly feeds into the auto-trader's buy/sell decision logic.
+- **Enriched Prompts (v3.3):** Integrates social metadata (X, Telegram, Websites) into analysis prompts to improve sentiment and credibility assessment.
+- **Structured JSON Parsing:** Enforces strict JSON response formats with regex fallbacks to ensure reliable autonomous decision-making.
+- **Trading Signals**: Provides probability scores, sentiment analysis, and risk levels that drive the `AutoTraderService`.
 
 ### TradingService (`services/trading_service.py`)
 
 Executes real on-chain transactions via Jupiter Aggregator v6:
 
-- **Buy Orders**: Swaps SOL for target tokens by:
-  1. Converting SOL amount to lamports
-  2. Fetching a swap quote from Jupiter's `/quote` endpoint
-  3. Requesting swap instructions from Jupiter's `/swap` endpoint
-  4. Deserializing the base64-encoded `VersionedTransaction`
-  5. Signing with the wallet's keypair
-  6. Sending the raw transaction to the Solana RPC
-  7. Confirming the transaction on-chain
-
-- **Sell Orders**: Swaps target tokens back to SOL following the same flow, with dynamic decimal fetching for accurate token amounts.
-
-- **Emergency Sells**: Used during rugpull events with maximum slippage (100%) to ensure the fastest possible exit regardless of price impact.
+- **Dynamic JITO Support (v2.7):** Automatically estimates the 50th percentile JITO tip floor to ensure transaction landing during congestion.
+- **Limit Orders (v2.1):** Supports persistent buy/sell limit orders executed via a background polling loop.
+- **Adaptive Confirmation:** Uses exponential backoff and adaptive polling for transaction confirmation with detailed RPC error logging.
 
 ### WalletService (`services/wallet_service.py`)
 
@@ -415,23 +394,18 @@ AutoTraderService._trade_loop()
 
 ---
 
-## Technology Stack
+## Technology Stack (v3.3.0)
 
 | Layer | Technology | Version | Purpose |
 |-------|-----------|---------|---------|
-| Backend Framework | Flask | 3.1.1 | REST API server |
-| Real-Time | Flask-SocketIO + Eventlet | 5.3.0 / 0.33.3 | WebSocket communication |
-| Blockchain | solana-py | 0.29.1 | Solana RPC interaction |
-| Crypto | solders | 0.14.0 | Keypair, transaction signing |
-| HTTP Client | httpx | 0.27.0 | Async HTTP for external APIs |
+| Backend Framework | Flask | 3.1.3 | REST API server |
+| Real-Time | Flask-SocketIO + Eventlet | 5.6.1 / 0.41.0 | WebSocket communication |
+| Blockchain | solana-py | 0.36.12 | Solana RPC interaction |
+| Crypto | solders | 0.27.1 | Keypair, transaction signing |
+| HTTP Client | httpx | 0.28.1 | Async HTTP for external APIs |
 | Frontend Framework | React | 19.1 | UI components |
-| Routing | React Router | 7.6 | Client-side routing |
-| Styling | Tailwind CSS | 4.1 | Utility-first CSS |
-| UI Components | shadcn/ui + Radix | Latest | Accessible component library |
-| Build Tool | Vite | 6.3 | Fast development builds |
-| Animation | Framer Motion | 12.15 | Page transitions and UI animations |
-| Charts | Recharts | 2.15 | Data visualization |
-| Package Manager | pnpm | 10.4 | Frontend dependency management |
+| Build Tool | Vite | 6.3.5 | Fast development builds |
+| Package Manager | pnpm | 10.4.1 | Frontend dependency management |
 
 ---
 
@@ -509,5 +483,5 @@ For production deployment, consider the following:
 
 **Mulky Malikul Dhaher**
 
-- Email: mulkymalikudhr@mail.com
+- Email: mulkymalikuldhaher@email.com
 - GitHub: [@mulkymalikuldhrs](https://github.com/mulkymalikuldhrs)
