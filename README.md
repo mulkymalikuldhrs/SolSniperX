@@ -1,4 +1,3 @@
-<img src="docs/banner.png" width="100%">
 
 <!-- CAPSULE-RENDER HEADER -->
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:1a0033,50:2d0066,100:400099&fontColor=a78bfa&descColor=fbbf24&height=220&section=header&text=SolSniperX&fontSize=70&desc=Solana%20Memecoin%20Sniper%20Bot&animation=fadeIn" />
