@@ -1,4 +1,6 @@
-<!-- BANNER -->
+<img src="docs/banner.png" width="100%">
+
+<!-- CAPSULE-RENDER HEADER -->
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:1a0033,50:2d0066,100:400099&fontColor=a78bfa&descColor=fbbf24&height=220&section=header&text=SolSniperX&fontSize=70&desc=Solana%20Memecoin%20Sniper%20Bot&animation=fadeIn" />
 
 <!-- TYPING SVG -->
@@ -14,7 +16,8 @@
 <div align="center">
 
 [![Solana](https://img.shields.io/badge/Solana-Web3.js-9945FF?style=for-the-badge&logo=solana&logoColor=white)](https://solana.com/)
-[![JavaScript](https://img.shields.io/badge/JavaScript-ES2022-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Flask](https://img.shields.io/badge/Flask-3-000000?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+[![React](https://img.shields.io/badge/React-Vite-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://vitejs.dev/)
 [![Node.js](https://img.shields.io/badge/Node.js-20+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](./LICENSE)
 
@@ -24,9 +27,11 @@
 
 ## Overview
 
-**SolSniperX** is a Solana memecoin sniper bot built with JavaScript and the Solana Web3.js SDK. Engineered for speed on the Solana blockchain, it monitors new token launches, evaluates them against configurable criteria, and executes trades in milliseconds. The bot includes anti-rug pull detection mechanisms and customizable sniping strategies for the fast-paced world of Solana memecoins.
+**SolSniperX** is a Solana memecoin sniper bot built with JavaScript and the Solana Web3.js SDK, featuring a **Flask backend** and **React/Vite dashboard** for real-time monitoring. Engineered for speed on the Solana blockchain, it monitors new token launches, evaluates them against configurable criteria, and executes trades in milliseconds. The bot includes anti-rug pull detection mechanisms and customizable sniping strategies for the fast-paced world of Solana memecoins.
 
 > **⚠️ Extreme Risk Warning:** Memecoin trading involves extraordinary financial risk. This tool is built for educational and research purposes. You can lose your entire investment.
+
+---
 
 ## Features
 
@@ -56,11 +61,13 @@
 - Portfolio tracking with P&L calculations
 - Real-time transaction logging
 
-### Dashboard & Monitoring
+### Dashboard and Monitoring
 - Live wallet balance and position tracking
 - Transaction history with detailed analytics
 - Performance metrics and win/loss ratios
 - Alert system for notable events
+
+---
 
 ## Visual Architecture
 
@@ -104,9 +111,15 @@ flowchart LR
     MEMPOOL --> SCAN --> SAFETY --> EXEC --> TRACK
     WS_CONN --> TX_STREAM --> NEW_TOKEN
     NEW_TOKEN --> PARSE --> FILTER --> SCORE
-    SCORE --> RUG_CHECK & LIQ_CHECK & HOLD_CHECK
-    RUG_CHECK & LIQ_CHECK & HOLD_CHECK -->|"PASS"| BUILD
-    RUG_CHECK & LIQ_CHECK & HOLD_CHECK -->|"FAIL"| REJECT["❌ Reject<br/>Token"]
+    SCORE --> RUG_CHECK
+    SCORE --> LIQ_CHECK
+    SCORE --> HOLD_CHECK
+    RUG_CHECK -->|"PASS"| BUILD
+    LIQ_CHECK -->|"PASS"| BUILD
+    HOLD_CHECK -->|"PASS"| BUILD
+    RUG_CHECK -->|"FAIL"| REJECT["❌ Reject<br/>Token"]
+    LIQ_CHECK -->|"FAIL"| REJECT
+    HOLD_CHECK -->|"FAIL"| REJECT
     BUILD --> SIGN --> SEND --> CONFIRM --> MONITOR
     MONITOR --> TP_SL --> LOG2
 
@@ -164,19 +177,19 @@ flowchart TD
 ```mermaid
 stateDiagram-v2
     [*] --> Monitoring: Bot Started
-    Monitoring --> Entry: Signal Detected<br/>& Safety Passed
-    Entry --> PositionOpen: Buy Order<br/>Confirmed
+    Monitoring --> Entry: Signal Detected and Safety Passed
+    Entry --> PositionOpen: Buy Order Confirmed
     PositionOpen --> TrailingTP: Price Rising
     PositionOpen --> StopLoss: Price Dropping
-    PositionOpen --> DCA: DCA Strategy<br/>Triggered
+    PositionOpen --> DCA: DCA Strategy Triggered
     DCA --> PositionOpen: Position Averaged
     TrailingTP --> TakeProfit: TP Target Hit
     StopLoss --> Exited: SL Triggered
     TakeProfit --> Exited: Position Closed
-    TrailingTP --> PartialExit: Partial TP<br/>Hit
-    PartialExit --> TrailingTP: Remaining<br/>Position
+    TrailingTP --> PartialExit: Partial TP Hit
+    PartialExit --> TrailingTP: Remaining Position
     PartialExit --> TakeProfit: Final TP Hit
-    Exited --> Monitoring: Ready for<br/>Next Signal
+    Exited --> Monitoring: Ready for Next Signal
     Monitoring --> [*]: Bot Stopped
 
     state PositionOpen {
@@ -214,7 +227,7 @@ graph TB
         SETTINGS["Strategy<br/>Config"]
     end
 
-    subGRAPH STORE2["💾 Storage"]
+    subgraph STORE2["💾 Storage"]
         DB2[("SQLite<br/>Trade History")]
         LOGS["Transaction<br/>Logs"]
     end
@@ -224,11 +237,16 @@ graph TB
     WS_LAYER --> FRONTEND
     BACKEND --> STORE2
 
-    RPC --> SNIPER & TRACKER
+    RPC --> SNIPER
+    RPC --> TRACKER
     GSRPC --> SNIPER
-    SNIPER & TRACKER & WALLET --> API
+    SNIPER --> API
+    TRACKER --> API
+    WALLET --> API
     API --> WSS --> PUBSUB
-    PUBSUB --> CHARTS & POSITIONS & ALERTS2
+    PUBSUB --> CHARTS
+    PUBSUB --> POSITIONS
+    PUBSUB --> ALERTS2
     FRONTEND -->|"User Actions"| API
     API --> SETTINGS
 
@@ -251,6 +269,8 @@ graph TB
 - **Network Dependency** — Performance depends on Solana network conditions, RPC node speed, and regional latency. Results vary significantly based on infrastructure.
 - **Smart Contract Risk** — Interacting with unaudited smart contracts (which memecoins are) always carries risk of exploits and bugs.
 - **No Refunds, No Guarantees** — This is open-source software provided as-is. The authors are not responsible for any financial losses.
+
+---
 
 ## Quick Start
 
@@ -313,6 +333,8 @@ npm run start:dashboard
 npm run start:dry
 ```
 
+---
+
 ## Project Structure
 
 ```
@@ -330,12 +352,14 @@ SolSniperX/
 │   │   ├── takeProfit.js
 │   │   ├── stopLoss.js
 │   │   └── trailing.js
-│   ├── dashboard/       # Monitoring dashboard
+│   ├── dashboard/       # React/Vite monitoring dashboard
 │   └── utils/           # Helpers & configurations
 ├── config/              # Strategy configuration files
 ├── logs/                # Transaction logs
 └── tests/               # Test suites
 ```
+
+---
 
 ## Contributing
 
@@ -347,13 +371,19 @@ SolSniperX/
 
 > **Note:** PRs that add features for market manipulation, front-running retail users, or exploit-specific vulnerability targeting will not be accepted.
 
+---
+
 ## Disclaimer
 
 **THIS SOFTWARE IS PROVIDED FOR EDUCATIONAL AND RESEARCH PURPOSES ONLY.** It is not financial advice, investment advice, or trading advice. Cryptocurrency trading, particularly memecoin trading, carries extreme risk including total loss of capital. The authors and contributors assume **no liability** for any financial losses, damages, or legal consequences arising from the use of this software. Use at your own risk. Always comply with your local laws and regulations regarding cryptocurrency trading.
 
+---
+
 ## License
 
 This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
+
+---
 
 ## Author
 
