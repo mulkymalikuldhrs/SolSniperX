@@ -19,6 +19,7 @@
 [![React](https://img.shields.io/badge/React-Vite-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://vitejs.dev/)
 [![Node.js](https://img.shields.io/badge/Node.js-20+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](./LICENSE)
+[![Version: 3.3.0](https://img.shields.io/badge/Version-3.3.0-blue?style=for-the-badge)](./CHANGELOG.md)
 
 </div>
 
@@ -26,7 +27,7 @@
 
 ## Overview
 
-**SolSniperX** is a Solana memecoin sniper bot built with JavaScript and the Solana Web3.js SDK, featuring a **Flask backend** and **React/Vite dashboard** for real-time monitoring. Engineered for speed on the Solana blockchain, it monitors new token launches, evaluates them against configurable criteria, and executes trades in milliseconds. The bot includes anti-rug pull detection mechanisms and customizable sniping strategies for the fast-paced world of Solana memecoins.
+**SolSniperX v3.3.0 (Ultimate Intelligence Upgrade)** is a production-ready, autonomous Solana memecoin sniper bot. Built with a high-performance **Python/Flask backend** and a **React/Vite dashboard**, it delivers sub-second monitoring and execution for the Solana blockchain. Engineered for the most demanding traders, it features a sophisticated **Service Watchdog**, **Social Metadata Extraction**, and **AI-powered decision making** to identify high-potential launches while maintaining rigorous anti-rug protection.
 
 > **⚠️ Extreme Risk Warning:** Memecoin trading involves extraordinary financial risk. This tool is built for educational and research purposes. You can lose your entire investment.
 
@@ -47,11 +48,11 @@
 - Contract source code scanning for suspicious patterns
 - Dev wallet tracking and abnormal activity alerts
 
-### Smart Filtering
-- Customizable token filters (name, symbol, metadata patterns)
-- Social signal integration (Twitter mentions, Telegram activity)
-- Liquidity pool minimum thresholds
-- Age-based filtering to avoid stale tokens
+### Smart Filtering & Intelligence
+- **Social Metadata Extraction:** Automatic retrieval of website, Telegram, and Twitter links for new tokens.
+- **AI-Powered Analysis:** Enhanced token scoring using social signals and on-chain metrics via LLM7 integration.
+- **Advanced Mempool Filtering:** Configurable SOL transfer thresholds and liquidity checks to filter out noise.
+- **Service Watchdog:** Autonomous resilience with automatic monitoring and restart of core trading services.
 
 ### Trade Management
 - Automatic take-profit and stop-loss execution
@@ -338,24 +339,24 @@ npm run start:dry
 
 ```
 SolSniperX/
-├── src/
-│   ├── sniper/          # Core sniping engine
-│   │   ├── monitor.js   # New token detection
-│   │   ├── executor.js  # Trade execution
-│   │   └── filters.js   # Token filtering logic
-│   ├── protection/      # Anti-rug pull system
-│   │   ├── rugCheck.js  # Rug pull detection
-│   │   ├── holders.js   # Holder analysis
-│   │   └── liquidity.js # Liquidity verification
-│   ├── strategies/      # Trading strategies
-│   │   ├── takeProfit.js
-│   │   ├── stopLoss.js
-│   │   └── trailing.js
-│   ├── dashboard/       # React/Vite monitoring dashboard
-│   └── utils/           # Helpers & configurations
-├── config/              # Strategy configuration files
-├── logs/                # Transaction logs
-└── tests/               # Test suites
+├── backend/
+│   ├── src/             # Python Flask backend
+│   │   ├── services/    # Trading, Monitoring, AI, Watchdog
+│   │   ├── routes/      # REST API & WebSocket endpoints
+│   │   ├── database/    # SQLite persistence
+│   │   └── utils/       # DB and response helpers
+│   ├── tests/           # Backend test suite
+│   └── requirements.txt # Python dependencies
+├── frontend/
+│   ├── src/             # React/Vite dashboard
+│   │   ├── components/  # UI, Layout, AI components
+│   │   ├── contexts/    # API, WebSocket, Theme contexts
+│   │   └── pages/       # Dashboard, Trading, Scanner pages
+│   ├── package.json     # Frontend dependencies
+│   └── vite.config.js   # Vite configuration
+├── auto_trader_config.json # Strategy configuration
+├── start_dev.sh         # Integrated startup script
+└── verify_v3_3_0.py     # E2E system verification
 ```
 
 ---
