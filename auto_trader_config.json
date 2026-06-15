@@ -13,5 +13,7 @@
     "stop_loss_percentage": 0.2,
     "trailing_stop_loss_percentage": 0.1,
     "max_risk_score": 30,
-    "use_vwap_filter": true
+    "use_vwap_filter": true,
+    "mempool_min_sol_threshold": 0.1,
+    "mempool_min_liquidity": 1000
 }
