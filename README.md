@@ -1,6 +1,6 @@
 
 <!-- CAPSULE-RENDER HEADER -->
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:1a0033,50:2d0066,100:400099&fontColor=a78bfa&descColor=fbbf24&height=220&section=header&text=SolSniperX&fontSize=70&desc=Solana%20Memecoin%20Sniper%20Bot&animation=fadeIn" />
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:1a0033,50:2d0066,100:400099&fontColor=a78bfa&descColor=fbbf24&height=220&section=header&text=SolSniperX%20v3.3.0&fontSize=70&desc=Solana%20Memecoin%20Sniper%20Bot&animation=fadeIn" />
 
 <!-- TYPING SVG -->
 <div align="center">
@@ -26,7 +26,7 @@
 
 ## Overview
 
-**SolSniperX** is a Solana memecoin sniper bot built with JavaScript and the Solana Web3.js SDK, featuring a **Flask backend** and **React/Vite dashboard** for real-time monitoring. Engineered for speed on the Solana blockchain, it monitors new token launches, evaluates them against configurable criteria, and executes trades in milliseconds. The bot includes anti-rug pull detection mechanisms and customizable sniping strategies for the fast-paced world of Solana memecoins.
+**SolSniperX v3.3.0 (Ultimate Intelligence Upgrade)** is a Solana memecoin sniper bot built with JavaScript and the Solana Web3.js SDK, featuring a **Flask backend** and **React/Vite dashboard** for real-time monitoring. Engineered for speed on the Solana blockchain, it monitors new token launches, evaluates them against configurable criteria, and executes trades in milliseconds. The bot includes anti-rug pull detection mechanisms and customizable sniping strategies for the fast-paced world of Solana memecoins.
 
 > **⚠️ Extreme Risk Warning:** Memecoin trading involves extraordinary financial risk. This tool is built for educational and research purposes. You can lose your entire investment.
 
