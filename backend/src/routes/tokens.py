@@ -39,12 +39,17 @@ async def get_token_history(token_address):
     """Get historical price data for a specific token"""
     data_fetcher_service = current_app.services['data_fetcher']
     try:
+        # Validate interval
         interval = request.args.get('interval', '1h')
-        # Validate interval to prevent injection
-        if interval not in ('1m', '5m', '15m', '30m', '1h', '4h', '1d', '1w'):
+        if interval not in ['1m', '3m', '5m', '15m', '30m', '1h', '2h', '4h', '6h', '8h', '12h', '1d', '3d', '1w']:
             interval = '1h'
-        limit = int(request.args.get('limit', 24))
-        limit = max(1, min(limit, 200))  # Clamp to prevent abuse
+
+        # Validate limit
+        try:
+            limit = int(request.args.get('limit', 24))
+            limit = max(1, min(limit, 1000)) # Clamping
+        except (ValueError, TypeError):
+            limit = 24
         
         history = await data_fetcher_service.get_historical_prices(token_address, interval, limit)
         
