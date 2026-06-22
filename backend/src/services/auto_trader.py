@@ -159,6 +159,18 @@ class AutoTraderService:
 
     async def _monitor_and_sell(self):
         tokens_to_remove = []
+
+        # v3.3.0: Ensure profit_target_x compatibility
+        # If profit_target_x is in config but not explicitly in take_profit_tiers,
+        # append a 100% sell tier at that target.
+        if "profit_target_x" in self.config:
+            target_x = self.config["profit_target_x"]
+            tp_tiers = self.config.get("take_profit_tiers", [])
+            if not any(t['target_x'] == target_x for t in tp_tiers):
+                logger.info(f"AutoTrader v3.3.0: Appending implicit profit_target_x tier: {target_x}x")
+                tp_tiers.append({"target_x": target_x, "sell_percentage": 1.0})
+                self.config["take_profit_tiers"] = tp_tiers
+
         for token_address, details in self.owned_tokens.items():
             try:
                 # Real balance check
