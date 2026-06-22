@@ -46,6 +46,19 @@ class AutoTraderService:
         self.owned_tokens = {p['token_address']: p for p in db_positions}
         logger.info(f"Loaded {len(self.owned_tokens)} active positions from DB.")
 
+        # Ensure compatibility on startup
+        self._ensure_profit_target_compatibility()
+
+    def _ensure_profit_target_compatibility(self):
+        """v3.3.0: Ensure profit_target_x compatibility with take_profit_tiers."""
+        if "profit_target_x" in self.config:
+            target_x = self.config["profit_target_x"]
+            tp_tiers = self.config.get("take_profit_tiers", [])
+            if not any(t.get('target_x') == target_x for t in tp_tiers):
+                logger.info(f"AutoTrader v3.3.0: Appending implicit profit_target_x tier: {target_x}x")
+                tp_tiers.append({"target_x": target_x, "sell_percentage": 1.0})
+                self.config["take_profit_tiers"] = tp_tiers
+
     def _load_config(self) -> Dict:
         if os.path.exists(CONFIG_FILE):
             try:
@@ -85,6 +98,7 @@ class AutoTraderService:
 
     def update_config(self, new_config: Dict):
         self.config.update(new_config)
+        self._ensure_profit_target_compatibility()
         self._save_config()
 
     def get_config(self) -> Dict:
@@ -159,6 +173,7 @@ class AutoTraderService:
 
     async def _monitor_and_sell(self):
         tokens_to_remove = []
+
         for token_address, details in self.owned_tokens.items():
             try:
                 # Real balance check
