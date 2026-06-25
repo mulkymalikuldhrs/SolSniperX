@@ -19,6 +19,7 @@
 [![React](https://img.shields.io/badge/React-Vite-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://vitejs.dev/)
 [![Node.js](https://img.shields.io/badge/Node.js-20+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](./LICENSE)
+[![Version: 3.3.0](https://img.shields.io/badge/Version-3.3.0-blue?style=for-the-badge)](./CHANGELOG.md)
 
 </div>
 
@@ -26,7 +27,7 @@
 
 ## Overview
 
-**SolSniperX** is a Solana memecoin sniper bot built with JavaScript and the Solana Web3.js SDK, featuring a **Flask backend** and **React/Vite dashboard** for real-time monitoring. Engineered for speed on the Solana blockchain, it monitors new token launches, evaluates them against configurable criteria, and executes trades in milliseconds. The bot includes anti-rug pull detection mechanisms and customizable sniping strategies for the fast-paced world of Solana memecoins.
+**SolSniperX** is a Solana memecoin sniper bot built with Python and React, featuring a **Flask backend** and **React/Vite dashboard** for real-time monitoring. v3.3.0 'Ultimate Intelligence Upgrade' introduces autonomous service resilience and advanced social metadata extraction.
 
 > **⚠️ Extreme Risk Warning:** Memecoin trading involves extraordinary financial risk. This tool is built for educational and research purposes. You can lose your entire investment.
 
@@ -274,10 +275,10 @@ graph TB
 ## Quick Start
 
 ### Prerequisites
-- Node.js 20+
+- **Python 3.10+** (Backend)
+- **Node.js 20+** & **pnpm** (Frontend)
 - A Solana wallet with SOL for trading
 - A dedicated RPC endpoint (Helius, QuickNode, or Triton recommended)
-- Basic understanding of Solana DeFi and memecoin markets
 
 ### Installation
 
@@ -286,50 +287,35 @@ graph TB
 git clone https://github.com/mulkymalikuldhrs/SolSniperX.git
 cd SolSniperX
 
-# Install dependencies
-npm install
+# Install Backend dependencies
+cd backend
+pip install -r requirements.txt
 
-# Copy and configure environment
-cp .env.example .env
+# Install Frontend dependencies
+cd ../frontend
+pnpm install
 ```
 
 ### Configuration
 
-Edit `.env` with your settings:
+Create a `.env` file in the `backend/` directory:
 ```env
-# Wallet
-PRIVATE_KEY=your_base58_private_key
-
-# RPC
-SOLANA_RPC_URL=https://api.mainnet-beta.solana.com
-WS_URL=wss://api.mainnet-beta.solana.com
-
-# Trading
-BUY_AMOUNT_SOL=0.01
-SLIPPAGE_BPS=500
-PRIORITY_FEE_LAMPORTS=100000
-
-# Anti-Rug
-MIN_LIQUIDITY_SOL=5
-CHECK_MINT_RENOUNCED=true
-MAX_HOLDER_PERCENT=10
-
-# Strategy
-TAKE_PROFIT_PERCENT=100
-STOP_LOSS_PERCENT=30
+SOLANA_PRIVATE_KEY=your_base58_private_key
+SOLANA_RPC_URL=https://your-rpc-endpoint
+SOLANA_WS_URL=wss://your-ws-endpoint
+BIRDEYE_API_KEY=your_birdeye_api_key
+LLM7_API_KEY=your_llm7_api_key
 ```
 
 ### Running
 
 ```bash
-# Start the sniper bot
-npm run start
+# Start Backend (from backend directory)
+export PYTHONPATH=$PYTHONPATH:$(pwd)/src
+python src/main.py
 
-# Start with dashboard
-npm run start:dashboard
-
-# Dry-run mode (no real trades)
-npm run start:dry
+# Start Frontend (from frontend directory)
+pnpm run dev
 ```
 
 ---
@@ -338,24 +324,22 @@ npm run start:dry
 
 ```
 SolSniperX/
-├── src/
-│   ├── sniper/          # Core sniping engine
-│   │   ├── monitor.js   # New token detection
-│   │   ├── executor.js  # Trade execution
-│   │   └── filters.js   # Token filtering logic
-│   ├── protection/      # Anti-rug pull system
-│   │   ├── rugCheck.js  # Rug pull detection
-│   │   ├── holders.js   # Holder analysis
-│   │   └── liquidity.js # Liquidity verification
-│   ├── strategies/      # Trading strategies
-│   │   ├── takeProfit.js
-│   │   ├── stopLoss.js
-│   │   └── trailing.js
-│   ├── dashboard/       # React/Vite monitoring dashboard
-│   └── utils/           # Helpers & configurations
-├── config/              # Strategy configuration files
-├── logs/                # Transaction logs
-└── tests/               # Test suites
+├── backend/
+│   ├── src/
+│   │   ├── main.py             # Entry point & Service Watchdog
+│   │   ├── services/           # Core business logic (Trading, AI, Mempool)
+│   │   ├── routes/             # REST API Endpoints
+│   │   ├── utils/              # Database & Response helpers
+│   │   └── database/           # SQLite storage
+│   └── tests/                  # Backend unit tests
+├── frontend/
+│   ├── src/
+│   │   ├── pages/              # Dashboard, Trading, Scanner, etc.
+│   │   ├── components/         # UI & Layout components
+│   │   └── contexts/           # API & WebSocket state
+│   ├── package.json
+│   └── vite.config.js
+└── AGENTS.md                   # Developer & AI Agent guide
 ```
 
 ---
