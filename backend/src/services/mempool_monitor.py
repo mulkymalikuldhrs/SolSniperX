@@ -49,6 +49,10 @@ class MempoolMonitorService:
         self.new_token_callbacks.append(callback)
 
     @property
+    def is_monitoring(self):
+        return self.is_running and self.monitoring_task and not self.monitoring_task.done()
+
+    @property
     def solana_client(self):
         if self._solana_client is None:
             self._solana_client = AsyncClient(SOLANA_RPC_URL)
