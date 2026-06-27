@@ -60,8 +60,8 @@ def health_check():
     return jsonify({
         'status': 'healthy',
         'timestamp': datetime.now().isoformat(),
-        'service': 'SolSniperX Backend v3.0.0 (Production Ready)',
-        'features': ['Token Scanner', 'AI Analysis', 'Trading Signals', 'Local Storage', 'RugCheck API', 'JITO Support', 'Dynamic JITO Tip', 'Consolidated Production Ready']
+        'service': 'SolSniperX Backend v3.3.0 (Ultimate Intelligence Upgrade)',
+        'features': ['Token Scanner', 'AI Analysis', 'Trading Signals', 'Local Storage', 'RugCheck API', 'JITO Support', 'Dynamic JITO Tip', 'Consolidated Production Ready', 'Service Watchdog', 'Social Metadata Extraction']
     })
 
 @app.errorhandler(404)
@@ -96,6 +96,41 @@ def start_async_loop():
     _ = wallet_service.solana_client
     _ = wallet_service.http_client
 
+    # v3.3.0 Hardened Service Watchdog
+    async def service_watchdog():
+        """
+        Monitors critical background services and restarts them if they fail.
+        """
+        logger.info("Service Watchdog: Waiting for initial startup...")
+        await asyncio.sleep(30) # Initial delay to allow services to start
+        logger.info("Service Watchdog active.")
+        while True:
+            try:
+                # 1. Monitor Mempool Monitor
+                if not mempool_monitor_service.is_monitoring:
+                    logger.warning("Watchdog: Mempool Monitor is down. Restarting...")
+                    background_loop.create_task(mempool_monitor_service.start_monitoring())
+
+                # 2. Monitor Auto Trader Loop
+                if auto_trader_service.trading_enabled and (auto_trader_service.trade_loop_task is None or auto_trader_service.trade_loop_task.done()):
+                    if auto_trader_service.trade_loop_task and auto_trader_service.trade_loop_task.exception():
+                        logger.error(f"Watchdog: Auto Trader failed with error: {auto_trader_service.trade_loop_task.exception()}")
+
+                    logger.warning("Watchdog: Auto Trader loop is down but trading is enabled. Restarting...")
+                    # Explicitly reset and restart to ensure clean state
+                    auto_trader_service.trading_enabled = False
+                    auto_trader_service.start_trading()
+
+                # 3. Monitor Limit Order Loop
+                # (Logic handled within the limit_order_loop itself, but we could add more here)
+
+            except Exception as e:
+                logger.error(f"Error in Service Watchdog: {e}")
+
+            await asyncio.sleep(60) # Check every minute
+
+    background_loop.create_task(service_watchdog())
+
     background_loop.create_task(mempool_monitor_service.start_monitoring())
 
     # Start limit order checker
@@ -109,7 +144,7 @@ def start_async_loop():
 
     background_loop.create_task(limit_order_loop())
 
-    logger.info("Background asyncio loop started.")
+    logger.info("Background asyncio loop started with Service Watchdog.")
     background_loop.run_forever()
 
 if __name__ == '__main__':
