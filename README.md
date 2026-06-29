@@ -18,6 +18,7 @@
 [![Flask](https://img.shields.io/badge/Flask-3-000000?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
 [![React](https://img.shields.io/badge/React-Vite-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://vitejs.dev/)
 [![Node.js](https://img.shields.io/badge/Node.js-20+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Version](https://img.shields.io/badge/Version-3.3.0-14F195?style=for-the-badge)](https://github.com/mulkymalikuldhrs/SolSniperX)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](./LICENSE)
 
 </div>
@@ -338,24 +339,24 @@ npm run start:dry
 
 ```
 SolSniperX/
-├── src/
-│   ├── sniper/          # Core sniping engine
-│   │   ├── monitor.js   # New token detection
-│   │   ├── executor.js  # Trade execution
-│   │   └── filters.js   # Token filtering logic
-│   ├── protection/      # Anti-rug pull system
-│   │   ├── rugCheck.js  # Rug pull detection
-│   │   ├── holders.js   # Holder analysis
-│   │   └── liquidity.js # Liquidity verification
-│   ├── strategies/      # Trading strategies
-│   │   ├── takeProfit.js
-│   │   ├── stopLoss.js
-│   │   └── trailing.js
-│   ├── dashboard/       # React/Vite monitoring dashboard
-│   └── utils/           # Helpers & configurations
-├── config/              # Strategy configuration files
-├── logs/                # Transaction logs
-└── tests/               # Test suites
+├── backend/
+│   ├── src/             # Python Flask backend
+│   │   ├── services/    # Trading, Monitoring, AI, Watchdog
+│   │   ├── routes/      # REST API & WebSocket endpoints
+│   │   ├── database/    # SQLite persistence
+│   │   └── utils/       # DB and response helpers
+│   ├── tests/           # Backend test suite
+│   └── requirements.txt # Python dependencies
+├── frontend/
+│   ├── src/             # React/Vite dashboard
+│   │   ├── components/  # UI, Layout, AI components
+│   │   ├── contexts/    # API, WebSocket, Theme contexts
+│   │   └── pages/       # Dashboard, Trading, Scanner pages
+│   ├── package.json     # Frontend dependencies
+│   └── vite.config.js   # Vite configuration
+├── auto_trader_config.json # Strategy configuration
+├── start_dev.sh         # Integrated startup script
+└── verify_v3_3_0.py     # E2E system verification
 ```
 
 ---
