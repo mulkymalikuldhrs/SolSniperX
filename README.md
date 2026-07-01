@@ -18,6 +18,7 @@
 [![Flask](https://img.shields.io/badge/Flask-3-000000?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
 [![React](https://img.shields.io/badge/React-Vite-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://vitejs.dev/)
 [![Node.js](https://img.shields.io/badge/Node.js-20+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Version](https://img.shields.io/badge/Version-3.3.0-14F195?style=for-the-badge)](https://github.com/mulkymalikuldhrs/SolSniperX)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](./LICENSE)
 
 </div>
@@ -26,7 +27,7 @@
 
 ## Overview
 
-**SolSniperX** is a Solana memecoin sniper bot built with JavaScript and the Solana Web3.js SDK, featuring a **Flask backend** and **React/Vite dashboard** for real-time monitoring. Engineered for speed on the Solana blockchain, it monitors new token launches, evaluates them against configurable criteria, and executes trades in milliseconds. The bot includes anti-rug pull detection mechanisms and customizable sniping strategies for the fast-paced world of Solana memecoins.
+**SolSniperX v3.3.0 (Ultimate Intelligence Upgrade)** is a production-ready Solana memecoin sniper bot featuring a **Flask backend** and **React/Vite dashboard**. v3.3.0 introduces autonomous service resilience via a **Service Watchdog**, advanced **AI Social Metadata Extraction**, and hardened **Mempool Filtering**. Engineered for speed and reliability, it monitors new token launches, evaluates them against real-world data (zero mocks), and executes trades with sub-second precision.
 
 > **⚠️ Extreme Risk Warning:** Memecoin trading involves extraordinary financial risk. This tool is built for educational and research purposes. You can lose your entire investment.
 
@@ -338,24 +339,24 @@ npm run start:dry
 
 ```
 SolSniperX/
-├── src/
-│   ├── sniper/          # Core sniping engine
-│   │   ├── monitor.js   # New token detection
-│   │   ├── executor.js  # Trade execution
-│   │   └── filters.js   # Token filtering logic
-│   ├── protection/      # Anti-rug pull system
-│   │   ├── rugCheck.js  # Rug pull detection
-│   │   ├── holders.js   # Holder analysis
-│   │   └── liquidity.js # Liquidity verification
-│   ├── strategies/      # Trading strategies
-│   │   ├── takeProfit.js
-│   │   ├── stopLoss.js
-│   │   └── trailing.js
-│   ├── dashboard/       # React/Vite monitoring dashboard
-│   └── utils/           # Helpers & configurations
-├── config/              # Strategy configuration files
-├── logs/                # Transaction logs
-└── tests/               # Test suites
+├── backend/
+│   ├── src/             # Python Flask backend
+│   │   ├── services/    # Trading, Monitoring, AI, Watchdog
+│   │   ├── routes/      # REST API & WebSocket endpoints
+│   │   ├── database/    # SQLite persistence
+│   │   └── utils/       # DB and response helpers
+│   ├── tests/           # Backend test suite
+│   └── requirements.txt # Python dependencies
+├── frontend/
+│   ├── src/             # React/Vite dashboard
+│   │   ├── components/  # UI, Layout, AI components
+│   │   ├── contexts/    # API, WebSocket, Theme contexts
+│   │   └── pages/       # Dashboard, Trading, Scanner pages
+│   ├── package.json     # Frontend dependencies
+│   └── vite.config.js   # Vite configuration
+├── auto_trader_config.json # Strategy configuration
+├── start_dev.sh         # Integrated startup script
+└── verify_v3_3_0.py     # E2E system verification
 ```
 
 ---
