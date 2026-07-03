@@ -18,6 +18,7 @@
 [![Flask](https://img.shields.io/badge/Flask-3-000000?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
 [![React](https://img.shields.io/badge/React-Vite-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://vitejs.dev/)
 [![Node.js](https://img.shields.io/badge/Node.js-20+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Version](https://img.shields.io/badge/Version-3.3.0-14F195?style=for-the-badge)](https://github.com/mulkymalikuldhrs/SolSniperX)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](./LICENSE)
 
 </div>
@@ -338,24 +339,35 @@ npm run start:dry
 
 ```
 SolSniperX/
-├── src/
-│   ├── sniper/          # Core sniping engine
-│   │   ├── monitor.js   # New token detection
-│   │   ├── executor.js  # Trade execution
-│   │   └── filters.js   # Token filtering logic
-│   ├── protection/      # Anti-rug pull system
-│   │   ├── rugCheck.js  # Rug pull detection
-│   │   ├── holders.js   # Holder analysis
-│   │   └── liquidity.js # Liquidity verification
-│   ├── strategies/      # Trading strategies
-│   │   ├── takeProfit.js
-│   │   ├── stopLoss.js
-│   │   └── trailing.js
-│   ├── dashboard/       # React/Vite monitoring dashboard
-│   └── utils/           # Helpers & configurations
-├── config/              # Strategy configuration files
-├── logs/                # Transaction logs
-└── tests/               # Test suites
+├── backend/                      # Python Flask API
+│   ├── src/
+│   │   ├── main.py               # Flask entry point & service orchestration
+│   │   ├── config.py             # API keys, RPC URLs, env config
+│   │   ├── routes/               # API route blueprints
+│   │   ├── services/             # Core business logic
+│   │   │   ├── ai_analysis.py    # LLM7 integration for token analysis
+│   │   │   ├── data_fetcher.py   # Dexscreener & Birdeye API integration
+│   │   │   ├── mempool_monitor.py # Solana Mempool WebSocket monitoring
+│   │   │   ├── trading_service.py # Jupiter Aggregator swap execution
+│   │   │   ├── wallet_service.py  # Solana wallet management
+│   │   │   └── auto_trader.py    # Automated trading strategy engine
+│   │   ├── utils/                # Shared utilities
+│   │   └── database/             # SQLite database storage
+│   └── requirements.txt          # Python dependencies
+├── frontend/                     # React Web Application
+│   ├── src/
+│   │   ├── App.jsx               # Main application component & routing
+│   │   ├── pages/                # Application pages
+│   │   ├── components/           # Reusable UI components
+│   │   ├── contexts/             # React contexts
+│   │   ├── hooks/                # Custom React hooks
+│   │   └── utils/                # Local storage & helpers
+│   ├── package.json              # Node.js dependencies
+│   └── vite.config.js            # Vite build configuration
+├── auto_trader_config.json       # Strategy configuration
+├── start_dev.sh                  # Development launch script
+├── blueprint.md                  # Project blueprint & architecture notes
+└── TODO.md                       # Development roadmap
 ```
 
 ---
