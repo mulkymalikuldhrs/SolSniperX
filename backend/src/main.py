@@ -32,6 +32,7 @@ from routes.auto_trader import auto_trader_bp
 from routes.analytics import analytics_bp
 from utils.responses import error_response
 from utils.db import init_db
+from utils.async_runner import set_background_loop
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -60,8 +61,8 @@ def health_check():
     return jsonify({
         'status': 'healthy',
         'timestamp': datetime.now().isoformat(),
-        'service': 'SolSniperX Backend v3.0.0 (Production Ready)',
-        'features': ['Token Scanner', 'AI Analysis', 'Trading Signals', 'Local Storage', 'RugCheck API', 'JITO Support', 'Dynamic JITO Tip', 'Consolidated Production Ready']
+        'service': 'SolSniperX Backend v3.3.0 (Ultimate Intelligence Upgrade)',
+        'features': ['Token Scanner', 'AI Analysis', 'Trading Signals', 'Local Storage', 'RugCheck API', 'JITO Support', 'Dynamic JITO Tip', 'Consolidated Production Ready', 'Advanced Mempool Filtering', 'Service Watchdog', 'Autonomous Resilience', 'Social Metadata Extraction', 'Enhanced AI Intelligence']
     })
 
 @app.errorhandler(404)
@@ -83,9 +84,13 @@ def start_async_loop():
     global background_loop
     background_loop = asyncio.new_event_loop()
     asyncio.set_event_loop(background_loop)
+    set_background_loop(background_loop)
 
     # Inform services about the background loop
     auto_trader_service.set_loop(background_loop)
+
+    # Run post_init in the background loop
+    background_loop.create_task(auto_trader_service.post_init())
 
     # Schedule background tasks
     # Access properties to initialize them within the loop context
@@ -108,6 +113,31 @@ def start_async_loop():
             await asyncio.sleep(30) # Check every 30 seconds
 
     background_loop.create_task(limit_order_loop())
+
+    # Start service watchdog
+    async def monitor_services_loop():
+        await asyncio.sleep(30)
+        logger.info("Service watchdog started.")
+        while True:
+            try:
+                # Check Mempool Monitor
+                if mempool_monitor_service.is_running:
+                    if mempool_monitor_service.monitoring_task is None or mempool_monitor_service.monitoring_task.done():
+                        logger.warning("Mempool monitor task is not running but is_running is True. Restarting...")
+                        await mempool_monitor_service.start_monitoring()
+
+                # Check Auto Trader
+                if auto_trader_service.trading_enabled:
+                    if auto_trader_service.trade_loop_task is None or auto_trader_service.trade_loop_task.done():
+                        logger.warning("Auto trader trade loop is not running but trading_enabled is True. Restarting...")
+                        auto_trader_service.start_trading()
+
+            except Exception as e:
+                logger.error(f"Error in service watchdog: {e}")
+            await asyncio.sleep(60) # Check every 60 seconds
+
+    background_loop.create_task(monitor_services_loop())
+
 
     logger.info("Background asyncio loop started.")
     background_loop.run_forever()
@@ -136,7 +166,6 @@ if __name__ == '__main__':
     auto_trader_service.ai_analysis_service = ai_analysis_service
     auto_trader_service.trading_service = trading_service
     auto_trader_service.wallet_service = wallet_service
-    auto_trader_service.post_init()
 
     # Setup callbacks for autonomous action
     mempool_monitor_service.on_new_token(auto_trader_service.handle_new_token)
