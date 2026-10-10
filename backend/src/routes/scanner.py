@@ -4,12 +4,16 @@ import logging
 from datetime import datetime
 from flask import Blueprint, request, current_app
 from utils.responses import success_response, error_response
+from utils.async_runner import run_async
 
 logger = logging.getLogger(__name__)
 scanner_bp = Blueprint('scanner_bp', __name__, url_prefix='/api/scanner')
 
+async def _fetch_all_tokens_for_scan(data_fetcher_service):
+    return await data_fetcher_service.get_all_tokens()
+
 @scanner_bp.route('/scan', methods=['POST'])
-async def scan_tokens():
+def scan_tokens():
     """Scan for new tokens"""
     data_fetcher_service = current_app.services['data_fetcher']
     try:
@@ -23,7 +27,7 @@ async def scan_tokens():
         except (TypeError, ValueError):
             return error_response('Invalid scan parameters - must be numbers', 400)
         
-        all_tokens = await data_fetcher_service.get_all_tokens()
+        all_tokens = run_async(_fetch_all_tokens_for_scan(data_fetcher_service))
         filtered_tokens = []
         for token in all_tokens:
             if (token.get('liquidity', 0) >= min_liquidity and
