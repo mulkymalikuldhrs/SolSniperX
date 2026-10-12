@@ -87,7 +87,7 @@ export default function Sidebar({ onClose }) {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await fetch('/api/analytics/performance?XTransformPort=5000')
+        const res = await fetch('/api/analytics/performance')
         const data = await res.json()
         if (data.success && data.data) {
           setStats({
@@ -256,7 +256,7 @@ export default function Sidebar({ onClose }) {
             Mulky Malikul Dhaher
           </p>
           <p className="text-xs text-muted-foreground mt-1">
-            v3.0.0
+            v3.3.0 (Ultimate Intelligence Upgrade)
           </p>
         </div>
       </div>
