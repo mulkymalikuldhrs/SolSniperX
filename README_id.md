@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://img.shields.io/badge/SolSniperX-Solana-9945FF?style=for-the-badge&logo=solana&logoColor=white" alt="SolSniperX">
-  <img src="https://img.shields.io/badge/Versi-3.0.0-14F195?style=for-the-badge" alt="Versi">
+  <img src="https://img.shields.io/badge/Versi-3.3.0-14F195?style=for-the-badge" alt="Versi">
   <img src="https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
   <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React">
   <img src="https://img.shields.io/badge/Lisensi-MIT-green?style=for-the-badge" alt="Lisensi">
@@ -20,7 +20,7 @@
 
 ## Gambaran Umum
 
-SolSniperX adalah bot canggih berbasis AI yang dirancang untuk mendeteksi, menganalisis, dan mengeksekusi perdagangan pada memecoin baru di blockchain Solana secara otomatis. Platform ini menyediakan wawasan real-time, proteksi anti-rug, dan kemampuan trading otomatis, yang semuanya dapat diakses melalui antarmuka web modern dan intuitif. Platform ini menggabungkan pemantauan on-chain dengan analisis berbasis LLM untuk mengidentifikasi peluang trading berprobabilitas tinggi sebelum mencapai perhatian mainstream.
+SolSniperX adalah bot canggih berbasis AI yang dirancang untuk mendeteksi, menganalisis, dan mengeksekusi perdagangan pada memecoin baru di blockchain Solana secara otomatis. v3.3.0 'Ultimate Intelligence Upgrade' memperkenalkan resiliensi layanan otonom dan ekstraksi metadata sosial tingkat lanjut. Platform ini menggabungkan pemantauan on-chain dengan analisis berbasis LLM untuk mengidentifikasi peluang trading berprobabilitas tinggi sebelum mencapai perhatian mainstream.
 
 Proyek ini merupakan bagian dari ekosistem [HermesQuantOS](https://github.com/mulkymalikuldhrs/HermesQuantOS), inisiatif untuk membangun sistem intelijensi keuangan berbasis AI kelas sovereign di pasar tradisional maupun terdesentralisasi.
 

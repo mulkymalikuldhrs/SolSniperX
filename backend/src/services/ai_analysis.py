@@ -108,6 +108,7 @@ class AIAnalysisService:
         - Buy/Sell Ratio: {token_data.get('buy_sell_ratio', 0):.2f}
         - Top Holder Percentage: {token_data.get('top_holder_percentage', 0):.2f}%
         - Dev Wallet Active: {token_data.get('dev_wallet_active', False)}
+        - Social Links: {json.dumps(token_data.get('social_links', {}))}
 
         You MUST respond with a JSON object exactly like this:
         {{

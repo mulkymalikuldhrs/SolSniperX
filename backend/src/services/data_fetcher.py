@@ -173,6 +173,14 @@ class DataFetcherService:
                 transactions_24h = buys_24h + sells_24h
                 buy_sell_ratio = buys_24h / sells_24h if sells_24h > 0 else (1.0 if buys_24h > 0 else 0)
 
+                # Social Metadata Extraction (v3.3.0)
+                social_links = {}
+                info = pair.get('info', {})
+                if info and 'links' in info:
+                    for link in info['links']:
+                        label = link.get('label', link.get('type', 'unknown')).lower()
+                        social_links[label] = link.get('url')
+
                 processed_tokens.append({
                     'address': token_address,
                     'name': token_name,
@@ -187,7 +195,8 @@ class DataFetcherService:
                     'transactions_24h': transactions_24h,
                     'buy_sell_ratio': round(buy_sell_ratio, 2),
                     'top_holder_percentage': 0,
-                    'dev_wallet_active': False
+                    'dev_wallet_active': False,
+                    'social_links': social_links
                 })
             except Exception as e:
                 logger.warning(f"Error processing Dexscreener pair: {e} - {pair}")

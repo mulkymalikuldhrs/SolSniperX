@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://img.shields.io/badge/SolSniperX-Solana-9945FF?style=for-the-badge&logo=solana&logoColor=white" alt="SolSniperX">
-  <img src="https://img.shields.io/badge/版本-3.0.0-14F195?style=for-the-badge" alt="版本">
+  <img src="https://img.shields.io/badge/版本-3.3.0-14F195?style=for-the-badge" alt="版本">
   <img src="https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
   <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React">
   <img src="https://img.shields.io/badge/许可证-MIT-green?style=for-the-badge" alt="许可证">
@@ -20,7 +20,7 @@
 
 ## 概述
 
-SolSniperX 是一个先进的 AI 驱动机器人，旨在自动检测、分析并执行 Solana 区块链上新迷因币的交易。它提供实时洞察、防 rug 保护和自动交易功能，所有这些都可通过现代直观的 Web 界面访问。该平台结合了链上监控与 LLM 驱动的分析，以在高概率交易机会进入主流视野之前识别它们。
+SolSniperX 是一个先进的 AI 驱动机器人，旨在自动检测、分析并执行 Solana 区块链上新迷因币的交易。v3.3.0 'Ultimate Intelligence Upgrade' 引入了自主服务弹性和高级社交元数据提取。该平台结合了链上监控与 LLM 驱动的分析，以在高概率交易机会进入主流视野之前识别它们。
 
 本项目是 [HermesQuantOS](https://github.com/mulkymalikuldhrs/HermesQuantOS) 生态系统的一部分，该生态系统是跨传统和去中心化市场构建主权级 AI 原生金融智能系统的更广泛倡议。
 
