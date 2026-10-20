@@ -25,7 +25,7 @@
 
 SolSniperX is an AI-powered Solana memecoin sniper bot that combines real-time on-chain monitoring with LLM-driven analysis to identify, evaluate, and automatically execute trades on newly launched tokens. The system operates on a client-server architecture with a Python Flask backend for blockchain interaction, data aggregation, and AI analysis, and a React frontend for visualization and user control.
 
-The platform is designed around four core pillars: **Speed** (mempool-level token detection), **Intelligence** (LLM-powered risk assessment and trading signals), **Safety** (anti-rug mechanisms and emergency sell capabilities), and **Autonomy** (fully automated trading with configurable parameters). These pillars ensure that SolSniperX can operate effectively in the fast-moving memecoin market while protecting user capital.
+The platform is designed around four core pillars: **Speed** (mempool-level token detection), **Intelligence** (LLM-powered risk assessment and social metadata extraction), **Safety** (anti-rug mechanisms and emergency sell capabilities), and **Autonomy** (v3.3.0 'Ultimate Intelligence Upgrade' introduces autonomous service resilience via a hardened watchdog). These pillars ensure that SolSniperX can operate effectively in the fast-moving memecoin market while protecting user capital.
 
 This project is part of the [HermesQuantOS](https://github.com/mulkymalikuldhrs/HermesQuantOS) ecosystem, extending sovereign-grade AI intelligence into decentralized markets.
 
@@ -419,11 +419,11 @@ AutoTraderService._trade_loop()
 
 | Layer | Technology | Version | Purpose |
 |-------|-----------|---------|---------|
-| Backend Framework | Flask | 3.1.1 | REST API server |
-| Real-Time | Flask-SocketIO + Eventlet | 5.3.0 / 0.33.3 | WebSocket communication |
-| Blockchain | solana-py | 0.29.1 | Solana RPC interaction |
-| Crypto | solders | 0.14.0 | Keypair, transaction signing |
-| HTTP Client | httpx | 0.27.0 | Async HTTP for external APIs |
+| Backend Framework | Flask | 3.1.3 | REST API server |
+| Real-Time | Flask-SocketIO + Eventlet | 5.3.0 / 0.41.0 | WebSocket communication |
+| Blockchain | solana-py | 0.36.12 | Solana RPC interaction |
+| Crypto | solders | 0.27.1 | Keypair, transaction signing |
+| HTTP Client | httpx | 0.28.1 | Async HTTP for external APIs |
 | Frontend Framework | React | 19.1 | UI components |
 | Routing | React Router | 7.6 | Client-side routing |
 | Styling | Tailwind CSS | 4.1 | Utility-first CSS |

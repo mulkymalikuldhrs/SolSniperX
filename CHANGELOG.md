@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.3.0] - 2026-06-21
+
+### 🚀 Ultimate Intelligence Upgrade
+
+This release marks the transition to v3.3.0, focusing on autonomous resilience, advanced social metadata extraction, and system-wide hardening.
+
+### Added
+- **Service Watchdog:** Implemented a hardened watchdog in `main.py` that monitors and automatically restarts critical background services (Mempool Monitor, Auto Trader) if they crash.
+- **Autonomous Resilience:** Enhanced `AutoTraderService` with `profit_target_x` compatibility, ensuring seamless integration with frontend settings.
+- **Social Metadata Extraction:** Backend now supports fetching and processing social signals (websites, Telegram, Twitter) for enhanced AI risk assessment.
+- **Dependency Hardening:** Upgraded core backend dependencies (solana, Flask, gunicorn, eventlet) to their latest stable production versions for improved security and performance.
+
+### Changed
+- **Version Alignment:** Synchronized version 3.3.0 across all backend endpoints, frontend components, and localized documentation (README_id.md, README_zh.md).
+- **Production Baseline:** Established the definitive v3.3.0 production baseline, ensuring a unified, mock-free codebase.
+
 ## [3.0.0] - 2026-03-05
 
 ### 🎯 Production-Ready Release
