@@ -32,6 +32,7 @@ from routes.auto_trader import auto_trader_bp
 from routes.analytics import analytics_bp
 from utils.responses import error_response
 from utils.db import init_db
+from utils.async_runner import set_background_loop
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -83,6 +84,7 @@ def start_async_loop():
     global background_loop
     background_loop = asyncio.new_event_loop()
     asyncio.set_event_loop(background_loop)
+    set_background_loop(background_loop)
 
     # Inform services about the background loop
     auto_trader_service.set_loop(background_loop)
