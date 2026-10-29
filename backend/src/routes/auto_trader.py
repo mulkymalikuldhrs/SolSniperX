@@ -18,7 +18,7 @@ ALLOWED_CONFIG_KEYS = {
 }
 
 @auto_trader_bp.route('/start', methods=['POST'])
-async def start_auto_trader():
+def start_auto_trader():
     """Starts the automated trading bot."""
     auto_trader_service = current_app.services['auto_trader']
     try:
@@ -29,7 +29,7 @@ async def start_auto_trader():
         return error_response('Failed to start automated trading', details=e)
 
 @auto_trader_bp.route('/stop', methods=['POST'])
-async def stop_auto_trader():
+def stop_auto_trader():
     """Stops the automated trading bot."""
     auto_trader_service = current_app.services['auto_trader']
     try:
