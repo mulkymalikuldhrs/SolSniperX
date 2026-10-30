@@ -178,9 +178,9 @@ class DataFetcherService:
                 transactions_24h = buys_24h + sells_24h
                 buy_sell_ratio = buys_24h / sells_24h if sells_24h > 0 else (1.0 if buys_24h > 0 else 0)
 
-                info = pair.get('info', {})
-                websites = [w.get('url') for w in info.get('websites', []) if w.get('url')]
-                socials = [s.get('url') for s in info.get('socials', []) if s.get('url')]
+                info = pair.get('info') or {}
+                websites = [w.get('url') for w in info.get('websites', []) if isinstance(info.get('websites'), list) and w.get('url')]
+                socials = [s.get('url') for s in info.get('socials', []) if isinstance(info.get('socials'), list) and s.get('url')]
 
                 processed_tokens.append({
                     'address': token_address,
