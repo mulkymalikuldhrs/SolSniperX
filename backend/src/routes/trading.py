@@ -3,6 +3,7 @@
 import logging
 from flask import Blueprint, request, current_app, jsonify
 from utils.responses import error_response
+from utils.async_runner import run_async
 
 logger = logging.getLogger(__name__)
 trading_bp = Blueprint('trading_bp', __name__, url_prefix='/api/trading')
@@ -65,8 +66,17 @@ def _validate_sell_params(data):
 
     return {'token_address': token_address, 'amount_tokens': amount_tokens, 'slippage': slippage}, None
 
+async def _exec_buy(trading_service, token_address, amount_sol, slippage):
+    return await trading_service.execute_buy_order(token_address, amount_sol, slippage)
+
+async def _exec_sell(trading_service, token_address, amount_tokens, slippage):
+    return await trading_service.execute_sell_order(token_address, amount_tokens, slippage)
+
+async def _exec_limit(trading_service, token_address, target_price, amount_sol, side, token_symbol):
+    return await trading_service.place_limit_order(token_address, target_price, amount_sol, side, token_symbol)
+
 @trading_bp.route('/buy', methods=['POST'])
-async def buy_token():
+def buy_token():
     """Execute a buy order for a token"""
     trading_service = current_app.services['trading']
     try:
@@ -78,9 +88,7 @@ async def buy_token():
         if err:
             return err
 
-        result = await trading_service.execute_buy_order(
-            params['token_address'], params['amount_sol'], params['slippage']
-        )
+        result = run_async(_exec_buy(trading_service, params['token_address'], params['amount_sol'], params['slippage']))
         return jsonify(result)
 
     except Exception as e:
@@ -88,7 +96,7 @@ async def buy_token():
         return error_response('Failed to execute buy order', details=e)
 
 @trading_bp.route('/sell', methods=['POST'])
-async def sell_token():
+def sell_token():
     """Execute a sell order for a token"""
     trading_service = current_app.services['trading']
     try:
@@ -100,9 +108,7 @@ async def sell_token():
         if err:
             return err
 
-        result = await trading_service.execute_sell_order(
-            params['token_address'], params['amount_tokens'], params['slippage']
-        )
+        result = run_async(_exec_sell(trading_service, params['token_address'], params['amount_tokens'], params['slippage']))
         return jsonify(result)
 
     except Exception as e:
@@ -110,7 +116,7 @@ async def sell_token():
         return error_response('Failed to execute sell order', details=e)
 
 @trading_bp.route('/limit-order', methods=['POST'])
-async def place_limit_order():
+def place_limit_order():
     """Place a limit order"""
     trading_service = current_app.services['trading']
     try:
@@ -139,7 +145,7 @@ async def place_limit_order():
         if side not in ('buy', 'sell'):
             return error_response('side must be "buy" or "sell"', 400)
 
-        result = await trading_service.place_limit_order(token_address, target_price, amount_sol, side, token_symbol)
+        result = run_async(_exec_limit(trading_service, token_address, target_price, amount_sol, side, token_symbol))
         return jsonify(result)
 
     except Exception as e:

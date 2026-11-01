@@ -54,16 +54,20 @@ class AutoTraderService:
 
     def _ensure_profit_target_compatibility(self):
         """
-        Ensures that profit_target_x is reflected in take_profit_tiers for backward compatibility.
+        Ensures that profit_target_x is reflected in take_profit_tiers for backward compatibility,
+        maintaining only one 100% sell tier.
         """
         profit_target_x = self.config.get("profit_target_x")
         if not profit_target_x:
             return
 
-        tp_tiers = self.config.get("take_profit_tiers", [])
-        if not any(t.get('target_x') == profit_target_x for t in tp_tiers):
-            logger.info(f"AutoTrader: Adding profit_target_x {profit_target_x} to take_profit_tiers.")
+        tp_tiers = [t for t in self.config.get("take_profit_tiers", [])
+                    if t.get('sell_percentage', 0) < 1.0 or t.get('target_x') == profit_target_x]
+
+        if not any(t.get('target_x') == profit_target_x and t.get('sell_percentage') == 1.0 for t in tp_tiers):
+            logger.info(f"AutoTrader: Synchronizing profit_target_x {profit_target_x} to take_profit_tiers.")
             tp_tiers.append({"target_x": profit_target_x, "sell_percentage": 1.0})
+            tp_tiers.sort(key=lambda x: x['target_x'])
             self.config["take_profit_tiers"] = tp_tiers
             self._save_config()
 
@@ -128,7 +132,7 @@ class AutoTraderService:
         return self.config
 
     def start_trading(self):
-        if not self.trading_enabled:
+        if not self.trading_enabled or (self.trade_loop_task is None or self.trade_loop_task.done()):
             self.trading_enabled = True
 
             if self.background_loop and self.background_loop.is_running():
